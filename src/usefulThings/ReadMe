@@ -1,0 +1,42 @@
+const addTask = (task) => {
+  // const res=
+  // let id=Math.floor(math.random()*100)+1;
+  // let newTask={...task,id}
+  // setTask(...tasks,newTask)
+}
+
+
+
+// شرطی نشون دادن دکمه
+// {isLoggedIn() && <Link to="/adminpanel">ادمین پنل</Link>}
+
+
+
+/**If I want to Completely Redirect to not found **/
+{/* <Redirect to="/notfound" */ }
+
+
+
+
+{/* <ButtonGroup>
+<ButtonXIcon
+  label='سبدخرید من'
+  icon={<AiOutlineShoppingCart />}
+  bgColorCode='#FFC300'
+
+/>
+
+<Link to='login'>
+  <ButtonDefault
+    label='ورود به پنل مدیریت'
+    bgColorCode='#FFC300' />
+</Link>
+</ButtonGroup> */}
+// __________token from reqres________
+// {
+//   "email": "eve.holt@reqres.in",
+//   "password": "cityslicka"
+// }
+// {
+//   "token": "QpwL5tke4Pnpja7X4"
+// }

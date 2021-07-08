@@ -1,34 +1,39 @@
-import React, { useEffect } from "react";
-import axios from "axios";
-import { Route, Switch } from "react-router-dom";
-
+import React from "react";
+import { Route, Switch} from "react-router-dom";
 import Home from "./Components/Home";
 import AdminLogin from "./Components/AdminLogin";
-import HomeAdminPanel from "./Components/AdminPanel/HomeAdminPanel";
+import HomeAdminPanel from "./adminpanel/HomeAdminPanel";
+import NotFound from "./Components/NotFound";
+import MenuAppBar from "./Components/MenuAppBar";
+import CustomTheme from "./assets/customRTl";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { create } from "jss";
+import rtl from "jss-rtl";
+import { StylesProvider, jssPreset } from "@material-ui/core/styles";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import './index.css'
+// Configure JSS for RTL
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 function App() {
-  //post
-  // useEffect(() => {
-  //   const fetchTask = async () => {
-  //     const obj = {
-  //       id: "56",
-  //       name: "یادداشت های شخصی لوسی مود مونتگمری",
-  //       autohr: "لوسی مود مونتگمری",
-  //     };
-  //     const response = await axios.post("http://localhost:3000/products", obj);
-  //     // const data = await response.json();
-  //     console.log(response.data);
-  //   };
-  //   fetchTask();
-  // }, []);
-
   return (
-    <div>
-      <Switch>
-        <Route exact path="/loginpageforadmins" component={AdminLogin} />
-        <Route exact path="/adminpanel" component={HomeAdminPanel} />
-        <Route exact path="/" component={Home} />
-      </Switch>
+    
+    <div className="app">
+      <ThemeProvider theme={CustomTheme}>
+        <StylesProvider jss={jss}>
+          <MenuAppBar />
+       
+       <Switch>
+           <Route exact path="/login" component={AdminLogin} />
+            /**Protected Login Router */
+            <ProtectedRoute exact path="/adminpanel" component={HomeAdminPanel}/>
+            <Route exact path="/notfound" component={NotFound} />
+            <Route exact path="/" component={Home} />
+            <Route path="*" component={NotFound} />
+        </Switch>
+
+        </StylesProvider>
+      </ThemeProvider>
     </div>
   );
 }
