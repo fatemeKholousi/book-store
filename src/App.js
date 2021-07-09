@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useRef} from "react";
 import { Route, Switch} from "react-router-dom";
 import Home from "./Components/Home";
 import AdminLogin from "./Components/AdminLogin";
@@ -17,12 +17,10 @@ const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 function App() {
   return (
-    
     <div className="app">
       <ThemeProvider theme={CustomTheme}>
         <StylesProvider jss={jss}>
           <MenuAppBar />
-       
        <Switch>
            <Route exact path="/login" component={AdminLogin} />
             /**Protected Login Router */
@@ -31,10 +29,9 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route path="*" component={NotFound} />
         </Switch>
-
         </StylesProvider>
       </ThemeProvider>
-    </div>
+         </div>
   );
 }
 
