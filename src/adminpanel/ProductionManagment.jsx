@@ -45,22 +45,21 @@ export default function BasicTable() {
 
 
 
-    <input type="text" name="username" />
-
-
-
+    // <input type="text" name="username" />
 
     return (
+
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
 
                 <TableHead >
-                    <TableCell align="left"> <Add /> </TableCell>
+                    <Add />
                     <TableRow style={{ backgroundColor: '#5d6d7e' }}>
-                        <TableCell>تصویر</TableCell>
+                        <TableCell align="center">تصویر</TableCell>
                         <TableCell align="center">عنوان کتاب</TableCell>
                         <TableCell align="center">دسته بندی</TableCell>
-                        <TableCell align="center">...</TableCell>
+                        <TableCell align="center">
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

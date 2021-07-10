@@ -8,13 +8,15 @@ import rtl from "jss-rtl";
 import { StylesProvider, jssPreset } from "@material-ui/core/styles";
 import "./assets/fonts/fonts.css";
 
+
+
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 ReactDOM.render(
   <React.Fragment>
     <BrowserRouter>
       <StylesProvider jss={jss}>
-        <App />
+       <App />  
       </StylesProvider>
     </BrowserRouter>
   </React.Fragment>,

@@ -11,12 +11,10 @@ function HomeAdminPanel() {
   useEffect(() => {
     getAllProducts().then(items => { setData(items) })
   }, [])
-  console.log(data)
 
   return (
     <div>
       <Tabs />
-      <ProductionManagment />
       {/* <table>
         <tr>
           <td></td>

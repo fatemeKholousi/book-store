@@ -18,6 +18,14 @@ export const deleteProduct = product => {
 
 }
 
+//Add Product
+export const addProduct = (obj) => {
+  axios.post(apiEndPointProducts, obj)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+}
+
+
 
 export const getProduct = (id) => {
   axios.get(apiEndPointProducts + id)
@@ -26,12 +34,6 @@ export const getProduct = (id) => {
 }
 
 
-// //Add
-export const addProduct = (obj) => {
-  axios.post(apiEndPointProducts, obj)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-}
 
 
 // //
