@@ -5,7 +5,7 @@ import DataFetching, { getAllProducts } from '../api/DataFetching'
 import Tabs from './tabPage'
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import ProductionManagment from './ProductionManagment'
-function HomeAdminPanel() {
+function HomeAdminPanel(props) {
   const [data, setData] = useState([])
 
   useEffect(() => {
@@ -14,31 +14,9 @@ function HomeAdminPanel() {
 
   return (
     <div>
-      <Tabs />
-      {/* <table>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>  <Add /> </td></tr>
-        <tr>
-          <td>تصویر</td>
-          <td>عنوان</td>
-          <td>جانر</td>
-          <td>ویرایش / حذف</td>
-        </tr>
-        {
-          data.map(row => (
-            <tr>
-              <td><img src={row.image} alt="img" width="100px" /></td>
-              <td>{row.title}</td>
-              <td>{row.category}</td>
-              <td><AiFillDelete size='30' /><AiFillEdit size='35' /> </td>
-            </tr>
-          ))
-        }
 
-      </table> */}
+
+      <Tabs />
     </div >
   )
 }

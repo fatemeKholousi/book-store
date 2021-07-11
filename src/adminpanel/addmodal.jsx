@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { AiOutlinePlusCircle, AiFillSave, AiFillCloseCircle } from "react-icons/ai"
+import { AiOutlinePlusCircle, AiFillSave, AiFillEdit, AiFillCloseCircle } from "react-icons/ai"
 import { FormControl, TextField, Select, ButtonGroup, Button, Typography, MenuItem, Box } from '@material-ui/core';
 import axios from 'axios';
 import SaveIcon from '@material-ui/icons/Save';
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 let newProduct = {}
-export default function TransitionsModal() {
+export default function TransitionsModal(props) {
   const classes = useStyles();
   const [categories, setCategories] = useState([])
   const [category, setCategory] = useState('')
@@ -85,21 +85,23 @@ export default function TransitionsModal() {
     setOpen(false);
   };
 
-
-
-  useEffect(() => {
-
-  }, [])
+  const getElementById = (id) => {
+    console.log(id)
+  }
+  getElementById(props.information)
 
   return (
-    <div >
-      <Button variant="contained" color="secondary" iconStart={<AiOutlinePlusCircle />}
-        onClick={() => {
-          handleOpen();
-          setStatusAddOrEdit('add')
-        }
-        }>
-        افزودن کتاب</Button>
+    <span >
+
+
+      {props.situation == 'true'
+        ?
+        (<Button variant="contained" color="secondary"
+          onClick={() => handleOpen()}> افزودن کتاب</Button>)
+        :
+        (<AiFillEdit size='20' onClick={() => handleOpen()} />)
+      }
+
       {
         <Modal className={classes.modal} open={open} onClose={handleClose} closeAfterTransition BackdropComponent={Backdrop}
           BackdropProps={{ timeout: 500, }}>
@@ -142,6 +144,6 @@ export default function TransitionsModal() {
           </Fade>
         </Modal>
       }
-    </div >
+    </span >
   );
 }

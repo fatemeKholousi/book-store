@@ -26,7 +26,7 @@ export const addProduct = (obj) => {
 }
 
 
-
+//get a product
 export const getProduct = (id) => {
   axios.get(apiEndPointProducts + id)
     .then(res => console.log(res))
@@ -34,9 +34,7 @@ export const getProduct = (id) => {
 }
 
 
-
-
-// //
+//update a product
 export const updateProduct = (id, obj) => {
   axios.put(apiEndPointProducts + id, obj)
     .then(res => console.log(res))

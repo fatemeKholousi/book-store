@@ -8,8 +8,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { getAllProducts, deleteProduct } from '../api/DataFetching'
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { AiFillDelete, AiFillEdit, AiOutlinePlusCircle } from "react-icons/ai";
 import Add from './addmodal'
+// import { AiOutlinePlusCircle from "react-icons/ai"
+import { Button } from '@material-ui/core';
+
 import axios from 'axios'
 import { SettingsApplications } from '@material-ui/icons';
 const apiEndPointProducts = 'http://localhost:5000/products/'
@@ -20,7 +23,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function BasicTable() {
+export default function BasicTable(props) {
     const [data, setData] = useState([])
     const classes = useStyles();
     //retrieve Data
@@ -43,7 +46,9 @@ export default function BasicTable() {
         }
     }
 
+    const handleEdit = (p) => {
 
+    }
 
     // <input type="text" name="username" />
 
@@ -53,7 +58,7 @@ export default function BasicTable() {
             <Table className={classes.table} aria-label="simple table">
 
                 <TableHead >
-                    <Add />
+                    <Add situation='true' />
                     <TableRow style={{ backgroundColor: '#5d6d7e' }}>
                         <TableCell align="center">تصویر</TableCell>
                         <TableCell align="center">عنوان کتاب</TableCell>
@@ -68,7 +73,12 @@ export default function BasicTable() {
                             <TableCell align="center"><img src={row.image} width="100px" /></TableCell>
                             <TableCell align="center">{row.title} </TableCell>
                             <TableCell align="center">{row.category}</TableCell>
-                            <TableCell align="center"><AiFillDelete size='30' onClick={() => handleDelete(row)} /><AiFillEdit size='35' /></TableCell>
+                            <TableCell align="center">
+
+                                <AiFillDelete size='20' color='gray' onClick={() => handleDelete(row)} />
+                                <Add situation='false' information={row.id} />
+
+                            </TableCell>
 
                         </TableRow>
                     ))}
