@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { AiOutlinePlusCircle, AiFillSave, AiFillEdit, AiFillCloseCircle } from "react-icons/ai"
+import { AiOutlinePlusCircle, AiFillSave, AiFillEdit, AiFillCloseCircle, AiOutlineEdit } from "react-icons/ai"
 import { FormControl, TextField, Select, ButtonGroup, Button, Typography, MenuItem, Box, InputLabel } from '@material-ui/core';
 import axios from 'axios';
 import SaveIcon from '@material-ui/icons/Save';
@@ -61,7 +61,6 @@ export default function TransitionsModal(props) {
     })
   }
 
-
   //get all categories and set them on State
   useEffect(() => {
     axios.get('http://localhost:5000/categories/')
@@ -75,15 +74,11 @@ export default function TransitionsModal(props) {
 
   //set category
   const handleSelectChange = (e) => {
-
     information_id_from_props ?
       setCategory(e)
       :
       // e.preventDefault();
       setCategory(e.target.value);
-
-
-
   }
 
 
@@ -138,17 +133,16 @@ export default function TransitionsModal(props) {
   console.log(category)
   return (
     <span >
-
-
+      {/* Conditional Button Checker */}
       {props.situation == 'true'
         ?
         (<Button variant="contained" color="secondary"
           onClick={() => handleOpen()}> افزودن کتاب</Button>)
         :
-        (<AiFillEdit size='20' onClick={() => {
-          setEditModal(true);
-        }
+        (<AiFillEdit size='20' onClick={() => { setEditModal(true) }
         } />)}
+
+
 
       {<Modal className={classes.modal} open={open} onClose={handleClose} closeAfterTransition BackdropComponent={Backdrop}
         BackdropProps={{ timeout: 500, }}>
@@ -188,10 +182,10 @@ export default function TransitionsModal(props) {
               <ButtonGroup>
                 {information_id_from_props
                   ? (
-                    <Button onClick={handleUpdateProduct} variant="contained" color="secondary" className={classes.button} startIcon={<SaveIcon />}>
+                    <Button onClick={handleUpdateProduct} variant="contained" color="secondary" className={classes.button} endIcon={<AiOutlineEdit />} style={{ marginRight: 'auto' }}>
                       &#8198;&#8198; ویرایش</Button>
                   ) : (
-                    <Button onClick={handleProductMaker} variant="contained" color="secondary" className={classes.button} startIcon={<SaveIcon />}>
+                    <Button onClick={handleProductMaker} variant="contained" color="secondary" className={classes.button} endIcon={<SaveIcon />} style={{ marginRight: 'auto' }}>
                       &#8198;&#8198; ذخیره</Button>
                   )}
 

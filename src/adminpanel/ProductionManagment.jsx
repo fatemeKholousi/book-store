@@ -18,9 +18,16 @@ import { SettingsApplications } from '@material-ui/icons';
 const apiEndPointProducts = 'http://localhost:5000/products/'
 
 const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
+    root: {
+        overflowX: 'scroll'
     },
+    table: {
+        minWidth: 700,
+    },
+
+    // table: {
+    //     minWidth: 650,
+    // },
 });
 
 export default function BasicTable(props) {
@@ -51,8 +58,8 @@ export default function BasicTable(props) {
 
     return (
 
-        <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
+        <TableContainer className={classes.root} component={Paper} >
+            <Table className={classes.table} aria-label="simple table" >
 
                 <TableHead >
                     <Add situation='true' />
