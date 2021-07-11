@@ -159,30 +159,22 @@ export default function PrimarySearchAppBar() {
       <AppBar color='primary'>
         <Toolbar>
           {/* logo is here */}
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-          >
+          <IconButton edge="start" className={classes.menuButton}>
             <img src={logo} alt="logo" width="100px" />
           </IconButton>
+
           <Typography className={classes.title} variant="h5" noWrap>
             کتابفروشی آنلاین          </Typography>
 
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-          <div className={classes.grow} />
 
+          <div className={classes.search}> <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+            <InputBase placeholder="Search…" classes={{ root: classes.inputRoot, input: classes.inputInput, }} inputProps={{ 'aria-label': 'search' }} />
+          </div>
+
+
+          <div className={classes.grow} />
           {/* on desktop */}
           <div className={classes.sectionDesktop}  >
             {/* SAbad Kharid Button & badge */}
@@ -210,16 +202,16 @@ export default function PrimarySearchAppBar() {
                 :
                 (
                   <Button onClick={handleMoveToLogin} variant="contained" color="primary" endIcon={<AccountCircle />}>
-                    ورود از  پنل مدیریت</Button>
+                    ورود به  پنل مدیریت</Button>
                 )
               }
 
 
 
               {/* admin temporarily panel button */}
-              < Link to='/adminpanel'>
+              {/* < Link to='/adminpanel'>
                 <Button variant="contained" color="primary" endIcon={<AccountCircle />}>
-                  ادمین پنل</Button></Link>
+                  ادمین پنل</Button></Link> */}
             </IconButton>
 
           </div>

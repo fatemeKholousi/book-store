@@ -29,7 +29,9 @@ export const addProduct = (obj) => {
 //get a product
 export const getProduct = (id) => {
   axios.get(apiEndPointProducts + id)
-    .then(res => console.log(res))
+    .then(res => {
+      return (res.data)
+    })
     .catch(err => console.log(err))
 }
 

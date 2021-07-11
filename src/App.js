@@ -1,17 +1,16 @@
 import React,{useState,useRef} from "react";
 import { Route, Switch} from "react-router-dom";
-import Home from "./Components/Home";
-import AdminLogin from "./Components/AdminLogin";
+import Home from "./components/Home";
+import AdminLogin from "./components/AdminLogin";
 import HomeAdminPanel from "./adminpanel/HomeAdminPanel";
-import NotFound from "./Components/NotFound";
-import MenuAppBar from "./Components/MenuAppBar";
+import NotFound from "./components/NotFound";
+import MenuAppBar from "./components/MenuAppBar";
 import CustomTheme from "./assets/customRTl";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { create } from "jss";
 import rtl from "jss-rtl";
 import { StylesProvider, jssPreset } from "@material-ui/core/styles";
-import ProtectedRoute from "./Components/ProtectedRoute";
-import './index.css'
+import ProtectedRoute from "./components/ProtectedRoute";
 // Configure JSS for RTL
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 

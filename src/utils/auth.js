@@ -8,9 +8,11 @@ export const isLoggedIn = () => {
    * */
   if (localStorage.getItem("token"))
       return true;
+
   return false;
   };
   
   export function isLoggedOut(){
     localStorage.clear()
-    window.location.reload();  }
+    window.location.reload(); 
+   }

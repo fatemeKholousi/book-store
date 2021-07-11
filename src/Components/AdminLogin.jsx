@@ -17,8 +17,9 @@ const Login = () => {
       LoginLogic(email, password)
         .then((res) => {
           localStorage.setItem("token", res.data.token);
-          window.location.reload();
           history.push('/adminpanel')
+          window.location.reload();
+
         })
         .catch(err => console.log(err))
     }

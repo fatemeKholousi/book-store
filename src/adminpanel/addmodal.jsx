@@ -7,7 +7,8 @@ import { AiOutlinePlusCircle, AiFillSave, AiFillEdit, AiFillCloseCircle } from "
 import { FormControl, TextField, Select, ButtonGroup, Button, Typography, MenuItem, Box } from '@material-ui/core';
 import axios from 'axios';
 import SaveIcon from '@material-ui/icons/Save';
-import { addProduct } from '../api/DataFetching'
+import { addProduct, getProduct } from '../api/DataFetching'
+import { SettingsBrightnessOutlined } from '@material-ui/icons';
 
 
 
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 let newProduct = {}
 export default function TransitionsModal(props) {
+  const information_id_from_props = props.information
   const classes = useStyles();
   const [categories, setCategories] = useState([])
   const [category, setCategory] = useState('')
@@ -28,8 +30,12 @@ export default function TransitionsModal(props) {
   const [title, setTitle] = useState('')
   const [image, setImage] = useState('')
   const [description, setDescription] = useState('')
+
+  const [productForEdit, setProductForEdit] = useState([])
+  const [editModal, setEditModal] = useState(false)
+
   const [price, setPrice] = useState(0)
-  const [statusAddOrEdit, setStatusAddOrEdit] = useState('')
+
   //browse image
   const uploadImage = async (e) => {
     const file = e.target.files[0]
@@ -49,8 +55,6 @@ export default function TransitionsModal(props) {
     })
   }
 
-
-
   //get all categories and set them on State
   useEffect(() => {
     axios.get('http://localhost:5000/categories/')
@@ -63,14 +67,19 @@ export default function TransitionsModal(props) {
   }, [])
 
 
-  //Save a Product
+  //Save a Product : post
   const handleProductMaker = () => {
     newProduct = {
       id: Math.floor(Math.random() * 1000000000),
       title, image, description, category, price
     };
     addProduct(newProduct)
+    handleClose()
+    setTimeout(function () { window.location.reload() }, 1000);
   }
+
+
+  //set category
   const handleSelectChange = (e) => {
     e.preventDefault()
     setCategory(e.target.value)
@@ -85,10 +94,41 @@ export default function TransitionsModal(props) {
     setOpen(false);
   };
 
-  const getElementById = (id) => {
-    console.log(id)
-  }
-  getElementById(props.information)
+
+  useEffect(() => {
+    if (editModal == true) {
+      axios.get('http://localhost:5000/products/' + information_id_from_props)
+        .then(res => {
+          setProductForEdit(res.data)
+        })
+
+
+
+      setImage(productForEdit.image)
+      setTitle(productForEdit.title)
+      setPrice(productForEdit.price)
+      setDescription(productForEdit.description)
+      setCategory(productForEdit.category)
+      setEditModal(false)
+    }
+  }, [editModal])
+
+
+
+  //   //as a backup
+  //   const originalData = data
+  //   try {
+  //     deleteProduct(p).then(() => {
+  //       const products = data.filter(item => item.id !== p.id);
+  //       setData(products)
+  //     })
+  //   } catch (err) {
+  //     alert('اشتباهی پیش اومده');
+  //     setData(originalData)
+  //   }
+  // }
+
+
 
   return (
     <span >
@@ -99,8 +139,11 @@ export default function TransitionsModal(props) {
         (<Button variant="contained" color="secondary"
           onClick={() => handleOpen()}> افزودن کتاب</Button>)
         :
-        (<AiFillEdit size='20' onClick={() => handleOpen()} />)
-      }
+        (<AiFillEdit size='20' onClick={() => {
+          setEditModal(true); handleOpen();
+
+
+        }} />)}
 
       {
         <Modal className={classes.modal} open={open} onClose={handleClose} closeAfterTransition BackdropComponent={Backdrop}
