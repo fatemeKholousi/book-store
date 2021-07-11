@@ -46,11 +46,8 @@ export default function BasicTable(props) {
         }
     }
 
-    const handleEdit = (p) => {
 
-    }
 
-    // <input type="text" name="username" />
 
     return (
 
