@@ -14,5 +14,5 @@ export const isLoggedIn = () => {
   
   export function isLoggedOut(){
     localStorage.clear()
-    window.location.reload(); 
+    window.location.reload(false); 
    }

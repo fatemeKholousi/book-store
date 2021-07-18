@@ -7,6 +7,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ProductionManagement from './ProductionManagment'
+import StockAndPrice from './StockAndPrice'
+import Orders from './orders'
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -68,10 +70,10 @@ export default function SimpleTabs() {
         <ProductionManagement />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        کامپوننت موجودی
+        <StockAndPrice />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        کامپوننت سفارشات
+        <Orders />
       </TabPanel>
     </div>
   );

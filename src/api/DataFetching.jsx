@@ -1,8 +1,20 @@
 
 import axios from 'axios'
 import { useState } from 'react'
+const apiEndPoint = 'http://localhost:5000/'
 const apiEndPointProducts = 'http://localhost:5000/products/'
+const apiEndPointOrders = 'http://localhost:5000/orders/'
+
+
 let obj = {}
+
+//get categories 
+export const getAllCategories = async () => {
+  let response = await axios.get(apiEndPoint + 'categories/').catch(err => console.log('wrong'))
+  let data = response.data
+  return data
+}
+
 //get All Products
 export const getAllProducts = async () => {
   let response = await axios.get(apiEndPointProducts).catch(err => console.log('wrong'))
@@ -37,10 +49,27 @@ export const getProduct = (id) => {
 
 
 //update a product
-export const updateProduct = (id, obj) => {
+export const updateProduct = (obj, id) => {
   axios.put(apiEndPointProducts + id, obj)
     .then(res => console.log(res))
     .catch(err => console.log(err))
 
 }
+
+//get products
+export const getAllOrders = async () => {
+  let response = await axios.get(apiEndPointOrders).catch(err => console.log('wrong'))
+  let data = response.data
+  return data
+}
+
+//get an order
+export const getOrder = (id) => {
+  axios.get(apiEndPointOrders + id)
+    .then(res => {
+      return (res.data)
+    })
+    .catch(err => console.log(err))
+}
+
 

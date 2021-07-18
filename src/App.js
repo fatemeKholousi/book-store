@@ -1,5 +1,5 @@
-import React,{useState,useRef} from "react";
-import { Route, Switch} from "react-router-dom";
+import React from "react";
+import { NavLink, Route, Switch} from "react-router-dom";
 import Home from "./components/Home";
 import AdminLogin from "./components/AdminLogin";
 import HomeAdminPanel from "./adminpanel/HomeAdminPanel";
@@ -11,12 +11,14 @@ import { create } from "jss";
 import rtl from "jss-rtl";
 import { StylesProvider, jssPreset } from "@material-ui/core/styles";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Footer from './layout/footer'
 // Configure JSS for RTL
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
-
 function App() {
+
   return (
     <div className="app">
+      
       <ThemeProvider theme={CustomTheme}>
         <StylesProvider jss={jss}>
           <MenuAppBar />
@@ -28,8 +30,10 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route path="*" component={NotFound} />
         </Switch>
+        {/* <Footer/> */}
         </StylesProvider>
       </ThemeProvider>
+
          </div>
   );
 }

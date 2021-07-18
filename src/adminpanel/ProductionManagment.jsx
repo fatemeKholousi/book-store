@@ -9,13 +9,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { getAllProducts, deleteProduct } from '../api/DataFetching'
 import { AiFillDelete, AiFillEdit, AiOutlinePlusCircle } from "react-icons/ai";
-import Add from './addmodal'
-// import { AiOutlinePlusCircle from "react-icons/ai"
-import { Button } from '@material-ui/core';
+// import { getAllBooks } from '../api/FetchFromRedux'
+import { loadBooks, addBook, bookGet } from '../store/books'
+import configureStore from '../store/configureStore'
+import Add from './modals/productModal'
 
-import axios from 'axios'
-import { SettingsApplications } from '@material-ui/icons';
-const apiEndPointProducts = 'http://localhost:5000/products/'
+const store = configureStore()
 
 const useStyles = makeStyles({
     root: {
@@ -24,15 +23,18 @@ const useStyles = makeStyles({
     table: {
         minWidth: 700,
     },
-
-    // table: {
-    //     minWidth: 650,
-    // },
+    headCell: {
+        color: 'white',
+        fontSize: '25px'
+    },
+    headingrow: {
+        background: 'linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,112,1) 50%, rgba(69,180,252,1) 100%)',
+    }
 });
 
-export default function BasicTable(props) {
-    const [data, setData] = useState([])
+export default function BasicTable() {
     const classes = useStyles();
+    const [data, setData] = useState([])
     //retrieve Data
     useEffect(() => {
         getAllProducts().then(items => { setData(items) })
@@ -48,46 +50,42 @@ export default function BasicTable(props) {
                 setData(products)
             })
         } catch (err) {
-            alert('اشتباهی پیش اومده');
+            alert('!نمیشه حذفش کرد');
             setData(originalData)
         }
     }
 
-
-
-
     return (
-
-        <TableContainer className={classes.root} component={Paper} >
-            <Table className={classes.table} aria-label="simple table" >
-
-                <TableHead >
-                    <Add situation='true' />
-                    <TableRow style={{ backgroundColor: '#5d6d7e' }}>
-                        <TableCell align="center">تصویر</TableCell>
-                        <TableCell align="center">عنوان کتاب</TableCell>
-                        <TableCell align="center">دسته بندی</TableCell>
-                        <TableCell align="center">
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data.map((row) => row && (
-                        <TableRow key={row.id}>
-                            <TableCell align="center"><img src={row.image} width="100px" /></TableCell>
-                            <TableCell align="center">{row.title} </TableCell>
-                            <TableCell align="center">{row.category}</TableCell>
-                            <TableCell align="center">
-
-                                <AiFillDelete size='20' color='gray' onClick={() => handleDelete(row)} />
-                                <Add situation='false' information={row.id} />
-
+        <React.Fragment>
+            {/* TO ADD PRODUCT--> Modal */}
+            <Add situation='true' />
+            <TableContainer className={classes.root} component={Paper} >
+                <Table className={classes.table} aria-label="simple table" >
+                    <TableHead >
+                        <TableRow className={classes.headingrow} >
+                            <TableCell className={classes.headCell} align="center">تصویر</TableCell>
+                            <TableCell className={classes.headCell} align="center">عنوان کتاب</TableCell>
+                            <TableCell className={classes.headCell} align="center">دسته بندی</TableCell>
+                            <TableCell className={classes.headCell} align="center">
                             </TableCell>
-
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((row) => row && (
+                            <TableRow key={row.id}>
+                                <TableCell align="center"><img src={row.image} width="100px" /></TableCell>
+                                <TableCell align="center">{row.title} </TableCell>
+                                <TableCell align="center">{row.category}</TableCell>
+                                <TableCell align="center">
+                                    <AiFillDelete size='20' color='gray' onClick={() => handleDelete(row)} />
+                                    {/* TO EDIT PRODUCT--> Modal */}
+                                    <Add situation='false' information={row.id} />
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </React.Fragment>
     );
 }
