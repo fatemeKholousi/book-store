@@ -18,20 +18,20 @@ reducers:{
   ordersRequestFailed: (state, action) => {
     state.loading = false;
   },
-
   orderAdded:(state,action)=>{},
-  orderDelivered:(state,action)=>{
 
-   
 
-},
+       // resolveBug (command) - bugResolved (event)
+       orderDelivered: (state, action) => {
+      // const index = bugs.list.findIndex(bug => bug.id === action.payload.id);
+      // bugs.list[index].deliveryStatus = true;
+    }
 }
 })
 export const {orderAdded,ordersReceived ,ordersRequested,ordersRequestFailed,orderDelivered}=slice.actions
 export default slice.reducer
 
 const url = "/orders";
-
 export const loadOrders = () => (dispatch, getState) => {
  dispatch(
     apiCallBegan({
@@ -43,13 +43,12 @@ export const loadOrders = () => (dispatch, getState) => {
   );
 };
 
-
 export const deliveredOrder = id =>
   apiCallBegan({
     // /bugs
     // PATCH /bugs/1
-    url: url + "/" + id,
-    method: "patch",
+    url: `${url}/${id}`,
+        method: "patch",
     data: { deliveryStatus: true },
     onSuccess: orderDelivered.type
   });

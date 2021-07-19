@@ -10,12 +10,9 @@ initialState:{
     lastFetch:null,
 },
 reducers:{
-  bookGet:(state, { payload })=>{
-     return { books: [...state.list, ...payload]}
-  },
-    bookAdded:(state,action)=>{
-            state.list.push(action.payload);
-    },
+   bookAdded:(state,action)=>{
+            state.list.push(action.payload)},
+
     bookPicked: (books, action) => {
       books.list = action.payload;
     },
@@ -23,21 +20,23 @@ reducers:{
       const {id,price,description,image,title,stock}=action.payload
             state.list.push(id,price,description,image,title,stock);
     },
-    bookRemoved:(state,action)=>{},
-
+    bookRemoved:(state,action)=>{
+      
+    },
+    //load in devtools
     booksRequested: (books, action) => {books.loading = true},
     booksReceived: (books, action) => {
         books.list = action.payload;
         books.loading = false;
         books.lastFetch = Date.now();
+// console.log(books.list)
       },
-   
     booksRequestFailed: (books, action) => {
         books.loading = false;
-      },
-    
+      },  
 }
 })
+
 export const {booksRequested,bookAdded,booksReceived,booksRequestFailed,bookUpdated,bookGet}=slice.actions
 export default slice.reducer
 const url = "/products";
@@ -49,8 +48,6 @@ apiCallBegan({
   onSuccess: booksReceived.type,
 })
 
-
-//post
 export const addBook = book =>
     apiCallBegan({
       url,
@@ -59,10 +56,12 @@ export const addBook = book =>
       onSuccess: bookAdded.type
     });
 
-
-    export const updateBook=(id,book)=>  apiCallBegan({
+export const updateBook=(id,book)=>  apiCallBegan({
       url:url+'/'+id ,
       method: "patch",
       data:book,
       onSuccess: bookUpdated.type
     });
+export const getTitle=(state)=>{console.log(state.entities.books.list)}
+
+

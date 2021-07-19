@@ -10,12 +10,11 @@ import Paper from '@material-ui/core/Paper';
 import { getAllProducts, deleteProduct } from '../api/DataFetching'
 import { AiFillDelete, AiFillEdit, AiOutlinePlusCircle } from "react-icons/ai";
 // import { getAllBooks } from '../api/FetchFromRedux'
-import { loadBooks, addBook, bookGet } from '../store/books'
+import { loadBooks, addBook, bookGet, getBooks, getTitle } from '../store/books'
+import { useSelector } from 'react-redux';
 import configureStore from '../store/configureStore'
 import Add from './modals/productModal'
-
-const store = configureStore()
-
+import { loadOrders } from '../store/orders';
 const useStyles = makeStyles({
     root: {
         overflowX: 'scroll'
@@ -32,9 +31,21 @@ const useStyles = makeStyles({
     }
 });
 
+const store = configureStore()
 export default function BasicTable() {
+    store.dispatch(loadBooks())
+    store.dispatch(loadOrders())
+
+    const { books } = useSelector(state => state.entities)
+    console.log(books)
+
+    // console.log(configureStore())
+    // configureSloadBooks()
+    // console.log(books)
+
     const classes = useStyles();
     const [data, setData] = useState([])
+
     //retrieve Data
     useEffect(() => {
         getAllProducts().then(items => { setData(items) })
