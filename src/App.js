@@ -11,21 +11,32 @@ import { create } from "jss";
 import rtl from "jss-rtl";
 import { StylesProvider, jssPreset } from "@material-ui/core/styles";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Cart from './components/Cart'
 import Footer from './layout/footer'
+import ProductDtails from './components/clientpanel/ProductDetails'
+import ShowProductsDependsOnCategory from "./components/clientpanel/ShowProductsDependsOnCategory";
 // Configure JSS for RTL
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 function App() {
 
   return (
     <div className="app">
-      
+              <NavLink to="/faq" activeClassName="selected">
+          <h1>برو</h1>
+        </NavLink>
+
       <ThemeProvider theme={CustomTheme}>
         <StylesProvider jss={jss}>
           <MenuAppBar />
        <Switch>
            <Route exact path="/login" component={AdminLogin} />
+           <Route exact path="/categories/:category" component={ShowProductsDependsOnCategory } />
+           <Route exact path="/products/:title" component={ProductDtails} />
+           <Route exact path="/cart" component={Cart} />
+
             /**Protected Login Router */
             <ProtectedRoute exact path="/adminpanel" component={HomeAdminPanel}/>
+            
             <Route exact path="/notfound" component={NotFound} />
             <Route exact path="/" component={Home} />
             <Route path="*" component={NotFound} />

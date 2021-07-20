@@ -1,11 +1,15 @@
 import axios from "axios"
 import * as actions from '../api'
 
-const api= ({dispatch})=>next=>async action=>{
+const api= ({dispatch,getState})=>next=>async action=>{
     if(action.type!==actions.apiCallBegan.type) return next(action)
+
     const {url,method,data,onSuccess,onError,onStart}=action.payload;
+
     if(onStart) dispatch({type:onStart})
+
     next(action)
+
     try
     {
         const response=await axios.request({
@@ -18,7 +22,7 @@ const api= ({dispatch})=>next=>async action=>{
         dispatch(actions.apiCallSuccess(response.data))
         // specific
         if(onSuccess) dispatch ({type:onSuccess, payload:response.data})
-        }catch(error){
+    } catch(error){
     //general
     dispatch(actions.apiCallFailed(error.message))
     //sepecific

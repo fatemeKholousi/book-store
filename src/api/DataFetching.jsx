@@ -1,6 +1,5 @@
 
 import axios from 'axios'
-import { useState } from 'react'
 const apiEndPoint = 'http://localhost:5000/'
 const apiEndPointProducts = 'http://localhost:5000/products/'
 const apiEndPointOrders = 'http://localhost:5000/orders/'
@@ -20,6 +19,11 @@ export const getAllProducts = async () => {
   let response = await axios.get(apiEndPointProducts).catch(err => console.log('wrong'))
   let data = response.data
   return data
+}
+
+//get by category
+export const getByCategory = () => {
+  getAllProducts().then(res => res.category === "مانگا")
 }
 
 //delete Product
@@ -42,7 +46,7 @@ export const addProduct = (obj) => {
 export const getProduct = (id) => {
   axios.get(apiEndPointProducts + id)
     .then(res => {
-      return (res.data)
+      console.log(res.data)
     })
     .catch(err => console.log(err))
 }

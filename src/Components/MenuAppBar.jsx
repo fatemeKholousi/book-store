@@ -1,22 +1,13 @@
 import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import { AppBar, Toolbar, IconButton, Typography, InputBase, MenuItem, Menu, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Button from '@material-ui/core/Button';
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { Link, NavLink, useHistory } from "react-router-dom";
-import logo from '../img/storyshoplogo2.png';
 import { isLoggedIn, isLoggedOut } from '../utils/auth';
-
+import { NavLink, useHistory } from "react-router-dom";
+import logo from '../img/storyshoplogo2.png';
+import CartButton from './CartButton';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -90,29 +81,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar() {
   let history = useHistory()
-  const handleMoveToLogin = () => {
-    history.push('/login')
-  }
+  const handleMoveToLogin = () => { history.push('/login') }
+
   const classes = useStyles();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
+  const handleProfileMenuOpen = (event) => { setAnchorEl(event.currentTarget) };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
+  const handleMobileMenuClose = () => { setMobileMoreAnchorEl(null) };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
+  const handleMobileMenuOpen = (event) => { setMobileMoreAnchorEl(event.currentTarget) };
 
   const menuId = 'primary-search-account-menu';
 
@@ -128,13 +109,9 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={0} color="secondary">
-          </Badge>
-        </IconButton>
-        <p>سبدخرید</p>
-      </MenuItem>
+
+      {/* Cart Button*/}
+      <CartButton />
 
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -143,10 +120,10 @@ export default function PrimarySearchAppBar() {
           aria-haspopup="true"
           color="inherit"
         >
-
         </IconButton>
         <NavLink to='./login'> <p>پنل مدیریت</p></NavLink>
       </MenuItem>
+
     </Menu>
   );
 
@@ -160,9 +137,7 @@ export default function PrimarySearchAppBar() {
             <img src={logo} alt="logo" width="100px" />
           </IconButton>
 
-          <Typography className={classes.title} variant="h5" noWrap>
-            کتابفروشی آنلاین          </Typography>
-
+          <Typography className={classes.title} variant="h5" noWrap> کتابفروشی آنلاین</Typography>
 
           <div className={classes.search}> <div className={classes.searchIcon}>
             <SearchIcon />
@@ -170,18 +145,11 @@ export default function PrimarySearchAppBar() {
             <InputBase placeholder="Search…" classes={{ root: classes.inputRoot, input: classes.inputInput, }} inputProps={{ 'aria-label': 'search' }} />
           </div>
 
-
           <div className={classes.grow} />
           {/* on desktop */}
           <div className={classes.sectionDesktop}  >
-            {/* SAbad Kharid Button & badge */}
-            <IconButton color="inherit"  >
-              <Badge badgeContent={0} color="secondary">
-                <Button variant="contained" color="primary" endIcon={<AiOutlineShoppingCart />}>
-                  سبد خرید
-                </Button>
-              </Badge>
-            </IconButton>
+            {/* Cart Button */}
+            <CartButton />
             {/* Login Logout Button */}
             <IconButton
               edge="end"
@@ -192,28 +160,15 @@ export default function PrimarySearchAppBar() {
               color="inherit">
 
               {isLoggedIn() ?
-                (
-                  <Button onClick={isLoggedOut} variant="contained" color="primary" endIcon={<AccountCircle />}>
-                    خروج از پنل مدیریت</Button>
-                )
+                (<Button onClick={isLoggedOut} variant="contained" color="primary" endIcon={<AccountCircle />}>
+                  خروج از پنل مدیریت</Button>)
                 :
-                (
-                  <Button onClick={handleMoveToLogin} variant="contained" color="primary" endIcon={<AccountCircle />}>
-                    ورود به  پنل مدیریت</Button>
-                )
+                (<Button onClick={handleMoveToLogin} variant="contained" color="primary" endIcon={<AccountCircle />}>
+                  ورود به  پنل مدیریت</Button>)
               }
 
-
-
-              {/* admin temporarily panel button */}
-              {/* < Link to='/adminpanel'>
-                <Button variant="contained" color="primary" endIcon={<AccountCircle />}>
-                  ادمین پنل</Button></Link> */}
             </IconButton>
-
           </div>
-
-
           {/* on mobile */}
           <div className={classes.sectionMobile} >
             <IconButton
@@ -229,8 +184,6 @@ export default function PrimarySearchAppBar() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-
     </div >
-
   );
 }
