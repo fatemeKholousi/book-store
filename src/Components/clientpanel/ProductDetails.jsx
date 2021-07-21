@@ -2,12 +2,14 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
-import { loadBooks, selector__Books, select__a__book } from '../../store/books'
-import configureStore from '../../store/configureStore'
 import { getProduct } from '../../api/DataFetching'
-const store = configureStore()
+import { productAddedToCart, counterAddedToCart } from '../../store/cart'
+import { useDispatch, useSelector } from 'react-redux'
 
 function ProductDetails() {
+    const [quantity, setQuantity] = useState(0)
+    const dispatch = useDispatch()
+
     // product object
     const location = useLocation()
     const { item } = location.state
@@ -21,8 +23,11 @@ function ProductDetails() {
             توضیحات:
             <h1>{item.description}</h1>
 
-            <input type="number" />
-            <button>افزودن به سبد خرید</button>
+            <input type="number" onChange={(e) => { setQuantity(e.target.value) }} />
+            <button onClick={() => {
+                dispatch(counterAddedToCart());
+                dispatch(productAddedToCart({ id: item.id, price: item.price, title: item.title, quantity: quantity }))
+            }}>افزودن به سبد خرید</button>
 
         </div>
     )

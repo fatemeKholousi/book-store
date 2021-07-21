@@ -6,6 +6,8 @@ const slice =createSlice({
     initialState:{
         list:[], 
         loading:false,
+        addedItems:[],
+        total:0,
     },
 reducers:{
   ordersRequested: (state, action) => {

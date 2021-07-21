@@ -38,7 +38,6 @@ const columns = [
 
 export default function DataGridDemo() {
     const [data, setData] = useState([])
-    const [saveButton, setSaveButton] = useState(false)
     const classes = useStyles();
     useEffect(() => {
         getAllProducts().then(items => { setData(items) })
