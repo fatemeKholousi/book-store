@@ -1,9 +1,18 @@
 import {configureStore,getDefaultMiddleware} from '@reduxjs/toolkit'
 import reducer from './reducer'
 import api from './middleware/api'
-const store=()=> configureStore(
-    {
-    reducer,
-    middleware:[...getDefaultMiddleware(),api]
-    })
-export default store
+import { persistStore } from 'redux-persist'
+//  const store=()=> configureStore(
+//     {
+//     reducer,
+//     middleware:[...getDefaultMiddleware(),api]
+//     })
+
+const store = configureStore( {reducer,middleware:[...getDefaultMiddleware(),api]} )
+export const persistor=persistStore(store)
+export default store;
+
+// () => {
+//     let persistor = persistStore(store)
+//     return { store, persistor }
+//   }

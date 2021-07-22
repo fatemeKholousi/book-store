@@ -15,15 +15,14 @@ reducers:{
   booksReceived: (books, action) => {books.list = action.payload; books.loading = false ; books.lastFetch = Date.now();},
   booksRequestFailed: (books, action) => { books.loading = false},  
 
-  // bookPicked:(id,action)=>{},
-   bookAdded:(state,action)=>{ state.list.push(action.payload)},
+  bookAdded:(state,action)=>{ state.list.push(action.payload)},
 
-   bookUpdated:(state,action)=>{
+  bookUpdated:(state,action)=>{
       const {id,price,description,image,title,stock}=action.payload
             state.list.push(id,price,description,image,title,stock);
     },
 
-    bookRemoved:(state,action)=>{
+  bookRemoved:(state,action)=>{
       const newList= state.list.filter(item => item.id !== action.payload.id)
       state.list=newList
     },
@@ -35,7 +34,7 @@ reducers:{
 export const {booksRequested,bookAdded,booksReceived,booksRequestFailed,bookUpdated,bookGet,bookRemoved}=slice.actions
 export default slice.reducer
 //----------------------------------------------------------------------
-//-------------------------Action Creators-----------------------------------
+//-------------------------Action API's---------------------------------
 //----------------------------------------------------------------------
 const url = "/products";
 
@@ -54,6 +53,33 @@ export const loadBooks = () => (dispatch, getState) => {
   }))
 }
 
+
+export const getBookById = (id) => (dispatch, getState) => {
+  // const { lastFetch } = getState().entities.books;
+
+  // const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
+  // if (diffInMinutes < 10) return;
+
+  return dispatch(
+    apiCallBegan({
+    url:url+'/'+id,
+    onStart: booksRequested.type,
+    onSuccess: booksReceived.type,
+    onFailed:booksRequestFailed.type
+  }))
+}
+// export const getBook=(id)=>{
+//   apiCallBegan({
+//     url:url+'/'+id,
+//     onStart: booksRequested.type,
+//     onSuccess: booksReceived.type,
+//     onFailed:booksRequestFailed.type
+//   })
+// }
+
+
+
+
 export const addBook = book =>
     apiCallBegan({
       url,
@@ -70,11 +96,7 @@ export const updateBook=(id,book)=>  apiCallBegan({
     });
 
 
-    export const getBugsByUser = userId =>
-    createSelector(
-      state => state.entities.bugs,
-      bugs => bugs.filter(bug => bug.userId === userId)
-    );
+
     export const selector__Book= (bookId)=>{
       createSelector(
         state=>state.entities.books,

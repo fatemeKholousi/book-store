@@ -5,12 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { productRemovedFromCart } from '../store/cart'
 
 const useStyles = makeStyles({
+    root: {
+        overflowX: 'hidden',
+    },
     table: {
-        // display: 'flex',
-        // flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
-        // minWidth: 400,
         width: '80%',
-        // overflowX: 'hidden',
         border: 'none',
         marginBottom: '20px'
     },
@@ -27,6 +26,7 @@ const useStyles = makeStyles({
     }
 });
 function Cart() {
+
     const classes = useStyles();
     const myCart = useSelector((state) => state.entities.cart.list)
     const totalPrice = useSelector((state) => state.entities.cart.totalPrice)
@@ -34,16 +34,13 @@ function Cart() {
 
     const dispatch = useDispatch()
     return (
-        <>
-
-
-            <Typography variant='h4' style={{ marginRight: '5%', marginBottom: '3%', fontWeight: '900' }}> سبد خرید </Typography>{myCart.length === 0 ?
-                (
+        <div className={classes.root}>
+            <Typography variant='h4' style={{ marginRight: '5%', marginBottom: '3%', fontWeight: '900' }}> سبد خرید </Typography>
+            {counter === 0
+                ? (
                     <Typography variant='h5' style={{ marginRight: '40%', color: 'gray' }}> سبد خرید شما خالیست </Typography>
                 )
-                :
-
-                (
+                : (
                     <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
                         <TableContainer component={Paper} className={classes.table}>
                             <Table >
@@ -62,6 +59,7 @@ function Cart() {
                                             ...
                                         </TableCell>
                                     </TableRow>
+
                                     {myCart.map(item => <TableRow >
                                         <TableCell width="30%" className={classes.headCell}>{item.title}</TableCell>
                                         <TableCell width="20%" className={classes.headCell}>{item.price}</TableCell>
@@ -72,39 +70,23 @@ function Cart() {
                                                 حذف
                                             </Button>
                                         </TableCell>
-
-
-
                                     </TableRow>)}
 
                                 </TableBody>
-
                             </Table>
-
                         </TableContainer>
-                        <Grid container style={{ marginRight: '40%', float: 'right' }}>
 
-                            <Grid item md={5} sm={6} xs={4}>
-                                <Typography variant='h6'>
-                                    جمع کل:{totalPrice}تومان
-
-                                </Typography>
-
-                            </Grid>
-                            <Grid xs={1} sm={0} md={0} />
-                            <Grid item md={5} sm={6} xs={7}>
-
-                                <Button variant="outlined" style={{ fontSize: '20px' }} >
-                                    تکمیل سفارش</Button >
-                            </Grid>
+                        < Grid container style={{ marginRight: '30%' }}>
+                            <Grid item md={5} sm={6} xs={8} ><Typography variant='h6' >جمع کل:{totalPrice}تومان</Typography></Grid>
+                            <Grid xs={1} sm={1} md={2} />
+                            <Grid item md={5} sm={5} xs={6}> <Button variant="outlined" style={{ fontSize: '20px' }} >تکمیل سفارش</Button > </Grid>
                         </Grid>
 
-                    </Box>)
+                    </Box >
+                )
             }
             <br />
-
-
-        </>
+        </div >
     )
 }
 

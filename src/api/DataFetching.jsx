@@ -31,10 +31,10 @@ export const getAllProducts = async () => {
   return data
 }
 
-//get by category
-export const getByCategory = () => {
-  getAllProducts().then(res => res.category === "مانگا")
-}
+// //get by category
+// export const getByCategory = () => {
+//   getAllProducts().then(res => res.category === "مانگا")
+// }
 
 
 
@@ -50,7 +50,7 @@ export const addProduct = (obj) => {
 export const getProduct = (id) => {
   axios.get(apiEndPointProducts + id)
     .then(res => {
-      console.log(res.data)
+      return (res.data)
     })
     .catch(err => console.log(err))
 }

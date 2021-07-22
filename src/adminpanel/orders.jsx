@@ -18,7 +18,7 @@ import axios from 'axios';
 import { Button } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 
-const store = configureStore()
+const Store = configureStore
 const useStyles = makeStyles({
     root: {
         width: '100%',
@@ -40,8 +40,8 @@ function Orders() {
         getAllOrders().then(items => { setData(items) })
     }, [])
 
-    store.dispatch(loadOrders())
-    store.dispatch(orderDelivered())
+    Store.dispatch(loadOrders())
+    Store.dispatch(orderDelivered())
 
 
     const handleChange = (event) => {

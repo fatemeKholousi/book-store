@@ -7,13 +7,14 @@ import { AiOutlinePlusCircle, AiFillSave, AiFillEdit, AiFillCloseCircle, AiOutli
 import { FormControl, TextField, Select, ButtonGroup, Button, Typography, MenuItem, Box, InputLabel } from '@material-ui/core';
 import axios from 'axios';
 import SaveIcon from '@material-ui/icons/Save';
-import { addProduct, getProduct, updateProduct, getAllCategories } from '../../api/DataFetching'
-import { loadBooks, addBook, updateBook, loadOneBook, getAll, selectBooks } from '../../store/books'
-import { handleAddProduct } from '../ProductionManagment';
+import { getAllCategories } from '../../api/DataFetching'
+import { addBook, updateBook, loadOneBook, getAll, selectBooks } from '../../store/books'
+// import {  } from '../ProductionManagment';
 import configureStore from '../../store/configureStore'
-import { getAllProducts, deleteProduct } from '../../api/DataFetching'
-import { useSelector } from 'react-redux';
-const store = configureStore()
+import { getAllProducts } from '../../api/DataFetching'
+import { useSelector, useDispatch } from 'react-redux';
+
+const Store = configureStore
 const useStyles = makeStyles((theme) => ({
     modal: {
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -76,7 +77,7 @@ export default function TransitionsModal(props) {
     //SAVE A NEW PRODUCT--> using redux
     const handleAddBook = (e) => {
         e.preventDefault()
-        store.dispatch(addBook({
+        Store.dispatch(addBook({
             id: Math.floor(Math.random() * 1000000000),
             title, image, description, category, price, stock
         })).then(getAllProducts())
@@ -85,7 +86,7 @@ export default function TransitionsModal(props) {
 
     //EDITING A BOOK --> using redux
     const handleUpdateProduct = () => {
-        store.dispatch(updateBook(information_id_from_props, { id: information_id_from_props, title, image, description, category, price, stock }))
+        Store.dispatch(updateBook(information_id_from_props, { id: information_id_from_props, title, image, description, category, price, stock }))
         handleClose()
     }
 
