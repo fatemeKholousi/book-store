@@ -1,26 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, Typography, InputBase, MenuItem, Menu, Button } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, InputBase, Menu } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { isLoggedIn, isLoggedOut } from '../utils/auth';
-import { NavLink, useHistory } from "react-router-dom";
-import logo from '../img/storyshoplogo2.png';
-import CartButton from './CartButton';
+import { useHistory } from "react-router-dom";
+
+import logo from '../../img/storyshoplogo2.png';
+import LogoAndText from './LogoAndText';
+import { isLoggedIn, isLoggedOut } from '../../utils/auth';
+import CartButton, { CartButton_phone } from './CartButton';
+import { LoginButton, LoginButton_phone } from './LoginButton';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
   },
   search: {
     position: 'relative',
@@ -80,50 +73,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+
+  const classes = useStyles();
   let history = useHistory()
   const handleMoveToLogin = () => { history.push('/login') }
 
-  const classes = useStyles();
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => { setAnchorEl(event.currentTarget) };
-
   const handleMobileMenuClose = () => { setMobileMoreAnchorEl(null) };
-
   const handleMobileMenuOpen = (event) => { setMobileMoreAnchorEl(event.currentTarget) };
 
   const menuId = 'primary-search-account-menu';
-
-  // mobile version
   const mobileMenuId = 'primary-search-account-menu-mobile';
+
+  // MOBILE MENU VERSION
   const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
+    <Menu anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={mobileMenuId}
-      keepMounted
+      id={mobileMenuId} keepMounted
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-
-      {/* Cart Button*/}
-      <CartButton />
-
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-        </IconButton>
-        <NavLink to='./login'> <p>پنل مدیریت</p></NavLink>
-      </MenuItem>
-
+      open={isMobileMenuOpen} onClose={handleMobileMenuClose}>
+      <CartButton_phone />
+      {isLoggedIn()
+        ? (<LoginButton_phone handleClick={isLoggedOut} label="خروج" />)
+        : (<LoginButton_phone handleClick={handleMoveToLogin} label="ورود " />)}
     </Menu>
   );
 
@@ -132,12 +108,8 @@ export default function PrimarySearchAppBar() {
 
       <AppBar color='primary'>
         <Toolbar>
-          {/* logo is here */}
-          <IconButton edge="start" className={classes.menuButton}>
-            <img src={logo} alt="logo" width="100px" />
-          </IconButton>
 
-          <Typography className={classes.title} variant="h5" noWrap> کتابفروشی آنلاین</Typography>
+          <LogoAndText logo={logo} title='کتابفروشی' />
 
           <div className={classes.search}> <div className={classes.searchIcon}>
             <SearchIcon />
@@ -146,41 +118,33 @@ export default function PrimarySearchAppBar() {
           </div>
 
           <div className={classes.grow} />
-          {/* on desktop */}
-          <div className={classes.sectionDesktop}  >
-            {/* Cart Button */}
+
+          {/* DESKTOP VERSION */}
+          <div className={classes.sectionDesktop}>
+
             <CartButton />
-            {/* Login Logout Button */}
+
             <IconButton
               edge="end"
-              aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit">
-
-              {isLoggedIn() ?
-                (<Button onClick={isLoggedOut} variant="contained" color="primary" endIcon={<AccountCircle />}>
-                  خروج از پنل مدیریت</Button>)
-                :
-                (<Button onClick={handleMoveToLogin} variant="contained" color="primary" endIcon={<AccountCircle />}>
-                  ورود به  پنل مدیریت</Button>)
+              {isLoggedIn()
+                ? (<LoginButton label='خروج' handleClick={isLoggedOut} />)
+                : (<LoginButton label='ورود به پنل مدیریت' handleClick={handleMoveToLogin} />)
               }
-
             </IconButton>
+
           </div>
-          {/* on mobile */}
+
+          {/* PHONE PART */}
           <div className={classes.sectionMobile} >
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
+            <IconButton aria-controls={mobileMenuId} aria-haspopup="true" onClick={handleMobileMenuOpen} color="inherit" >
               <MoreIcon />
             </IconButton>
           </div>
+
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

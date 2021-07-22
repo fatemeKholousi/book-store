@@ -4,10 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { AiFillDelete } from "react-icons/ai";
 import loading from '../img/loading.gif'
-import { loadBooks, selector__Books } from '../store/books'
+import { loadBooks, bookRemoved, selector__Books } from '../store/books'
 import configureStore from '../store/configureStore'
 import { deleteProduct } from '../api/DataFetching'
 import Add from './modals/productModal'
+import { useSelector, useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
     root: {
@@ -25,35 +26,36 @@ const useStyles = makeStyles({
     }
 });
 
-const store = configureStore()
+// const store = configureStore()
 
 export default function BasicTable() {
-
     const classes = useStyles();
-    const [data, setData] = useState([])
+    const dispatch = useDispatch()
 
-    // RETRIEVE DATA
-    const [getAllBooks, setGetAllBooks] = useState([])
-    store.dispatch(loadBooks())
-    setTimeout(function () { setGetAllBooks(selector__Books(store.getState())) }, 100);
+    // .............Retrieve Data From Redux.........................
+    useEffect(() => {
+        dispatch(loadBooks())
+    }, [])
+    const bookList = useSelector(state => state.entities.books.list)
 
-    //delete Data
+    // .............Delete Data From Redux and FetchData.........................
     const handleDelete = (p) => {
         //as a backup
-        const originalData = data
+        const originalData = bookList
         try {
             deleteProduct(p).then(() => {
-                const products = data.filter(item => item.id !== p.id);
-                setData(products)
+                dispatch(bookRemoved({ id: p.id }))
             })
         } catch (err) {
             alert('!نمیشه حذفش کرد');
-            setData(originalData)
+            bookList = originalData
         }
     }
+
+
     return (
         <React.Fragment>
-            {getAllBooks.length === 0 ?
+            {bookList.length === 0 ?
                 <img src={loading} style={{ display: "block", marginRight: 'auto', marginLeft: 'auto' }} />
                 :
                 (
@@ -71,16 +73,20 @@ export default function BasicTable() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {getAllBooks.map(row => row &&
+                                    {bookList.map(row => row &&
                                         <TableRow key={row.id}>
                                             <TableCell align="center"><img src={row.image} width="100px" /></TableCell>
                                             <TableCell align="center">{row.title} </TableCell>
                                             <TableCell align="center">{row.category}</TableCell>
                                             <TableCell align="center">
                                                 {/* TO Delete PRODUCT--> ? */}
-                                                <AiFillDelete size='20' color='gray' onClick={() => handleDelete(row)} />
-                                                {/* TO EDIT PRODUCT--> Modal */}
-                                                <Add situation='false' information={row.id} />
+                                                <AiFillDelete size='20' color='gray' onClick={() => {
+
+                                                    handleDelete(row)
+                                                }}
+                                                />
+
+                                                < Add situation='false' information={row.id} />
                                             </TableCell>
                                         </TableRow>
                                     )}

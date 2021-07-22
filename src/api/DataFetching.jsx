@@ -4,9 +4,19 @@ const apiEndPoint = 'http://localhost:5000/'
 const apiEndPointProducts = 'http://localhost:5000/products/'
 const apiEndPointOrders = 'http://localhost:5000/orders/'
 
-
 let obj = {}
 
+// .........................Necessary...................................
+//delete Product
+export const deleteProduct = product => {
+  return axios.delete(apiEndPointProducts + product.id)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+
+}
+
+
+// .............................don't know yet.....................................
 //get categories 
 export const getAllCategories = async () => {
   let response = await axios.get(apiEndPoint + 'categories/').catch(err => console.log('wrong'))
@@ -26,13 +36,7 @@ export const getByCategory = () => {
   getAllProducts().then(res => res.category === "مانگا")
 }
 
-//delete Product
-export const deleteProduct = product => {
-  return axios.delete(apiEndPointProducts + product.id)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
 
-}
 
 //Add Product
 export const addProduct = (obj) => {

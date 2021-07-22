@@ -45,7 +45,9 @@ export default function CenteredGrid({ categoryTitle }) {
     useEffect(() => {
         getAllProducts().then(res => setProductsByCategory(res))
     }, [])
+    var result = productsByCategory.filter((val, i) => i < 6)
 
+    console.log(result)
     return (
         <div className={classes.root}>
             <Grid container>

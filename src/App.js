@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import AdminLogin from "./components/AdminLogin";
 import HomeAdminPanel from "./adminpanel/HomeAdminPanel";
 import NotFound from "./components/NotFound";
-import MenuAppBar from "./components/MenuAppBar";
+import MenuAppBar from "./components/navbar/MenuAppBar";
 import CustomTheme from "./assets/customRTl";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { create } from "jss";
@@ -21,9 +21,6 @@ function App() {
 
   return (
     <div className="app">
-              <NavLink to="/faq" activeClassName="selected">
-          <h1>برو</h1>
-        </NavLink>
 
       <ThemeProvider theme={CustomTheme}>
         <StylesProvider jss={jss}>

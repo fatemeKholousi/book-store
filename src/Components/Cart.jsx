@@ -3,8 +3,8 @@ import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typograph
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux'
 import { productRemovedFromCart } from '../store/cart'
-const useStyles = makeStyles({
 
+const useStyles = makeStyles({
     table: {
         // display: 'flex',
         // flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
@@ -26,7 +26,6 @@ const useStyles = makeStyles({
         color: 'gray',
     }
 });
-
 function Cart() {
     const classes = useStyles();
     const myCart = useSelector((state) => state.entities.cart.list)
@@ -38,7 +37,7 @@ function Cart() {
         <>
 
 
-            <Typography variant='h4' style={{ marginRight: '5%', marginBottom: '3%', fontWeight: '900' }}> سبد خرید </Typography>{counter === 0 ?
+            <Typography variant='h4' style={{ marginRight: '5%', marginBottom: '3%', fontWeight: '900' }}> سبد خرید </Typography>{myCart.length === 0 ?
                 (
                     <Typography variant='h5' style={{ marginRight: '40%', color: 'gray' }}> سبد خرید شما خالیست </Typography>
                 )
@@ -51,7 +50,7 @@ function Cart() {
                                 <TableBody>
                                     <TableRow className={classes.headingrow}>
                                         <TableCell component="th" className={classes.headCell}>
-                                            کتاب
+                                            عنوان کتاب
                                         </TableCell>
                                         <TableCell component="th" scope="row" className={classes.headCell}>
                                             قیمت
@@ -69,7 +68,7 @@ function Cart() {
                                         <TableCell width="20%" className={classes.headCell}>{item.quantity}</TableCell>
                                         <TableCell width="10%" className={classes.headCell}>
                                             <Button variant="outlined" color="secondary" style={{ fontSize: '20px', }}
-                                            >
+                                                onClick={() => dispatch(productRemovedFromCart({ id: item.id }))}>
                                                 حذف
                                             </Button>
                                         </TableCell>

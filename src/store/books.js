@@ -24,13 +24,15 @@ reducers:{
     },
 
     bookRemoved:(state,action)=>{
-      
+      const newList= state.list.filter(item => item.id !== action.payload.id)
+      state.list=newList
     },
+
      
 }
 })
 
-export const {booksRequested,bookAdded,booksReceived,booksRequestFailed,bookUpdated,bookGet}=slice.actions
+export const {booksRequested,bookAdded,booksReceived,booksRequestFailed,bookUpdated,bookGet,bookRemoved}=slice.actions
 export default slice.reducer
 //----------------------------------------------------------------------
 //-------------------------Action Creators-----------------------------------
@@ -67,9 +69,7 @@ export const updateBook=(id,book)=>  apiCallBegan({
       onSuccess: bookUpdated.type
     });
 
-    export const selector__Books= (state)=>{
-    return state.entities.books.list
-    }
+
     export const getBugsByUser = userId =>
     createSelector(
       state => state.entities.bugs,
