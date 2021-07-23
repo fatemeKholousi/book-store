@@ -7,14 +7,9 @@ import { AiOutlinePlusCircle, AiFillSave, AiFillEdit, AiFillCloseCircle, AiOutli
 import { FormControl, TextField, Select, ButtonGroup, Button, Typography, MenuItem, Box, InputLabel } from '@material-ui/core';
 import axios from 'axios';
 import SaveIcon from '@material-ui/icons/Save';
-import { getAllCategories } from '../../api/DataFetching'
-import { addBook, updateBook, loadOneBook, getAll, selectBooks } from '../../store/books'
-// import {  } from '../ProductionManagment';
-import configureStore from '../../store/configureStore'
-import { getAllProducts } from '../../api/DataFetching'
+import { addBook, updateBook, loadOneBook, getAll, loadBooks, getBookById, getChoosenBook } from '../../store/books'
 import { useSelector, useDispatch } from 'react-redux';
-
-const Store = configureStore
+import { loadCategories } from '../../store/category'
 const useStyles = makeStyles((theme) => ({
     modal: {
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -26,8 +21,11 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': { backgroundColor: '#1565c0' },
     },
     paper: {
-        backgroundColor: theme.palette.background.paper, border: '2px solid #000', boxShadow: theme.shadows[5], padding: theme.spacing(2, 4, 3),
-        backgroundImage: 'url("https://s18.picofile.com/file/8438176884/modalbg.png")',
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+        backgroundColor: 'white',
         backgroundSize: 'contain',
 
     },
@@ -35,24 +33,39 @@ const useStyles = makeStyles((theme) => ({
 
 //this flag is to show a product things to edit it
 let flag = false
-export default function TransitionsModal(props) {
-    const classes = useStyles();
-    const [open, setOpen] = useState(false);
-    //this is the id
-    const information_id_from_props = props.information
-    const [categories, setCategories] = useState([])
-    const [category, setCategory] = useState('')
+export default function TransitionsModal({ information, situation }) {
+    // const books = useSelector(state => state.entities.books.list)
+    // const [flag, setFlag] = useState(false)
     const [productForEdit, setProductForEdit] = useState([])
-
     const [title, setTitle] = useState('')
     const [image, setImage] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
     const [stock, setStock] = useState(0)
+    const [category, setCategory] = useState('')
 
+    // const [book, setBook] = useState([])
+    const id_from_props = information
+    const [open, setOpen] = useState(false);
+
+    const dispatch = useDispatch()
+    const classes = useStyles();
     //open & close the modal
     const handleOpen = () => { setOpen(true) };
     const handleClose = () => { setOpen(false) };
+
+    // ............................SAVE A NEW PRODUCT--> using redux..........................................................
+    const handleAddBook = (e) => {
+        e.preventDefault()
+        dispatch(addBook({
+            id: Math.floor(Math.random() * 1000000000), title, image, description, category, price, stock
+        }))
+        handleClose()
+    }
+
+    const [categories, setCategories] = useState([])
+
+
     //browse image
     const uploadImage = async (e) => {
         const file = e.target.files[0]
@@ -72,48 +85,55 @@ export default function TransitionsModal(props) {
         })
     }
 
-    useEffect(() => { getAllCategories().then(item => setCategories(item)) }, [])
-
-    //SAVE A NEW PRODUCT--> using redux
-    const handleAddBook = (e) => {
-        e.preventDefault()
-        Store.dispatch(addBook({
-            id: Math.floor(Math.random() * 1000000000),
-            title, image, description, category, price, stock
-        })).then(getAllProducts())
-        handleClose()
-    }
+    useEffect(() => {
+        dispatch(loadCategories())
+        // getAllCategories().then(item => setCategories(item))
+    }, [])
+    const categoryList = useSelector(state => state.entities.category.list)
 
     //EDITING A BOOK --> using redux
     const handleUpdateProduct = () => {
-        Store.dispatch(updateBook(information_id_from_props, { id: information_id_from_props, title, image, description, category, price, stock }))
+        dispatch(updateBook(id_from_props, { id: id_from_props, title, image, description, category, price, stock }))
         handleClose()
     }
 
+
     const handleEditProduct = () => {
+        // setFlag(true)
         flag = true
-        axios.get('http://localhost:5000/products/' + information_id_from_props)
+        // dispatch(getBookById(id_from_props))
+        axios.get('http://localhost:5000/products/' + id_from_props)
             .then(res => {
                 setProductForEdit(res.data)
                 setImage(productForEdit.image)
                 setTitle(productForEdit.title)
                 setPrice(productForEdit.price)
                 setStock(productForEdit.stock)
-                setDescription(productForEdit.description)
                 setCategory(productForEdit.category)
+                setDescription(productForEdit.description)
                 handleOpen()
+                // setFlag(false)
+
                 flag = false
             })
     }
     useEffect(() => {
-        if (flag === true) handleEditProduct()
+        if (flag === true)
+            handleEditProduct()
     }, [flag])
 
 
+
+    // useEffect(() => {
+    //     effect
+    //     return () => {
+    //         cleanup
+    //     }
+    // }, [input])
     return (
         <span >
             {/* Conditional Button Checker */}
-            {props.situation === 'true'
+            {situation === 'true'
                 ? (<Box display="flex" flexDirection="row-reverse">
                     <Button onClick={handleOpen} className={classes.saveButton} variant="outlined" startIcon={<AiOutlinePlusCircle />}  > افزودن کتاب</Button ></Box>)
                 : (<AiFillEdit size='20' onClick={handleEditProduct} />)}
@@ -133,8 +153,8 @@ export default function TransitionsModal(props) {
 
                             {/* SELECT CATEGORY */}
                             <Typography style={{ marginTop: '20px' }}>ژانر</Typography>
-                            <Select fullWidth onChange={(e) => setCategory(e.target.value)} value={category} >
-                                {categories.map(v => <MenuItem value={v}> {v}</MenuItem>)}
+                            <Select fullWidth value={category} onChange={(e) => setCategory(e.target.selected)} >
+                                {categoryList.map(v => <MenuItem value={v}> {v}</MenuItem>)}
                             </Select>
                             {/* PRODUCT NAME */}
                             <TextField required id="inputProductName" label="نام کالا" name="title" fullWidth
@@ -152,7 +172,7 @@ export default function TransitionsModal(props) {
                                 floatingLabelText="موجودی"
                                 value={stock}
                                 onChange={(e) => setStock(e.target.value)}
-                                // errorText={this.state.firstNameError}
+
                                 floatingLabelFixed
                             />
 
@@ -162,7 +182,7 @@ export default function TransitionsModal(props) {
 
                             {/* SAVE */}
                             <ButtonGroup>
-                                {information_id_from_props
+                                {id_from_props
                                     ? (
                                         <Button onClick={handleUpdateProduct} variant="contained" color="secondary" className={classes.button} endIcon={<AiOutlineEdit />} style={{ marginRight: 'auto' }}>
                                             &#8198;&#8198; ویرایش</Button>

@@ -2,11 +2,13 @@ import {  createSlice } from "@reduxjs/toolkit";
 import moment from "moment";
 import {apiCallBegan} from './api'
 import { createSelector } from "reselect";
+import { Call } from "@material-ui/icons";
 
 const slice=createSlice({
 name:'books',
 initialState:{
     list:[],
+    item:[],
     loading:false,
     lastFetch: null
 },
@@ -15,11 +17,13 @@ reducers:{
   booksReceived: (books, action) => {books.list = action.payload; books.loading = false ; books.lastFetch = Date.now();},
   booksRequestFailed: (books, action) => { books.loading = false},  
 
+  bookReceived: (state, action) => {state.item = action.payload; state.loading = false ; state.lastFetch = Date.now();},
+
   bookAdded:(state,action)=>{ state.list.push(action.payload)},
 
   bookUpdated:(state,action)=>{
-      const {id,price,description,image,title,stock}=action.payload
-            state.list.push(id,price,description,image,title,stock);
+            const index = state.list.findIndex(book => book.id === action.payload.id);
+            state.list[index] = action.payload;
     },
 
   bookRemoved:(state,action)=>{
@@ -31,11 +35,11 @@ reducers:{
 }
 })
 
-export const {booksRequested,bookAdded,booksReceived,booksRequestFailed,bookUpdated,bookGet,bookRemoved}=slice.actions
+export const {booksRequested,bookAdded,booksReceived,booksRequestFailed,bookUpdated,bookGet,bookRemoved,bookReceived}=slice.actions
 export default slice.reducer
-//----------------------------------------------------------------------
-//-------------------------Action API's---------------------------------
-//----------------------------------------------------------------------
+
+
+// .....................................Action API Calls..................................
 const url = "/products";
 
 export const loadBooks = () => (dispatch, getState) => {
@@ -53,32 +57,15 @@ export const loadBooks = () => (dispatch, getState) => {
   }))
 }
 
-
 export const getBookById = (id) => (dispatch, getState) => {
-  // const { lastFetch } = getState().entities.books;
-
-  // const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
-  // if (diffInMinutes < 10) return;
-
   return dispatch(
     apiCallBegan({
     url:url+'/'+id,
     onStart: booksRequested.type,
-    onSuccess: booksReceived.type,
+    onSuccess: bookReceived.type,
     onFailed:booksRequestFailed.type
   }))
 }
-// export const getBook=(id)=>{
-//   apiCallBegan({
-//     url:url+'/'+id,
-//     onStart: booksRequested.type,
-//     onSuccess: booksReceived.type,
-//     onFailed:booksRequestFailed.type
-//   })
-// }
-
-
-
 
 export const addBook = book =>
     apiCallBegan({
@@ -90,19 +77,11 @@ export const addBook = book =>
 
 export const updateBook=(id,book)=>  apiCallBegan({
       url:url+'/'+id ,
-      method: "patch",
+      method: "put",
       data:book,
       onSuccess: bookUpdated.type
     });
 
+    
 
-
-    export const selector__Book= (bookId)=>{
-      createSelector(
-        state=>state.entities.books,
-        books=>books.filter(book=>book.id===bookId)
-      )
-      }
-export const select__a__book=(state,id)=>{
-state.entities.books.list.filter(book=> book.id===id)
-}
+    export const getChoosenBook = state => state.entities.books.item

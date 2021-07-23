@@ -20,7 +20,8 @@ const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 function App() {
 
   return (
-    <div className="app">
+    <div className="app" style={{      backgroundColor: 'rgba( 255, 252, 238 ,0.7)',
+  }}>
 
       <ThemeProvider theme={CustomTheme}>
         <StylesProvider jss={jss}>

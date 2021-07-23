@@ -37,7 +37,7 @@ function CartButton() {
             <IconButton color="inherit"  >
                 <Badge badgeContent={count} color='secondary' >
                     <Link to='/cart'>
-                        <Button variant="contained" color="primary" endIcon={<AiOutlineShoppingCart />}>
+                        <Button variant="contained" style={{ backgroundColor: '  #633410  ', color: 'white' }} endIcon={<AiOutlineShoppingCart />}>
                             سبد خرید
                         </Button>
                     </Link>

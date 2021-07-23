@@ -5,7 +5,6 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import { AiFillDelete } from "react-icons/ai";
 import loading from '../img/loading.gif'
 import { loadBooks, bookRemoved, selector__Books } from '../store/books'
-import configureStore from '../store/configureStore'
 import { deleteProduct } from '../api/DataFetching'
 import Add from './modals/productModal'
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,17 +17,17 @@ const useStyles = makeStyles({
         minWidth: 700,
     },
     headCell: {
-        color: 'white',
-        fontSize: '25px'
+        color: 'black',
+        fontSize: '20px'
     },
     headingrow: {
-        background: 'linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,112,1) 50%, rgba(69,180,252,1) 100%)',
+        background: ' #FFC300 ',
+
     }
 });
 
-// const store = configureStore()
 
-export default function BasicTable() {
+export default function BasicTable({ newProduct }) {
     const classes = useStyles();
     const dispatch = useDispatch()
 
@@ -36,6 +35,7 @@ export default function BasicTable() {
     useEffect(() => {
         dispatch(loadBooks())
     }, [])
+
     const bookList = useSelector(state => state.entities.books.list)
 
     // .............Delete Data From Redux and FetchData.........................
@@ -51,6 +51,8 @@ export default function BasicTable() {
             bookList = originalData
         }
     }
+
+    //................................Add & Edit declared at productModal.js............................................
 
 
     return (
@@ -73,8 +75,8 @@ export default function BasicTable() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {bookList.map(row => row &&
-                                        <TableRow key={row.id}>
+                                    {bookList.map(row =>
+                                        < TableRow key={row.id} >
                                             <TableCell align="center"><img src={row.image} width="100px" /></TableCell>
                                             <TableCell align="center">{row.title} </TableCell>
                                             <TableCell align="center">{row.category}</TableCell>
@@ -98,6 +100,6 @@ export default function BasicTable() {
                     </div>)
             }
 
-        </React.Fragment>
+        </React.Fragment >
     );
 }

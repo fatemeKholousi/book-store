@@ -12,10 +12,15 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 export const LoginButton = ({ label, handleClick }) => {
     return (
         <div>
-            <Button onClick={handleClick} variant="contained" color="primary"
-                endIcon={<AccountCircle />}>
+
+            <Button onClick={handleClick} variant="contained"
+                style={{ backgroundColor: "#633410", color: 'white' }}
+
+                endIcon={<AccountCircle style={{ color: 'white ' }} />}>
                 {label} </Button>
         </div>
+
+
     )
 }
 

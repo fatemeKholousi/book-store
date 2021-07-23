@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, InputBase, Menu } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, InputBase, Menu, Button, Box, CssBaseline } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { useHistory } from "react-router-dom";
-
+import { useHistory, Link } from "react-router-dom";
 import logo from '../../img/storyshoplogo2.png';
 import LogoAndText from './LogoAndText';
 import { isLoggedIn, isLoggedOut } from '../../utils/auth';
@@ -13,7 +12,11 @@ import { LoginButton, LoginButton_phone } from './LoginButton';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
+    backgroundColor: '#e9ddb7 ',
+
     flexGrow: 1,
+    position: 'relative',
+    zIndex: theme.zIndex.drawer + 1,
   },
   search: {
     position: 'relative',
@@ -61,9 +64,6 @@ const useStyles = makeStyles((theme) => ({
 
     },
   },
-  btn: {
-    backgroundColor: 'red'
-  },
   sectionMobile: {
     display: 'flex',
     [theme.breakpoints.up('md')]: {
@@ -77,6 +77,7 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles();
   let history = useHistory()
   const handleMoveToLogin = () => { history.push('/login') }
+  // const handleMoveToAdminPanel = () => { history.replace() }
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -104,10 +105,17 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <div className={classes.grow} style={{ marginBottom: '150px' }}>
+    <div className={classes.grow} >
 
-      <AppBar color='primary'>
-        <Toolbar>
+      <Box style={{
+        boxShadow: '0px 0px 9px 3px rgba(41,41,41,.25)',
+        position: 'fixed',
+        width: '100%',
+        backgroundColor: '#e9ddb7'
+
+        // borderBottom: '1px solid gray'
+      }} >
+        < Toolbar >
 
           <LogoAndText logo={logo} title='کتابفروشی' />
 
@@ -131,7 +139,9 @@ export default function PrimarySearchAppBar() {
               onClick={handleProfileMenuOpen}
               color="inherit">
               {isLoggedIn()
-                ? (<LoginButton label='خروج' handleClick={isLoggedOut} />)
+                ? (<><LoginButton label='خروج' handleClick={isLoggedOut} />
+                  <Link to='/adminpanel'>
+                    <Button variant='contained' >ادمین پنل</Button></Link></>)
                 : (<LoginButton label='ورود به پنل مدیریت' handleClick={handleMoveToLogin} />)
               }
             </IconButton>
@@ -145,8 +155,9 @@ export default function PrimarySearchAppBar() {
             </IconButton>
           </div>
 
-        </Toolbar>
-      </AppBar>
+        </Toolbar >
+        <CssBaseline />
+      </Box >
       {renderMobileMenu}
     </div >
   );

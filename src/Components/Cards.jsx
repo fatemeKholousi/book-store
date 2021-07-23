@@ -5,6 +5,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Card from './card'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { loadBooks } from '../store/books.js'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -12,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         margin: '10px',
+        flexGrow: 1,
 
         padding: theme.spacing(1),
         textAlign: 'center',
@@ -38,39 +41,61 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-let count = 1;
-export default function CenteredGrid({ categoryTitle }) {
-    const classes = useStyles();
-    const [productsByCategory, setProductsByCategory] = useState([])
-    useEffect(() => {
-        getAllProducts().then(res => setProductsByCategory(res))
-    }, [])
-    var result = productsByCategory.filter((val, i) => i < 6)
 
-    console.log(result)
+export default function CenteredGrid({ categoryTitle, from }) {
+    const classes = useStyles();
+    const dispatch = useDispatch()
+
+    useEffect(() => { dispatch(loadBooks()) }, [])
+    let books = useSelector(state => state.entities.books.list)
+
+    let filteredBooks = []
+    const filteredBySpecialNumber = () => {
+        books.map(item => {
+            if (item['category'] === categoryTitle) {
+                filteredBooks.push(item)
+            }
+        })
+    }
+
+    filteredBySpecialNumber()
+    let filteredBooksBySixNumber = filteredBooks.filter((val, i) => i < 6)
+
     return (
         <div className={classes.root}>
             <Grid container>
-                {productsByCategory.map(item => {
-                    if (item['category'] === categoryTitle)
+                {from === 'home'
+                    ? (
+                        filteredBooksBySixNumber.map(item => {
+                            return (
+                                < Grid item md={4} xs={10} sm={6} >
+                                    <Paper className={classes.paper}>
+                                        <Link to={{ pathname: `/products/ ${item.title}`, state: { item: item } }}
+                                            className={classes.card} >
+                                            <Card price={item.price} image={item.image} title={item.title} />
+                                        </Link>
+                                    </Paper>
+                                </Grid>
+                            )
+                        })
+
+                    ) : (filteredBooks.map(item => {
                         return (
-                            < Grid item md={4} xs={12} sm={4} >
+                            < Grid item md={5} sm={7} xs={8} style={{ marginRight: '25%' }} >
                                 <Paper className={classes.paper}>
-                                    <Link
-                                        to={{
-                                            pathname: `/products/ ${item.title}`,
-                                            state: { item: item },
-                                        }}
+                                    <Link to={{ pathname: `/products/ ${item.title}`, state: { item: item } }}
                                         className={classes.card} >
                                         <Card price={item.price} image={item.image} title={item.title} description={item.description} />
                                     </Link>
                                 </Paper>
                             </Grid>
                         )
-                }
+                    })
 
-                )
-                }
+
+                    )}
+
+
 
             </Grid>
 

@@ -22,9 +22,8 @@ const useStyles = makeStyles((theme) => ({
         width: '150px'
     },
     cover: {
-        flex: '3',
-
-        width: 400,
+        flex: '5',
+        width: 200,
         height: 300
     },
     controls: {
@@ -49,18 +48,20 @@ export default function MediaControlCard({ title, image, price, description }) {
                     <Typography variant="h6" color="textSecondary">
                         {price}تومان
                     </Typography>
-                    <Typography variant="h6" color="textSecondary">
+                    {/* <Typography variant="h6" color="textSecondary">
                         {description}
-                    </Typography>
+                    </Typography> */}
+                    {/* <img src={image} /> */}
                 </CardContent>
+
                 <div className={classes.controls}>
-                    جزئیات این محصول
+                    جزئیات این محصول...
                 </div>
             </div>
+
             <CardMedia
                 className={classes.cover}
-                image={image} title="Live from space album cover"
-            />
+                image={image} style={{ height: '350px', width: '150px', margin: '20px' }} title="Live from space album cover" />
         </Card>
     );
 }

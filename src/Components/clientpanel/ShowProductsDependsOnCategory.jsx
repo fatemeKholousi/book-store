@@ -3,10 +3,10 @@
 import { useLocation } from 'react-router-dom'
 import React from 'react'
 import Cards from '../Cards'
-
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Box } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -19,10 +19,14 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import SideBar from './SideBar';
 
 const useStyles = makeStyles((theme) => ({
     sideBar: {
-        backgroundColor: '#dee5ec'
+        backgroundColor: 'red',
+        height: '90%',
+    },
+    root: {
     }
 }));
 
@@ -35,14 +39,21 @@ function ShowProductsDependsOnCategory() {
     const { categoryTitle } = location.state
 
     return (
-        <Grid container>
-            <Grid item md={3} className={classes.sideBar}>
-                ساید باری که میگفتی
-            </Grid>
-            <Grid item md={8}>
-                <Cards categoryTitle={categoryTitle} />
-            </Grid>
-        </Grid>
+        <div className={classes.root}>
+            <Grid container >
+                <Grid item md={12}  >
+                    <Grid container alignItems="stretch" direction="column">
+                        <Grid item md={12}>
+                            <SideBar />
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+                <Grid item md={2} ></Grid>
+                <Grid item md={9}  >
+                    <Cards categoryTitle={categoryTitle} from='categorypage' />
+                </Grid>
+            </Grid></div>
     )
 
 

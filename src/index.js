@@ -7,7 +7,7 @@ import rtl from "jss-rtl";
 import { StylesProvider, jssPreset } from "@material-ui/core/styles";
 import "./assets/fonts/fonts.css";
 import {Provider} from 'react-redux'
-
+// import StyledEngineProvider from '@material-ui/core/StyledEngineProvider';
 import store,{ persistor} from './store/configureStore'
 import { PersistGate } from 'redux-persist/integration/react'
 
@@ -17,6 +17,7 @@ const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 ReactDOM.render(
   <React.Fragment>
     <BrowserRouter>
+
       <StylesProvider jss={jss}>
         <Provider store={store}>
           <PersistGate persistor={persistor}>
@@ -24,6 +25,7 @@ ReactDOM.render(
        </PersistGate>
         </Provider>
       </StylesProvider>
+
     </BrowserRouter>
   </React.Fragment>,
   document.getElementById("root")

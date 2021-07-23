@@ -24,10 +24,11 @@ const useStyles = makeStyles((theme) => ({
     },
     productImage: {
         width: '300px',
-        height: '100%',
+        height: '500px',
     },
     root: {
         marginLeft: '10%',
+        marginTop: '5%'
     },
 
 }));
@@ -42,10 +43,11 @@ function ProductDetails() {
     // product object
     const location = useLocation()
     const { item } = location.state
+    // const { category } = location.state
     useEffect(() => {
         dispatch(getBookById(item.id))
     }, [])
-    const book = useSelector(state => state.entities.books.list)
+    const book = useSelector(state => state.entities.books.item)
     let stock = +(book.stock)
 
 
@@ -54,25 +56,30 @@ function ProductDetails() {
         <div className={classes.root}>
 
             <Grid container spacing={2}>
-                <Grid item md={4} sm={7}><img className={classes.productImage} src={item.image} alt="product imag" /></Grid>
+                <Grid item md={4} sm={7}><img className={classes.productImage} src={book.image} alt="product imag" /></Grid>
                 <Grid item md={6} sm={5}>
-                    <Typography variant='h3' >{item.title}</Typography>
-                    <Typography variant='body1'>?</Typography>
-                    <Typography variant='h5'>   قیمت :{book.price} تومان  </Typography>
+                    <Typography variant='h3' >{book.title}</Typography>
 
-                    <Typography variant='h5'>   درباره این محصول:  </Typography>
+                    <Typography variant='body1'>
+                        {book.title}  &#11013; {book.category}
+                        {/* {category ? (<p>...</p>) : (<p>___{item}</p>)} */}
+                    </Typography>
+                    <Typography variant='h5'>   قیمت :{book.price} تومان  </Typography>
+                    <br /> <br /> <br />
+                    <Typography variant='h5'>   درباره این کتاب:  </Typography>
                     <Typography variant='h6' style={{ marginBottom: '20%' }}> {book.description}  </Typography>
 
 
-                    {/* <input type="number" placeholder="multiple of 10" step="10" min="0" max="100"> */}
-                    <input type="number" name="quantity" placeholder="تعداد درخواستی شما از این محصول" min={1} max={stock} className={classes.numberInput} onChange={(e) => { setQuantity(e.target.value) }} />
+                    <input type="number" name="quantity" placeholder="تعداد درخواستی شما از این محصول"
+                        min={1} max={stock} className={classes.numberInput} onChange={(e) => { setQuantity(e.target.value) }} />
+
                     <Button variant="contained" color="primary" className={classes.addToCartBtn} onClick={() => {
                         dispatch(counterAddedToCart());
                         dispatch(productAddedToCart({ id: book.id, price: book.price, title: book.title, quantity: quantity }))
                     }}>افزودن به سبد خرید</Button>
                 </Grid>
             </Grid>
-
+            بازگشت به صفحه قبل
 
 
 

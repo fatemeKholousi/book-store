@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },
-        color: 'white',
+        color: 'black',
         '&:visited': {
             textDecoration: 'none'
         },
@@ -37,11 +37,13 @@ function LogoAndText({ logo, title }) {
             <IconButton edge="start" className={classes.menuButton}>
                 <img src={logo} alt="logo" width="100px" />
             </IconButton>
-            <Link to='/' >
-                <Typography className={classes.title} variant="h5" noWrap>
+
+            <Typography className={classes.title} variant="h4" noWrap>
+                <Link to='/' >
                     {title}
-                </Typography>
-            </Link>
+                </Link>
+
+            </Typography>
         </>
     )
 }

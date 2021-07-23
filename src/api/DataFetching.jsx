@@ -31,13 +31,6 @@ export const getAllProducts = async () => {
   return data
 }
 
-// //get by category
-// export const getByCategory = () => {
-//   getAllProducts().then(res => res.category === "مانگا")
-// }
-
-
-
 //Add Product
 export const addProduct = (obj) => {
   axios.post(apiEndPointProducts, obj)
