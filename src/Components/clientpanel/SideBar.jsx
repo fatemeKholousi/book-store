@@ -14,34 +14,57 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import { loadCategories } from '../../store/category';
 import { Link } from 'react-router-dom'
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 // const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+    productsName: {
+        color: 'black',
+        textDecoration: 'inherit',
+        '&:visited': {
+            textDecoration: 'none'
+        },
+        '&:link': { textDecoration: 'none' },
+        '&:active': {
+            textDecoration: 'none'
+        },
+        '&:hover': {
+            textDecoration: 'none'
+        },
+        '&:focus': {
+            textDecoration: 'none'
+
+        },
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up("sm")]: {
+            display: "none"
+        }
+    },
     root: {
         display: 'flex',
+        paddingTop: '10%'
     },
     drawer: {
-        // width: drawerWidth,
         flexShrink: 0,
     },
-    // drawerPaper: {
-    //     width: drawerWidth,
-    // },
+
     drawerContainer: {
         overflow: 'auto',
         paddingTop: '40px'
     },
     content: {
         flexGrow: 1,
-        // padding: theme.spacing(3),
     },
 }));
 
 export default function ClippedDrawer() {
+
     const classes = useStyles();
     const books = useSelector(state => state.entities.books.list)
-
     const dispatch = useDispatch()
     useEffect(() => { dispatch(loadCategories()) }, [])
     const categories = useSelector(state => state.entities.category.list)
@@ -49,7 +72,8 @@ export default function ClippedDrawer() {
 
     return (
         <div className={classes.root}>
-            {/* <CssBaseline /> */}
+
+
             <Drawer
                 className={classes.drawer} variant="permanent" >
                 <Toolbar />
@@ -58,30 +82,26 @@ export default function ClippedDrawer() {
 
                     <Divider />
                     <List>
-                        {categories.map((category, index) => (
-                            <div>
-                                <ListItem button key={index}>
-                                    <ListItemIcon>{index % 2 === 0 ? <MenuBookIcon /> : <ImportContactsIcon />}</ListItemIcon>
-                                    <ListItemText primary={category} />
-                                </ListItem>
+                        {categories.map((category, index) => (<div>
+                            <ListItem button key={index}>
+                                <ListItemIcon>{index % 2 === 0 ? <MenuBookIcon /> : <ImportContactsIcon />}</ListItemIcon>
+                                <ListItemText primary={category} />
+                            </ListItem>
+                            <span >
+                                {books.map((text, index) => {
+                                    if (text.category === category)
+                                        return (
+                                            <ListItem button key={text.id}>
+                                                <Link className={classes.productsName} to={{ pathname: `/products/ ${text.title}`, state: { item: text, category: category } }}>
+                                                    <ListItemText primary={text.title} />
+                                                </Link>
+                                            </ListItem>)
+                                }
 
-                                <>
-                                    {books.map((text, index) => {
-                                        if (text.category === category)
-                                            return (
-                                                <ListItem button key={text.id}>
-
-                                                    <Link to={{ pathname: `/products/ ${text.title}`, state: { item: text, category: category } }}>
-                                                        <ListItemText primary={text.title} />
-                                                    </Link>
-                                                </ListItem>)
-                                    }
-
-                                    )}
-                                </>
-                                <Divider />
-                            </div>
-                        ))}
+                                )}
+                            </span>
+                            <Divider />
+                        </div>))}
 
                         <Divider />
                     </List>

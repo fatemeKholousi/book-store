@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '18px'
     },
     numberInput: {
-        // height: '50px',
         width: '250px',
         marginBottom: '10px'
     },
@@ -28,16 +27,16 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {
         marginLeft: '10%',
-        marginTop: '5%'
+        paddingTop: '10%',
+        overflowX: 'hidden',
+        overflowY: 'hidden'
     },
+
 
 }));
 
 function ProductDetails() {
-
-    // let book = []
     const [quantity, setQuantity] = useState(0)
-    // const [book, setBook] = useState([])
     const dispatch = useDispatch()
     const classes = useStyles()
     // product object
@@ -50,19 +49,16 @@ function ProductDetails() {
     const book = useSelector(state => state.entities.books.item)
     let stock = +(book.stock)
 
-
-
     return (
         <div className={classes.root}>
 
-            <Grid container spacing={2}>
+            <Grid container spacing={2} className={classes.gridContainer}>
                 <Grid item md={4} sm={7}><img className={classes.productImage} src={book.image} alt="product imag" /></Grid>
                 <Grid item md={6} sm={5}>
                     <Typography variant='h3' >{book.title}</Typography>
 
                     <Typography variant='body1'>
                         {book.title}  &#11013; {book.category}
-                        {/* {category ? (<p>...</p>) : (<p>___{item}</p>)} */}
                     </Typography>
                     <Typography variant='h5'>   قیمت :{book.price} تومان  </Typography>
                     <br /> <br /> <br />

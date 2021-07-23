@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
     root: {
-        overflowX: 'scroll'
+        overflowX: 'scroll',
     },
     table: {
         minWidth: 700,
@@ -22,6 +22,10 @@ const useStyles = makeStyles({
     },
     headingrow: {
         background: ' #FFC300 ',
+
+    },
+    main: {
+        marginTop: '4%'
 
     }
 });
@@ -56,13 +60,13 @@ export default function BasicTable({ newProduct }) {
 
 
     return (
-        <React.Fragment>
+        <div className={classes.main}>
             {bookList.length === 0 ?
                 <img src={loading} style={{ display: "block", marginRight: 'auto', marginLeft: 'auto' }} />
                 :
                 (
                     <div>
-                        <Add situation='true' />
+                        <Add modal_performance='save' />
                         <TableContainer className={classes.root} component={Paper} >
                             <Table className={classes.table}  >
                                 <TableHead >
@@ -88,7 +92,7 @@ export default function BasicTable({ newProduct }) {
                                                 }}
                                                 />
 
-                                                < Add situation='false' information={row.id} />
+                                                < Add modal_performance='edit' id_from_props={row.id} />
                                             </TableCell>
                                         </TableRow>
                                     )}
@@ -100,6 +104,6 @@ export default function BasicTable({ newProduct }) {
                     </div>)
             }
 
-        </React.Fragment >
+        </div >
     );
 }

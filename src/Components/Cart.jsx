@@ -31,7 +31,6 @@ function Cart() {
     const myCart = useSelector((state) => state.entities.cart.list)
     const totalPrice = useSelector((state) => state.entities.cart.totalPrice)
     const counter = useSelector((state) => state.entities.cart.counter)
-
     const dispatch = useDispatch()
     return (
         <div className={classes.root}>

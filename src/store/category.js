@@ -8,6 +8,7 @@ const slice=createSlice({
     reducers:{
         categoriesReceived: (state, action) => {state.list = action.payload},
         categoryReceived: (state, action) => {state.item = action.payload},
+        // categorychoosed:(state,action)=>
 
     }
 })

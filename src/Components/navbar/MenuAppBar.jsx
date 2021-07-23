@@ -13,7 +13,6 @@ import { LoginButton, LoginButton_phone } from './LoginButton';
 const useStyles = makeStyles((theme) => ({
   grow: {
     backgroundColor: '#e9ddb7 ',
-
     flexGrow: 1,
     position: 'relative',
     zIndex: theme.zIndex.drawer + 1,
@@ -112,8 +111,6 @@ export default function PrimarySearchAppBar() {
         position: 'fixed',
         width: '100%',
         backgroundColor: '#e9ddb7'
-
-        // borderBottom: '1px solid gray'
       }} >
         < Toolbar >
 

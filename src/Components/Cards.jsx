@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { getAllProducts } from '../api/DataFetching'
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Card from './card'
@@ -45,10 +44,8 @@ const useStyles = makeStyles((theme) => ({
 export default function CenteredGrid({ categoryTitle, from }) {
     const classes = useStyles();
     const dispatch = useDispatch()
-
     useEffect(() => { dispatch(loadBooks()) }, [])
     let books = useSelector(state => state.entities.books.list)
-
     let filteredBooks = []
     const filteredBySpecialNumber = () => {
         books.map(item => {
@@ -81,7 +78,7 @@ export default function CenteredGrid({ categoryTitle, from }) {
 
                     ) : (filteredBooks.map(item => {
                         return (
-                            < Grid item md={5} sm={7} xs={8} style={{ marginRight: '25%' }} >
+                            < Grid item md={5} sm={7} xs={7} style={{ marginRight: '40%' }} >
                                 <Paper className={classes.paper}>
                                     <Link to={{ pathname: `/products/ ${item.title}`, state: { item: item } }}
                                         className={classes.card} >
