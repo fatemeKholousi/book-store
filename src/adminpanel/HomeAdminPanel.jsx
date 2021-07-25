@@ -2,7 +2,7 @@ import React from 'react'
 import Tabs from './tabPage'
 function HomeAdminPanel() {
     return (
-        <div>
+        <div style={{ paddingTop: '100px' }}>
             <Tabs />
         </div >
     )

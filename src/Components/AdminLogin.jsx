@@ -40,28 +40,30 @@ const Login = () => {
   const paperStyle = { padding: 20, height: '50%', width: 280, margin: "150px auto" }
   const btnstyle = { margin: '8px 0' }
   return (
-    <Grid>
-      <Paper elevation={10} style={paperStyle}>
-        <Grid align='center'>
-          <Typography variant='h5'>ورود به پنل مدیریت</Typography>
-        </Grid>
+    <div style={{ paddingTop: '10%' }}>
+      <Grid>
+        <Paper elevation={10} style={paperStyle}>
+          <Grid align='center'>
+            <Typography variant='h5'>ورود به پنل مدیریت</Typography>
+          </Grid>
 
-        <form onSubmit={handleLogin} noValidate autoComplete="off">
-          <TextField label='نام کاربری' fullWidth required onChange={handleChange} value={email} name="email" autoComplete="email" />
-          <TextField label='رمزعبور' type='password' fullWidth required onChange={handleChange} value={password} name="password" type="password" id="password" />
-          <FormControlLabel
-            control={<Checkbox name="checkedB" color="primary" />}
-            label="مرا به خاطر بسپار" />
-          <Button onClick={handleLogin} color='primary' variant="contained" style={btnstyle} fullWidth>ورود</Button>
+          <form onSubmit={handleLogin} noValidate autoComplete="off">
+            <TextField label='نام کاربری' fullWidth required onChange={handleChange} value={email} name="email" autoComplete="email" />
+            <TextField label='رمزعبور' type='password' fullWidth required onChange={handleChange} value={password} name="password" type="password" id="password" />
+            <FormControlLabel
+              control={<Checkbox name="checkedB" color="primary" />}
+              label="مرا به خاطر بسپار" />
+            <Button onClick={handleLogin} color='primary' variant="contained" style={btnstyle} fullWidth>ورود</Button>
 
 
-          <NavLink to='/'>
-            <Typography variant='h5'>بازگشت</Typography>
-          </NavLink>
-        </form>
-      </Paper>
+            <NavLink to='/'>
+              <Typography variant='h5'>بازگشت</Typography>
+            </NavLink>
+          </form>
+        </Paper>
 
-    </Grid>
+      </Grid>
+    </div>
   )
 }
 

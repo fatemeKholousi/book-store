@@ -67,11 +67,23 @@ function ProductDetails() {
 
 
                     <input type="number" name="quantity" placeholder="تعداد درخواستی شما از این محصول"
-                        min={1} max={stock} className={classes.numberInput} onChange={(e) => { setQuantity(e.target.value) }} />
+                        min={1} max={stock} className={classes.numberInput}
+                        onChange={(e) => {
+                            if (e.target.value <= stock) { (setQuantity(e.target.value)) }
+                            else {
+                                alert("این تعداد در انبار موجود نیست")
+                                setQuantity(0)
+                            }
+                        }} />
+
+
 
                     <Button variant="contained" color="primary" className={classes.addToCartBtn} onClick={() => {
-                        dispatch(counterAddedToCart());
-                        dispatch(productAddedToCart({ id: book.id, price: book.price, title: book.title, quantity: quantity }))
+                        if (quantity >= 1) {
+                            dispatch(counterAddedToCart());
+                            dispatch(productAddedToCart({ id: book.id, price: book.price, title: book.title, quantity: quantity }))
+                        }
+                        else alert(`اضافه نشد لطفا مقدار درخواستی را تا عدد ${stock} تغییر دهید`)
                     }}>افزودن به سبد خرید</Button>
                 </Grid>
             </Grid>

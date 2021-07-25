@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -40,13 +40,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
 export default function CenteredGrid({ categoryTitle, from }) {
     const classes = useStyles();
     const dispatch = useDispatch()
     useEffect(() => { dispatch(loadBooks()) }, [])
     let books = useSelector(state => state.entities.books.list)
     let filteredBooks = []
+
     const filteredBySpecialNumber = () => {
         books.map(item => {
             if (item['category'] === categoryTitle) {
@@ -88,15 +88,9 @@ export default function CenteredGrid({ categoryTitle, from }) {
                             </Grid>
                         )
                     })
-
-
                     )}
 
-
-
             </Grid>
-
-
 
         </div >
     );

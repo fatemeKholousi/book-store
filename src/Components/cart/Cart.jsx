@@ -2,11 +2,12 @@ import React from 'react'
 import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Box, Button, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux'
-import { productRemovedFromCart } from '../store/cart'
-
+import { productRemovedFromCart } from '../../store/cart'
+import { Link } from 'react-router-dom'
 const useStyles = makeStyles({
     root: {
         overflowX: 'hidden',
+        paddingTop: '10%'
     },
     table: {
         width: '80%',
@@ -78,7 +79,11 @@ function Cart() {
                         < Grid container style={{ marginRight: '30%' }}>
                             <Grid item md={5} sm={6} xs={8} ><Typography variant='h6' >جمع کل:{totalPrice}تومان</Typography></Grid>
                             <Grid xs={1} sm={1} md={2} />
-                            <Grid item md={5} sm={5} xs={6}> <Button variant="outlined" style={{ fontSize: '20px' }} >تکمیل سفارش</Button > </Grid>
+                            <Grid item md={5} sm={5} xs={6}>
+
+                                <Link to='/customerinfromationform'>
+                                    <Button variant="outlined" style={{ fontSize: '20px' }} >تکمیل سفارش</Button ></Link>
+                            </Grid>
                         </Grid>
 
                     </Box >
