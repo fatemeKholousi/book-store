@@ -1,12 +1,9 @@
 import React from 'react'
-import IconButton from '@material-ui/core/IconButton';
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import Button from '@material-ui/core/Button';
-import Badge from '@material-ui/core/Badge';
+import { makeStyles, Typography, Badge, Divider, Button, IconButton } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux'
-import { Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
+
 const useStyles = makeStyles({
     label: {
         color: 'black',
@@ -32,22 +29,25 @@ const useStyles = makeStyles({
 
 function CartButton() {
     const count = useSelector((state) => state.entities.cart.counter)
+    let classes = useStyles()
+
     return (
         <div>
             <IconButton color="inherit"  >
                 <Badge badgeContent={count} color='secondary' >
                     <Link to='/cart'>
-                        <Button variant="contained" style={{ backgroundColor: '  #633410  ', color: 'white' }} endIcon={<AiOutlineShoppingCart />}>
+                        <Button disableFocusRipple
+                            disableRipple
+                            variant="contained" style={{ backgroundColor: "transparent" }} endIcon={<AiOutlineShoppingCart />}>
                             سبد خرید
                         </Button>
                     </Link>
                 </Badge>
-
             </IconButton>
-        </div>
+        </div >
     )
 }
-
+// style={{ backgroundColor: '  #633410  ', color: 'white' }}
 export const CartButton_phone = () => {
     let classes = useStyles()
     return (
@@ -58,6 +58,7 @@ export const CartButton_phone = () => {
                         سبد خرید
                     </Typography></Link>
             </IconButton>
+            <Divider />
         </div>)
 }
 

@@ -19,7 +19,7 @@ import { Button } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 import { useSelector, useDispatch } from 'react-redux'
 
-// const Store = configureStore
+const Store = configureStore
 const useStyles = makeStyles({
     root: {
         width: '100%',
@@ -70,10 +70,6 @@ function Orders() {
 
 
                 <Table stickyHeader aria-label="sticky table">
-
-
-
-
                     <TableHead>
                         <TableRow>
                             <TableCell>
@@ -96,7 +92,7 @@ function Orders() {
                                     {row.userName}
                                 </TableCell>
                                 <TableCell>
-                                    {row.total}
+                                    {row.totalPrice}
                                 </TableCell>
                                 <TableCell>
                                     {row.submitTime}
@@ -110,8 +106,6 @@ function Orders() {
                                         submitTime={row.submitTime}
                                         deliveryStatus={row.deliveryStatus}
                                         cart={row.orderList}
-
-
                                     />
                                 </TableCell>
                             </TableRow>
@@ -126,3 +120,4 @@ function Orders() {
 }
 
 export default Orders
+

@@ -15,7 +15,9 @@ import Cart from './components/cart/Cart'
 import Footer from './layout/footer'
 import ProductDtails from './components/clientpanel/ProductDetails'
 import ShowProductsDependsOnCategory from "./components/clientpanel/ShowProductsDependsOnCategory";
-import CustomerForm from "./components/cart/CustomerForm";
+import CustomerForm from "./components/cart/form/CustomerForm";
+import FakePayment from "./components/cart/payment/FakePayment"
+import PaymentResult from "./components/cart/payment/PaymentResult"
 // Configure JSS for RTL
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 function App() {
@@ -34,6 +36,8 @@ function App() {
            <Route exact path="/products/:title" component={ProductDtails} />
            <Route exact path="/cart" component={Cart} />
            <Route exact path="/customerinfromationform" component={CustomerForm} />
+           <Route exact path="/paymentpage" component={FakePayment} />
+           <Route exact path="/paymentresult" component={PaymentResult} />
 
             /**Protected Login Router */
             <ProtectedRoute exact path="/adminpanel" component={HomeAdminPanel}/>

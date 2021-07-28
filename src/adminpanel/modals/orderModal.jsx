@@ -45,8 +45,8 @@ export default function TransitionsModal(props) {
         <span >
             <Box display="flex" flexDirection="row-reverse">
                 <Button onClick={handleOpen}  >
-                    بررسی سفارش </Button ></Box>
-
+                    بررسی سفارش </Button >
+            </Box>
             {
                 <Modal className={classes.modal} open={open} onClose={handleClose} closeAfterTransition BackdropComponent={Backdrop}
                     BackdropProps={{ timeout: 500, }}>
@@ -101,8 +101,8 @@ export default function TransitionsModal(props) {
                                     {cart.map((row, index) =>
 
                                         < TableRow key={row.index} >
-                                            <TableCell>{row.name}</TableCell>
-                                            <TableCell>{row.stock}</TableCell>
+                                            <TableCell>{row.title}</TableCell>
+                                            <TableCell>{row.quantity}</TableCell>
                                             <TableCell>{row.price}</TableCell>
 
 

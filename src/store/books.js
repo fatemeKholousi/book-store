@@ -18,14 +18,15 @@ reducers:{
   booksRequestFailed: (books, action) => { books.loading = false},  
 
   bookReceived: (state, action) => {state.item = action.payload; state.loading = false ; state.lastFetch = Date.now();},
-
   bookAdded:(state,action)=>{ state.list.push(action.payload)},
-
   bookUpdated:(state,action)=>{
             const index = state.list.findIndex(book => book.id === action.payload.id);
             state.list[index] = action.payload;
     },
-
+bookStockUpdated:(state,action)=>{
+  const index = state.list.findIndex(book => book.id === action.payload.id);
+            state.list[index] = action.payload;
+},
   bookRemoved:(state,action)=>{
       const newList= state.list.filter(item => item.id !== action.payload.id)
       state.list=newList
@@ -35,7 +36,8 @@ reducers:{
 }
 })
 
-export const {booksRequested,bookAdded,booksReceived,booksRequestFailed,bookUpdated,bookGet,bookRemoved,bookReceived}=slice.actions
+export const {booksRequested,bookAdded,booksReceived,booksRequestFailed,bookUpdated,
+  bookGet,bookRemoved,bookReceived,bookStockUpdated}=slice.actions
 export default slice.reducer
 
 
@@ -82,6 +84,11 @@ export const updateBook=(id,book)=>  apiCallBegan({
       onSuccess: bookUpdated.type
     });
 
-    
+export const updateBookStock=(id,stock) => apiCallBegan({
+  url:url+'/'+id ,
+  method: "put",
+  data:stock,
+  onSuccess: bookStockUpdated.type
+})
 
     export const getChoosenBook = state => state.entities.books.item

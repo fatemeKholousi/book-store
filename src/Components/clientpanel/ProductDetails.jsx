@@ -2,12 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { productAddedToCart, counterAddedToCart } from '../../store/cart'
 import { useDispatch, useSelector } from 'react-redux'
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import { Typography } from '@material-ui/core'
-import Button from '@material-ui/core/Button';
-import { getBookById } from '../../store/books';
-
+import { Typography, TextField, Button, Grid, makeStyles } from '@material-ui/core'
+import { getBookById, updateBookStock } from '../../store/books';
 
 const useStyles = makeStyles((theme) => ({
     addToCartBtn: {
@@ -16,10 +12,6 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: '5%',
         padding: '12px',
         fontSize: '18px'
-    },
-    numberInput: {
-        width: '250px',
-        marginBottom: '10px'
     },
     productImage: {
         width: '300px',
@@ -36,16 +28,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ProductDetails() {
+    const [disabledButton, setDisabledButton] = useState(false)
     const [quantity, setQuantity] = useState(0)
     const dispatch = useDispatch()
     const classes = useStyles()
     // product object
     const location = useLocation()
     const { item } = location.state
-    // const { category } = location.state
-    useEffect(() => {
-        dispatch(getBookById(item.id))
-    }, [])
+    useEffect(() => { dispatch(getBookById(item.id)) }, [])
     const book = useSelector(state => state.entities.books.item)
     let stock = +(book.stock)
 
@@ -65,23 +55,40 @@ function ProductDetails() {
                     <Typography variant='h5'>   درباره این کتاب:  </Typography>
                     <Typography variant='h6' style={{ marginBottom: '20%' }}> {book.description}  </Typography>
 
-
-                    <input type="number" name="quantity" placeholder="تعداد درخواستی شما از این محصول"
-                        min={1} max={stock} className={classes.numberInput}
+                    <TextField
+                        placeholder="تعداد درخواستی شما از این محصول"
+                        id="standard-number"
+                        label="تعداد مورد نظر"
+                        type="number"
+                        padding='15px'
+                        name="quantity"
+                        InputLabelProps={{ shrink: true }}
+                        inputProps={{ min: 0, max: stock, style: { textAlign: 'center' } }} // the change is here
+                        // disabled={cells.disabled}
                         onChange={(e) => {
-                            if (e.target.value <= stock) { (setQuantity(e.target.value)) }
-                            else {
-                                alert("این تعداد در انبار موجود نیست")
-                                setQuantity(0)
-                            }
-                        }} />
+                            if (e.target.value <= stock) (setQuantity(e.target.value));
+                            else { alert("این تعداد در انبار موجود نیست"); setQuantity(0) }
+                        }}
+                    />
 
-
-
-                    <Button variant="contained" color="primary" className={classes.addToCartBtn} onClick={() => {
+                    < Button variant="contained" disabled={disabledButton} color="primary" className={classes.addToCartBtn} onClick={() => {
                         if (quantity >= 1) {
+
                             dispatch(counterAddedToCart());
                             dispatch(productAddedToCart({ id: book.id, price: book.price, title: book.title, quantity: quantity }))
+                            setDisabledButton(true)
+                            // console.log(stock - quantity)
+                            console.log(book.id)
+
+                            dispatch(updateBookStock(book.id,
+                                {
+                                    id: book.id,
+                                    price: book.price, title: book.title,
+                                    image: book.image,
+                                    stock: (stock - quantity),
+                                    description: book.description,
+                                    category: book.category,
+                                }))
                         }
                         else alert(`اضافه نشد لطفا مقدار درخواستی را تا عدد ${stock} تغییر دهید`)
                     }}>افزودن به سبد خرید</Button>
@@ -93,7 +100,7 @@ function ProductDetails() {
 
 
 
-        </div>
+        </div >
     )
 }
 

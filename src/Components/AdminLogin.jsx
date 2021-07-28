@@ -4,7 +4,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { LoginLogic } from '../api/LoginLogic'
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 
 const Login = () => {
@@ -18,7 +18,8 @@ const Login = () => {
         .then((res) => {
 
           localStorage.setItem("token", res.data.token);
-          history.push('/adminpanel')
+          // <Redirect to="/adminpanel" />
+          history.push('adminpanel')
           window.location.reload();
 
 

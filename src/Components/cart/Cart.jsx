@@ -66,7 +66,7 @@ function Cart() {
                                         <TableCell width="20%" className={classes.headCell}>{item.quantity}</TableCell>
                                         <TableCell width="10%" className={classes.headCell}>
                                             <Button variant="outlined" color="secondary" style={{ fontSize: '20px', }}
-                                                onClick={() => dispatch(productRemovedFromCart({ id: item.id }))}>
+                                                onClick={() => dispatch(productRemovedFromCart({ id: item.id, price: item.price, quantity: item.quantity }))}>
                                                 حذف
                                             </Button>
                                         </TableCell>
@@ -82,11 +82,13 @@ function Cart() {
                             <Grid item md={5} sm={5} xs={6}>
 
                                 <Link to='/customerinfromationform'>
-                                    <Button variant="outlined" style={{ fontSize: '20px' }} >تکمیل سفارش</Button ></Link>
+                                    <Button variant="outlined" style={{ fontSize: '20px' }} >تکمیل سفارش</Button >
+                                </Link>
+
                             </Grid>
                         </Grid>
 
-                    </Box >
+                    </Box>
                 )
             }
             <br />

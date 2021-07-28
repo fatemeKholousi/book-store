@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import { AiOutlinePlusCircle, AiFillSave, AiFillEdit, AiFillCloseCircle, AiOutlineEdit } from "react-icons/ai"
-import { FormControl, TextField, Select, ButtonGroup, Button, Typography, MenuItem, Box, InputLabel, Divider } from '@material-ui/core';
-import axios from 'axios';
+import {
+    makeStyles, Modal, Backdrop, Fade, FormControl, TextField, InputBase,
+    Select, ButtonGroup, Button, Typography, MenuItem, Box, InputLabel, Divider
+} from '@material-ui/core';
+
 import SaveIcon from '@material-ui/icons/Save';
+import { AiOutlinePlusCircle, AiFillSave, AiFillEdit, AiFillCloseCircle, AiOutlineEdit } from "react-icons/ai"
+import axios from 'axios';
 import { addBook, updateBook, loadOneBook, getAll, loadBooks, getBookById, getChoosenBook } from '../../store/books'
 import { useSelector, useDispatch } from 'react-redux';
 import { loadCategories } from '../../store/category'
-import InputBase from '@material-ui/core/InputBase';
 
 const useStyles = makeStyles((theme) => ({
     saveButton: {
@@ -41,8 +40,6 @@ const useStyles = makeStyles((theme) => ({
 let flag = false
 let cat = ''
 export default function TransitionsModal({ id_from_props, modal_performance }) {
-
-
 
     const dispatch = useDispatch()
     const classes = useStyles();
@@ -96,8 +93,6 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
         setTitle('')
     };
 
-
-
     useEffect(() => {
         dispatch(loadCategories())
     }, [])
@@ -110,7 +105,6 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
         dispatch(updateBook(id_from_props, { id: id_from_props, title, image, description, category, price, stock }))
         handleClose()
     }
-    // const getBook = useSelector(state => state.books.)
     useEffect(() => {
         dispatch(getBookById(id_from_props))
     }, [id_from_props])
@@ -128,8 +122,6 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
                 setStock(productForEdit.stock)
                 setDescription(productForEdit.description)
                 handleOpen()
-
-
                 flag = false
             })
     }
@@ -137,8 +129,6 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
         if (flag === true)
             handleEditProduct()
     }, [flag])
-
-
 
     return (
         <>
