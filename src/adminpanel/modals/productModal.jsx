@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
     },
     input: {
         marginLeft: theme.spacing(1),
+        border: 'none',
+        marginBottom: '10px',
         flex: 1,
     },
 }));
@@ -115,20 +117,25 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
         axios.get('http://localhost:5000/products/' + id_from_props)
             .then(res => {
                 setProductForEdit(res.data)
+                setStock(productForEdit.stock)
                 setImage(productForEdit.image)
                 setTitle(productForEdit.title)
-                setCategory(productForEdit.category)
                 setPrice(productForEdit.price)
-                setStock(productForEdit.stock)
                 setDescription(productForEdit.description)
+
                 handleOpen()
                 flag = false
+
             })
+
     }
     useEffect(() => {
         if (flag === true)
             handleEditProduct()
     }, [flag])
+    useEffect(() => { if (flag === true) setCategory(productForEdit.category) }, [flag])
+
+
 
     return (
         <>
@@ -167,14 +174,14 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
 
 
                             {/* Book NAME */}عنوان
-                            <InputBase
+                            <input
                                 className={classes.input} placeholder="نام کتاب"
                                 value={title} onChange={(e) => setTitle(e.target.value)}
                             />
                             <Divider />
 
                             {/* PRICE */}قیمت
-                            <InputBase
+                            <input
                                 className={classes.input} placeholder="قیمت کالا (به تومان)"
                                 value={price} onChange={(e) => setPrice(e.target.value)}
                             />
@@ -182,7 +189,7 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
 
 
                             {/* STOCK */}موجودی
-                            <InputBase
+                            <input
                                 className={classes.input} placeholder="موجودی"
                                 onChange={(e) => setStock(e.target.value)} value={stock}
                             />
