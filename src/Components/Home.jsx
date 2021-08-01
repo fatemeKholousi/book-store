@@ -35,26 +35,19 @@ function Home() {
   const books = useSelector(state => state.entities.books.list)
   useEffect(() => { getAllCategories().then(item => setCategories(item)) }, [])
   const history = useHistory()
-  // const filteredBooks = () =>
-  //   books.filter((val) => {
-  //     val.title.includes(filterSearch)
-  //     console.log('success')
-  //   }
-  // (<p>{val.title}</p>)
 
   return <>
     <div style={{
-      height: '200px',
-      // backgroundColor: 'rgba(240, 229, 183,0.7)'
+      height: '400px',
       backgroundImage: 'url("https://s18.picofile.com/file/8438452168/00191381_1366x379.jpeg")',
       backgroundRepeat: 'no-repeat',
-      // height: '150px'
     }}>
 
     </div>
     <InputBase placeholder="دنبال چه کتابی هستین؟"
       inputProps={{ 'aria-label': 'search' }}
       onChange={(e) => setFilterSearch(e.target.value)}
+      style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: ' #ede5d4 ', padding: '30px 100px' }}
     />
     {filterSearch === '' ?
 
@@ -68,9 +61,7 @@ function Home() {
             className={classes.categoryTitle}>
             <div style={{
               padding: '4px',
-              // backgroundImage: 'url("https://s19.picofile.com/file/8438452018/bgg.png")',
-              // backgroundRepeat: 'repeat',
-              // height: '150px'
+
             }}>
               <Typography variant='h4' style={{ marginTop: '50px', marginRight: '15px' }}>
                 {categoryTitle}

@@ -33,7 +33,7 @@ reducers:{
 orderDelivered: (state, action) => {
       // const index = state.list.findIndex(bug => bug.id === action.payload.id);
       // state.list[index].deliveryStatus = true;
-      console.log("ادیت شد")
+      console.log('====editing')
     },
 
   paymentResultIsTrue(state, action){

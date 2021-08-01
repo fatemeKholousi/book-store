@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     saveButton: {
         padding: '10px 30px', backgroundColor: '#2a3eb1',
         color: 'white', whiteSpace: 'noWrap', marginBottom: '10px',
-        '&:hover': { backgroundColor: '#1565c0' }
+        '&:hover': { backgroundColor: '#1565c0' },
     },
     modal: {
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '10px',
         flex: 1,
     },
+    button: {
+        margin: '10px auto'
+    }
 }));
 
 //this flag is to show a product things to edit it
@@ -53,7 +56,6 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
     };
     const handleClose = () => {
         setOpen(false)
-        // handleEmptyShirMorghTaJooneAdmized()
 
     };
     const handleEmptyShirMorghTaJooneAdmized = () => {
@@ -91,9 +93,11 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
     // ..........................................................................................
     // ............................SAVE A NEW PRODUCT--> using redux..........................................................
     const handleAddBook = (e) => {
+        handleEmptyShirMorghTaJooneAdmized()
+
         e.preventDefault()
         dispatch(addBook({
-            id: Math.floor(Math.random() * 1000000000), title, image, description, category, price, stock
+            title, image, description, category, price, stock
         }))
         handleClose()
     }
@@ -137,7 +141,8 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
             {/*  BUTTON CHOOSER */}
             {modal_performance === 'save'
                 ? (<Box display="flex" flexDirection="row-reverse">  <Button onClick={handleOpen} className={classes.saveButton} variant="outlined" startIcon={<AiOutlinePlusCircle />}  >
-                    افزودن کتاب</Button ></Box>)
+                    افزودن کتاب</Button >
+                </Box>)
                 : (<AiFillEdit size='20' onClick={handleEditProduct} />)}
 
 
@@ -175,15 +180,15 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
                             />
                             <Divider />
 
-                            {/* PRICE */}قیمت
+                            {/* PRICE */}
+                            قیمت
                             <input
                                 className={classes.input} placeholder="قیمت کالا (به تومان)"
                                 value={price} onChange={(e) => setPrice(e.target.value)}
                             />
                             <Divider />
-
-
-                            {/* STOCK */}موجودی
+                            {/* STOCK */}
+                            موجودی
                             <input
                                 className={classes.input} placeholder="موجودی"
                                 onChange={(e) => setStock(e.target.value)} value={stock}
@@ -199,10 +204,10 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
                             <ButtonGroup>
                                 {id_from_props
                                     ? (
-                                        <Button onClick={handleUpdateProduct} variant="contained" color="secondary" className={classes.button} endIcon={<AiOutlineEdit />} style={{ marginRight: 'auto' }}>
+                                        <Button onClick={handleUpdateProduct} variant="contained" color="secondary" className={classes.button} endIcon={<AiOutlineEdit />} >
                                             &#8198;&#8198; ویرایش</Button>
                                     ) : (
-                                        <Button onClick={handleAddBook} variant="contained" color="secondary" className={classes.button} endIcon={<SaveIcon />} style={{ marginRight: 'auto' }}>
+                                        <Button onClick={handleAddBook} variant="contained" color="secondary" className={classes.button} endIcon={<SaveIcon />}>
                                             &#8198;&#8198; ذخیره</Button>
                                     )}
                             </ButtonGroup>

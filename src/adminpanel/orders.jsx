@@ -8,27 +8,19 @@ import { useSelector, useDispatch } from 'react-redux'
 const useStyles = makeStyles({
     root: {
         width: '100%',
-        // marginRight: '200px',
-        // marginLeft: '200px'
-        // display: 'flex',
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // margin: 'auto',
-        // width: '70%',
     },
     tbCell: {
-        // maxHeight: 600,
         fontSize: '20px',
 
     },
     tb: {
-        padding: '10px 30px', backgroundColor: ' #117864 ',
+        padding: '10px 30px', backgroundColor: ' #80745b  ',
         color: 'white', whiteSpace: 'noWrap', marginBottom: '10px',
     },
     radioButton: {
-        padding: '10px 30px', backgroundColor: '#2a3eb1',
+        padding: '10px 30px', backgroundColor: ' #80745b ',
         color: 'white', whiteSpace: 'noWrap', marginBottom: '10px',
-        '&:hover': { backgroundColor: '#1565c0' }
+        '&:hover': { backgroundColor: ' #80745b ' }
     },
 });
 
@@ -52,6 +44,7 @@ function Orders() {
                             name="one"
                             checked={deliveryStatusFlag === false}
                         />
+
                         تحویل شده
                         <Radio
                             name="one"
@@ -79,51 +72,55 @@ function Orders() {
                             </TableRow>
                         </TableHead>
                         <TableBody >
-                            {/* {orders?.map((row, index) => row && */}
+                            {
 
-                            {deliveryStatusFlag
-                                ? (delivered.map((row, index) => row &&
-                                    (< TableRow key={index} >
-                                        <TableCell className={classes.tbCell}>
-                                            {row.userName}
-                                        </TableCell>
-                                        <TableCell className={classes.tbCell}>
-                                            {row.totalPrice}
-                                        </TableCell >
-                                        <TableCell className={classes.tbCell}>
-                                            {row.submitTime}
-                                        </TableCell>
+                                deliveryStatusFlag ?
+                                    (orders.filter((item) => item.deliveryStatus).map((row, index) => row &&
+                                        (< TableRow key={index} >
+                                            <TableCell className={classes.tbCell}>
+                                                {row.userName}
+                                            </TableCell>
+                                            <TableCell className={classes.tbCell}>
+                                                {row.totalPrice}
+                                            </TableCell >
+                                            <TableCell className={classes.tbCell}>
+                                                {row.submitTime}
+                                            </TableCell>
 
-                                        <OrderModal
-                                            order={row}
-                                            orderId={row.id}
-                                            cart={row.orderList}
-                                        />
+                                            <OrderModal
+                                                order={row}
+                                                orderId={row.id}
+                                                cart={row.orderList}
+                                            />
 
-                                    </TableRow>)
-                                ))
-                                : (undelivered.map((row, index) => row &&
-                                    (< TableRow key={index} >
-                                        <TableCell className={classes.tbCell}>
-                                            {row.userName}
-                                        </TableCell>
-                                        <TableCell className={classes.tbCell}>
-                                            {row.totalPrice}
-                                        </TableCell >
-                                        <TableCell className={classes.tbCell}>
-                                            {row.submitTime}
-                                        </TableCell>
+                                        </TableRow>)
 
-                                        <OrderModal
-                                            order={row}
-                                            orderId={row.id}
-                                            cart={row.orderList}
-                                        />
+                                    ))
+                                    : (orders.filter((item) => !item.deliveryStatus).map((row, index) => row &&
+                                        (< TableRow key={index} >
+                                            <TableCell className={classes.tbCell}>
+                                                {row.userName}
+                                            </TableCell>
+                                            <TableCell className={classes.tbCell}>
+                                                {row.totalPrice}
+                                            </TableCell >
+                                            <TableCell className={classes.tbCell}>
+                                                {row.submitTime}
+                                            </TableCell>
 
-                                    </TableRow>)
+                                            <OrderModal
+                                                order={row}
+                                                orderId={row.id}
+                                                cart={row.orderList}
+                                            />
 
-                                ))
+                                        </TableRow>)
+                                    ))
+
+
                             }
+
+
 
 
 

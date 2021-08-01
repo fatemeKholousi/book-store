@@ -18,12 +18,12 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '11px', cursor: 'pointer',
         backgroundColor: 'green',
         color: 'white', whiteSpace: 'noWrap',
-        '&:hover': { backgroundColor: '#1565c0' },
-        marginRight: 'auto'
+        '&:hover': { backgroundColor: 'green' },
+        marginLeft: '200px', marginTop: '30px'
     },
 }));
 
-export default function TransitionsModal({ cart, orderId, order }) {
+export default function TransitionsModal({ cart, orderId, order, delivered, undelivered }) {
     const classes = useStyles();
     //open & close the modal
     const [open, setOpen] = useState(false);
@@ -54,14 +54,14 @@ export default function TransitionsModal({ cart, orderId, order }) {
                             </Typography>
                             <Typography component="div">
                                 آدرس :  &#8198;&#8198;
-                                {order.address}
+                                {order.userAddress}
                                 <br />
                                 <br />
                             </Typography>
 
                             <Typography component="div">
                                 تلفن :  &#8198;&#8198;
-                                {order.phoneNumber}
+                                {order.userPhoneNumber}
                                 <br />
                                 <br />
                             </Typography>
@@ -99,22 +99,33 @@ export default function TransitionsModal({ cart, orderId, order }) {
                                 </Table>
                             </TableContainer>
 
+
                             {
-                                conditionalDeliveredButton ? (
-                                    <Button className={classes.deliveryButton}
-                                        onClick={() => {
-                                            dispatch(deliveredOrder(orderId, { ...order, deliveryStatus: 'true' }))
-                                            setConditionalDeliveredButton(false)
-                                        }} >
-                                        &#8198;&#8198; تحویل شد
-                                    </Button>
-                                ) : (
-                                    <Typography variant='h6'>
-                                        تاریخ تحویل:
-                                        {order.deliveryDate}
-                                    </Typography>
-                                )
+                                (order.deliveryStatus === "true") ?
+                                    (
+                                        <Typography variant='h6'>
+                                            تاریخ تحویل:
+                                            {order.deliveryDate}
+                                        </Typography>
+                                    )
+                                    : (conditionalDeliveredButton ?
+                                        (<Button className={classes.deliveryButton}
+                                            onClick={() => {
+                                                dispatch(deliveredOrder(orderId, { ...order, deliveryStatus: 'true' }))
+                                                setConditionalDeliveredButton(false)
+                                            }} >
+                                            &#8198;&#8198; تحویل شد
+                                        </Button>)
+                                        : (
+                                            <Typography variant='h6'>
+                                                تاریخ تحویل:
+                                                {order.deliveryDate}
+                                            </Typography>
+                                        ))
+
                             }
+
+
 
                         </div>
 

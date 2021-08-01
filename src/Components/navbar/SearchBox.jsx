@@ -90,28 +90,6 @@ function SearchBox({ handleChange }) {
                 onChange={handleChange}
             />
 
-
-            {/* {books.filter((val) => {
-                if (filterSearch === '') { return }
-                else if (val.title.includes(filterSearch)) { return val }
-            }).map((value, key) => {
-                return (
-                    <div onClick={() => {
-                        history.push({
-                            pathname: `/products/${value.title}`,
-                            state: { item: value }
-                        })
-                    }}>
-
-                        {value.title}</div>)
-            })
-            } */}
-
-
-
-
-
-
         </div>
 
 

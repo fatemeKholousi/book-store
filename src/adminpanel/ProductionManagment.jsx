@@ -1,16 +1,12 @@
 // https://stackoverflow.com/questions/8073673/how-can-i-add-new-array-elements-at-the-beginning-of-an-array-in-javascript
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
-import { AiFillDelete } from "react-icons/ai";
 import loading from '../img/loading.gif'
 import { loadBooks, bookRemoved, selector__Books } from '../store/books'
 import { deleteProduct } from '../api/DataFetching'
-import Add from './modals/productModal'
 import { useSelector, useDispatch } from 'react-redux';
 import Pagination from './../assets/Pagination'
 import BookShelfByNumber from './bookshelfByNumber'
-
 
 const useStyles = makeStyles({
     root: {
@@ -28,7 +24,7 @@ const useStyles = makeStyles({
 
     },
     main: {
-        marginTop: '4%'
+        marginTop: '10px'
 
     }
 });

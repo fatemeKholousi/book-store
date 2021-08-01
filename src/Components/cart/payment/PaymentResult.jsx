@@ -15,7 +15,7 @@ function PaymentResult() {
     useEffect(() => {
         setTimeout(
             () => { history.push('/') }
-            , 10000)
+            , 3000)
     }, [])
 
     return (
