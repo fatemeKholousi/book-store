@@ -1,121 +1,138 @@
 import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import { loadOrders, orderDelivered } from '../store/orders'
-import confugureStore from '../store/configureStore'
-import { getAllOrders, getOrder, getProduct } from '../api/DataFetching';
-import configureStore from '../store/configureStore'
-// import { loadOrders } from '../store/orders'
+import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { loadOrders } from '../store/orders'
 import OrderModal from './modals/orderModal'
-import axios from 'axios';
-import { Button } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 import { useSelector, useDispatch } from 'react-redux'
 
-const Store = configureStore
 const useStyles = makeStyles({
     root: {
         width: '100%',
+        // marginRight: '200px',
+        // marginLeft: '200px'
+        // display: 'flex',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // margin: 'auto',
+        // width: '70%',
     },
-    container: {
-        maxHeight: 440,
+    tbCell: {
+        // maxHeight: 600,
+        fontSize: '20px',
+
+    },
+    tb: {
+        padding: '10px 30px', backgroundColor: ' #117864 ',
+        color: 'white', whiteSpace: 'noWrap', marginBottom: '10px',
+    },
+    radioButton: {
+        padding: '10px 30px', backgroundColor: '#2a3eb1',
+        color: 'white', whiteSpace: 'noWrap', marginBottom: '10px',
+        '&:hover': { backgroundColor: '#1565c0' }
     },
 });
-let userFlag = false
-let totalSum = 0
-let cart = []
+
 function Orders() {
-    const [data, setData] = useState([])
-    const [selectedValue, setSelectedValue] = useState(true)
-    const [userName, setUserName] = useState('')
     const classes = useStyles();
-    // get all orders 
-    useEffect(() => {
-        getAllOrders().then(items => { setData(items) })
-    }, [])
-
-    Store.dispatch(loadOrders())
-    Store.dispatch(orderDelivered())
-
-
-    const handleChange = (event) => {
-        setSelectedValue(event.target.value);
-    };
+    const dispatch = useDispatch()
+    useEffect(() => { dispatch(loadOrders()) }, [])
+    const orders = useSelector(state => state.entities.orders.list)
+    const [deliveryStatusFlag, setDeliveryStatusFlag] = useState(false)
+    const delivered = orders.filter(item => item.deliveryStatus)
+    const undelivered = orders.filter(item => !item.deliveryStatus)
 
     return (
-        <Paper className={classes.root}>
-            <TableContainer className={classes.container}>
-                تحویل نشده
-                <Radio
-                    checked={selectedValue === 'a'}
-                    onChange={handleChange}
-                    value="a"
-                    name="unDeliverdd"
+        <div className={classes.root}>
+            <Paper >
+                <TableContainer >
+                    <div className={classes.tb}>
+                        تحویل نشده
+                        <Radio
+                            onChange={() => setDeliveryStatusFlag(false)}
+                            name="one"
+                            checked={deliveryStatusFlag === false}
+                        />
+                        تحویل شده
+                        <Radio
+                            name="one"
+                            value='delivered'
+                            checked={deliveryStatusFlag === true}
+                            onChange={() => setDeliveryStatusFlag(true)}
+                        />
+                    </div>
 
-                />
-                تحویل شده
-                <Radio
-                    checked={selectedValue === 'b'}
-                    onChange={handleChange}
-                    value="b"
-                    name="delivered"
-                />
-
-
-                <Table stickyHeader aria-label="sticky table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>
-                                نام کاربر
-                            </TableCell>
-                            <TableCell>
-                                مجموع مبلغ
-                            </TableCell>
-                            <TableCell>
-                                زمان ثبت سفارش
-                            </TableCell>
-                            <TableCell>
-                                ...                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {data?.map((row, index) => row && (
-                            < TableRow key={index} >
+                    <Table stickyHeader aria-label="sticky table" >
+                        <TableHead>
+                            <TableRow>
                                 <TableCell>
-                                    {row.userName}
+                                    نام کاربر
                                 </TableCell>
                                 <TableCell>
-                                    {row.totalPrice}
+                                    مجموع مبلغ
                                 </TableCell>
                                 <TableCell>
-                                    {row.submitTime}
+                                    زمان ثبت سفارش
                                 </TableCell>
                                 <TableCell>
-                                    <OrderModal
-                                        costumerName={row.userName}
-                                        phoneNumber={row.userPhoneNumber}
-                                        address={row.userAddress}
-                                        deliveryDate={row.deliveryDate}
-                                        submitTime={row.submitTime}
-                                        deliveryStatus={row.deliveryStatus}
-                                        cart={row.orderList}
-                                    />
+                                    ...
                                 </TableCell>
                             </TableRow>
-                        ))}
+                        </TableHead>
+                        <TableBody >
+                            {/* {orders?.map((row, index) => row && */}
 
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                            {deliveryStatusFlag
+                                ? (delivered.map((row, index) => row &&
+                                    (< TableRow key={index} >
+                                        <TableCell className={classes.tbCell}>
+                                            {row.userName}
+                                        </TableCell>
+                                        <TableCell className={classes.tbCell}>
+                                            {row.totalPrice}
+                                        </TableCell >
+                                        <TableCell className={classes.tbCell}>
+                                            {row.submitTime}
+                                        </TableCell>
 
-        </Paper >
+                                        <OrderModal
+                                            order={row}
+                                            orderId={row.id}
+                                            cart={row.orderList}
+                                        />
+
+                                    </TableRow>)
+                                ))
+                                : (undelivered.map((row, index) => row &&
+                                    (< TableRow key={index} >
+                                        <TableCell className={classes.tbCell}>
+                                            {row.userName}
+                                        </TableCell>
+                                        <TableCell className={classes.tbCell}>
+                                            {row.totalPrice}
+                                        </TableCell >
+                                        <TableCell className={classes.tbCell}>
+                                            {row.submitTime}
+                                        </TableCell>
+
+                                        <OrderModal
+                                            order={row}
+                                            orderId={row.id}
+                                            cart={row.orderList}
+                                        />
+
+                                    </TableRow>)
+
+                                ))
+                            }
+
+
+
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Paper >
+        </div>
+
     )
 }
 

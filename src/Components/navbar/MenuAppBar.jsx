@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, InputBase, Menu, Button, Box, CssBaseline } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, InputBase, Menu, Button, Box, CssBaseline, TextField } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { useHistory, Link } from "react-router-dom";
-import logo from '../../img/storyshoplogo2.png';
 import LogoAndText from './LogoAndText';
 import { isLoggedIn, isLoggedOut } from '../../utils/auth';
 import CartButton, { CartButton_phone } from './CartButton';
 import { LoginButton, LoginButton_phone } from './LoginButton';
+import { useSelector, useDispatch } from 'react-redux';
+import { bookRemoved, loadBooks } from '../../store/books'
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Select from 'react-select'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -72,11 +75,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  // const handleSearchChange = (e) => { setFilterSearch(e.target.value) }
+
+  const dispatch = useDispatch()
+  useEffect(() => { dispatch(loadBooks()) }, [])
+  const books = useSelector(state => state.entities.books.list)
+
 
   const classes = useStyles();
   let history = useHistory()
-  const handleMoveToLogin = () => { history.push('/login') }
+  const handleMoveToLogin = () => {
+  }
+  // console.log(filterSearch)
+  // console.log()
+
+  // history.push(/"products/`${filterSearch.target.innerText}`) }
   // const handleMoveToAdminPanel = () => { history.replace() }
+  // const { idenficationcode } = queryString.parse(search)
+
+
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -103,6 +120,12 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
+
+
+
+
+  // console.log(filterSearch.target.innerText)
+
   return (
     <div className={classes.grow} >
 
@@ -114,13 +137,53 @@ export default function PrimarySearchAppBar() {
       }} >
         < Toolbar >
 
-          <LogoAndText logo={logo} title='کتابفروشی' />
+          <LogoAndText />
 
-          <div className={classes.search}> <div className={classes.searchIcon}>
-            <SearchIcon />
-          </div>
-            <InputBase placeholder="Search…" classes={{ root: classes.inputRoot, input: classes.inputInput, }} inputProps={{ 'aria-label': 'search' }} />
-          </div>
+
+
+
+
+
+
+          {/* <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+
+
+            <InputBase placeholder="دنبال چه کتابی هستین؟"
+              classes={{ root: classes.inputRoot, input: classes.inputInput, }}
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={handleSearchChange} />
+
+            {books.filter((val) => {
+              if (filterSearch === '') { return }
+              else if (val.title.includes(filterSearch)) { return val }
+            }).map((value, key) => {
+              return (
+
+                <div onClick={() => {
+                  history.push({
+                    pathname: `/products/${value.title}`,
+                    state: { item: value }
+                  })
+                }}>
+                  {value.title}</div>)
+            })
+            }
+
+
+          </div> */}
+
+
+
+
+
+
+
+
+
+
+
 
           <div className={classes.grow} />
 

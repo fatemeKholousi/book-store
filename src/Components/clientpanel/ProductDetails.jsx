@@ -33,8 +33,12 @@ function ProductDetails() {
     const dispatch = useDispatch()
     const classes = useStyles()
     // product object
+
     const location = useLocation()
-    const { item } = location.state
+    let { item } = location.state
+
+    // item = item.replace('%', '');
+    console.log(item)
     useEffect(() => { dispatch(getBookById(item.id)) }, [])
     const book = useSelector(state => state.entities.books.item)
     let stock = +(book.stock)
@@ -63,8 +67,7 @@ function ProductDetails() {
                         padding='15px'
                         name="quantity"
                         InputLabelProps={{ shrink: true }}
-                        inputProps={{ min: 0, max: stock, style: { textAlign: 'center' } }} // the change is here
-                        // disabled={cells.disabled}
+                        inputProps={{ min: 0, max: stock, style: { textAlign: 'center' } }}
                         onChange={(e) => {
                             if (e.target.value <= stock) (setQuantity(e.target.value));
                             else { alert("این تعداد در انبار موجود نیست"); setQuantity(0) }
@@ -73,13 +76,9 @@ function ProductDetails() {
 
                     < Button variant="contained" disabled={disabledButton} color="primary" className={classes.addToCartBtn} onClick={() => {
                         if (quantity >= 1) {
-
                             dispatch(counterAddedToCart());
                             dispatch(productAddedToCart({ id: book.id, price: book.price, title: book.title, quantity: quantity }))
                             setDisabledButton(true)
-                            // console.log(stock - quantity)
-                            console.log(book.id)
-
                             dispatch(updateBookStock(book.id,
                                 {
                                     id: book.id,

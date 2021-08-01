@@ -39,9 +39,8 @@ const columns = [
 export default function DataGridDemo() {
     const [data, setData] = useState([])
     const classes = useStyles();
-    useEffect(() => {
-        getAllProducts().then(items => { setData(items) })
-    }, [])
+    useEffect(() => { getAllProducts().then(items => { setData(items) }) }, [])
+
     return (
         <div style={{ height: 400, width: '100%' }} >
             <Grid container spacing={10} >
@@ -64,6 +63,21 @@ export default function DataGridDemo() {
                 rows={data}
                 columns={columns}
                 pageSize={5}
+
+
+
+
+
+
+
+            // disableSelectionOnClick
+            // disableColumnMenu
+            // disableColumnSelector
+            // autoPageSize={true}
+            // disableExtendRowFullWidth
+            // className={classes.root}
+            // loading={loading}
+            // onEditCellChangeCommitted={(params) => cellChanges(params.id, params.field, params.props.value)}
             />
         </div >
     );

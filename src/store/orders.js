@@ -30,9 +30,10 @@ reducers:{
 
 
        // resolveBug (command) - bugResolved (event)
-       orderDelivered: (state, action) => {
-      // const index = bugs.list.findIndex(bug => bug.id === action.payload.id);
-      // bugs.list[index].deliveryStatus = true;
+orderDelivered: (state, action) => {
+      // const index = state.list.findIndex(bug => bug.id === action.payload.id);
+      // state.list[index].deliveryStatus = true;
+      console.log("ادیت شد")
     },
 
   paymentResultIsTrue(state, action){
@@ -70,12 +71,18 @@ export const loadOrders = () => (dispatch, getState) => {
  });
 
 
-export const deliveredOrder = id =>
-  apiCallBegan({
-    // /bugs
-    // PATCH /bugs/1
-    url: `${url}/${id}`,
-        method: "patch",
-    data: { deliveryStatus: true },
+// export const deliveredOrder = id =>
+//   apiCallBegan({
+//     // /bugs
+//     // PATCH /bugs/1
+//     url: `${url}/${id}`,
+//         method: "put",
+//     data: { deliveryStatus: true },
+//     onSuccess: orderDelivered.type
+//   });
+  export const deliveredOrder=(id,order) => apiCallBegan({
+    url:url+'/'+id ,
+    method: "put",
+    data:order,
     onSuccess: orderDelivered.type
-  });
+  })

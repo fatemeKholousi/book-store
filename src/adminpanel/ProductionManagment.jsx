@@ -8,6 +8,9 @@ import { loadBooks, bookRemoved, selector__Books } from '../store/books'
 import { deleteProduct } from '../api/DataFetching'
 import Add from './modals/productModal'
 import { useSelector, useDispatch } from 'react-redux';
+import Pagination from './../assets/Pagination'
+import BookShelfByNumber from './bookshelfByNumber'
+
 
 const useStyles = makeStyles({
     root: {
@@ -30,16 +33,12 @@ const useStyles = makeStyles({
     }
 });
 
-
 export default function BasicTable({ newProduct }) {
     const classes = useStyles();
     const dispatch = useDispatch()
 
     // .............Retrieve Data From Redux.........................
-    useEffect(() => {
-        dispatch(loadBooks())
-    }, [])
-
+    useEffect(() => { dispatch(loadBooks()) }, [])
     const bookList = useSelector(state => state.entities.books.list)
 
     // .............Delete Data From Redux and FetchData.........................
@@ -55,9 +54,18 @@ export default function BasicTable({ newProduct }) {
             bookList = originalData
         }
     }
+    //................................Pagination...........................................
+    const [currentPage, setCurrentPage] = useState(1)
+    const [postsPerPage, setPostsPerPage] = useState(5)
+    //Get current posts
+    const indexOfLastPost = currentPage * postsPerPage
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPost = bookList.slice(indexOfFirstPost, indexOfLastPost)
 
-    //................................Add & Edit declared at productModal.js............................................
-
+    //change page
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber)
+    }
 
     return (
         <div className={classes.main}>
@@ -65,45 +73,10 @@ export default function BasicTable({ newProduct }) {
                 <img src={loading} style={{ display: "block", marginRight: 'auto', marginLeft: 'auto' }} />
                 :
                 (
-                    <div>
-                        <Add modal_performance='save' />
-                        <TableContainer className={classes.root} component={Paper} >
-                            <Table className={classes.table}  >
-                                <TableHead >
-                                    <TableRow className={classes.headingrow} >
-                                        <TableCell className={classes.headCell} align="center">تصویر</TableCell>
-                                        <TableCell className={classes.headCell} align="center">عنوان کتاب</TableCell>
-                                        <TableCell className={classes.headCell} align="center">دسته بندی</TableCell>
-                                        <TableCell className={classes.headCell} align="center">
-                                        </TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {bookList.map(row =>
-                                        < TableRow key={row.id} >
-                                            <TableCell align="center"><img src={row.image} width="100px" /></TableCell>
-                                            <TableCell align="center">{row.title} </TableCell>
-                                            <TableCell align="center">{row.category}</TableCell>
-                                            <TableCell align="center">
-                                                {/* TO Delete PRODUCT--> ? */}
-                                                <AiFillDelete size='20' color='gray' onClick={() => {
-
-                                                    handleDelete(row)
-                                                }}
-                                                />
-
-                                                < Add modal_performance='edit' id_from_props={row.id} />
-                                            </TableCell>
-                                        </TableRow>
-                                    )}
-
-
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </div>)
+                    <BookShelfByNumber onDelete={handleDelete} posts={currentPost} />
+                )
             }
-
+            <Pagination postsPerPage={postsPerPage} totalPosts={bookList.length} paginate={paginate} />
         </div >
     );
 }

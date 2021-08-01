@@ -57,20 +57,3 @@ export const updateProduct = (obj, id) => {
 
 }
 
-//get products
-export const getAllOrders = async () => {
-  let response = await axios.get(apiEndPointOrders).catch(err => console.log('wrong'))
-  let data = response.data
-  return data
-}
-
-//get an order
-export const getOrder = (id) => {
-  axios.get(apiEndPointOrders + id)
-    .then(res => {
-      return (res.data)
-    })
-    .catch(err => console.log(err))
-}
-
-

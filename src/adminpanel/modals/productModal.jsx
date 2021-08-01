@@ -7,7 +7,7 @@ import {
 import SaveIcon from '@material-ui/icons/Save';
 import { AiOutlinePlusCircle, AiFillSave, AiFillEdit, AiFillCloseCircle, AiOutlineEdit } from "react-icons/ai"
 import axios from 'axios';
-import { addBook, updateBook, loadOneBook, getAll, loadBooks, getBookById, getChoosenBook } from '../../store/books'
+import { addBook, updateBook, getBookById } from '../../store/books'
 import { useSelector, useDispatch } from 'react-redux';
 import { loadCategories } from '../../store/category'
 
@@ -40,9 +40,32 @@ const useStyles = makeStyles((theme) => ({
 
 //this flag is to show a product things to edit it
 let flag = false
-let cat = ''
 export default function TransitionsModal({ id_from_props, modal_performance }) {
+    const [productForEdit, setProductForEdit] = useState([])
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [price, setPrice] = useState(0)
+    const [stock, setStock] = useState(0)
+    const [category, setCategory] = useState('')
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => {
+        setOpen(true)
+    };
+    const handleClose = () => {
+        setOpen(false)
+        // handleEmptyShirMorghTaJooneAdmized()
 
+    };
+    const handleEmptyShirMorghTaJooneAdmized = () => {
+        setImage('')
+        setPrice(0)
+        setCategory('')
+        setStock(0)
+        setDescription('')
+        setTitle('')
+    }
+    useEffect(() => { dispatch(loadCategories()) }, [])
+    const categoryList = useSelector(state => state.entities.category.list)
     const dispatch = useDispatch()
     const classes = useStyles();
     // ....................................upload image..........................................
@@ -75,33 +98,7 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
         handleClose()
     }
     // ..........................................................................................
-
-    const [productForEdit, setProductForEdit] = useState([])
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [price, setPrice] = useState(0)
-    const [stock, setStock] = useState(0)
-    const [category, setCategory] = useState('')
-
-
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => { setOpen(true) };
-    const handleClose = () => {
-        setOpen(false)
-        setPrice(0)
-        setCategory('')
-        setStock(0)
-        setDescription('')
-        setTitle('')
-    };
-
-    useEffect(() => {
-        dispatch(loadCategories())
-    }, [])
-
-    const [categories, setCategories] = useState([])
-    const categoryList = useSelector(state => state.entities.category.list)
-
+    //EDITING A BOOK --> using redux
     //EDITING A BOOK --> using redux
     const handleUpdateProduct = () => {
         dispatch(updateBook(id_from_props, { id: id_from_props, title, image, description, category, price, stock }))
@@ -134,8 +131,6 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
             handleEditProduct()
     }, [flag])
     useEffect(() => { if (flag === true) setCategory(productForEdit.category) }, [flag])
-
-
 
     return (
         <>
@@ -198,7 +193,7 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
 
                             {/* DESCRIPTION */}
                             <Typography>توضیحات</Typography>
-                            <textarea rows="4" cols="50" value={description} onChange={(e) => setDescription(e.target.value)} />
+                            <TextField multiline rows="4" cols="50" value={description} onChange={(e) => setDescription(e.target.value)} />
 
                             {/* SAVE */}
                             <ButtonGroup>

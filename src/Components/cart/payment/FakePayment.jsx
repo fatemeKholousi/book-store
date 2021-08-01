@@ -15,7 +15,7 @@ function FakePayment() {
         try {
             dispatch(addOrder(orderInformation))
             dispatch(cleanedCart())
-            history.push("/paymentresult");
+            history.push(`/paymentresult/?idenficationcode=${orderInformation.id}`);
             dispatch(paymentResultIsTrue())
 
             //     dispatch(updateBookStock(book.id,
@@ -38,7 +38,7 @@ function FakePayment() {
         }
     }
     const cancelOrderOperation = () => {
-        history.push("/paymentresult");
+        history.push(`/paymentresult/?not-done-yet`);
         dispatch(paymentResultIsFalse())
     }
 

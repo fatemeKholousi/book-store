@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { getAllCategories, getAllProducts } from '../api/DataFetching'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Cards from './Cards'
-import { makeStyles, Typography } from '@material-ui/core';
+import { makeStyles, Typography, InputBase } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
   categoryTitle: {
@@ -28,10 +29,18 @@ const useStyles = makeStyles({
 });
 
 function Home() {
+  const [filterSearch, setFilterSearch] = useState('')
   const classes = useStyles();
   const [categories, setCategories] = useState([])
-
+  const books = useSelector(state => state.entities.books.list)
   useEffect(() => { getAllCategories().then(item => setCategories(item)) }, [])
+  const history = useHistory()
+  // const filteredBooks = () =>
+  //   books.filter((val) => {
+  //     val.title.includes(filterSearch)
+  //     console.log('success')
+  //   }
+  // (<p>{val.title}</p>)
 
   return <>
     <div style={{
@@ -43,7 +52,12 @@ function Home() {
     }}>
 
     </div>
-    {
+    <InputBase placeholder="دنبال چه کتابی هستین؟"
+      inputProps={{ 'aria-label': 'search' }}
+      onChange={(e) => setFilterSearch(e.target.value)}
+    />
+    {filterSearch === '' ?
+
       categories.map(categoryTitle => (
         <>
           <Link
@@ -71,6 +85,26 @@ function Home() {
         </>)
 
       )
+
+      :
+      books.filter((val) => {
+        if (filterSearch === '') { return }
+        else if (val.title.includes(filterSearch)) { return val }
+      }).map((value, key) => {
+        return (
+          <div onClick={() => {
+            history.push({
+              pathname: `/products/${value.title}`,
+              state: { item: value }
+            })
+          }}>
+            {value.title}</div>)
+      })
+
+
+      // (<h1>عبارت جست و جو شده</h1>)
+
+
     }
   </ >
 

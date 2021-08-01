@@ -38,7 +38,7 @@ function CartButton() {
                     <Link to='/cart'>
                         <Button disableFocusRipple
                             disableRipple
-                            variant="contained" style={{ backgroundColor: "transparent" }} endIcon={<AiOutlineShoppingCart />}>
+                            variant="contained" endIcon={<AiOutlineShoppingCart />}>
                             سبد خرید
                         </Button>
                     </Link>

@@ -18,7 +18,7 @@ import ShowProductsDependsOnCategory from "./components/clientpanel/ShowProducts
 import CustomerForm from "./components/cart/form/CustomerForm";
 import FakePayment from "./components/cart/payment/FakePayment"
 import PaymentResult from "./components/cart/payment/PaymentResult"
-// Configure JSS for RTL
+
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 function App() {
 
