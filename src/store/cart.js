@@ -18,21 +18,28 @@ export const counterSlice = createSlice({
         state.counter +=1
       },
       //Add Product
-    productAddedToCart: (state,action) => 
-    {
-        state.list.push(action.payload);
-    state.totalPrice+=+(action.payload.price) * action.payload.quantity
+    productAddedToCart: (state,action) => {
+      state.list.push(action.payload);
+      state.totalPrice+=+(action.payload.price) * action.payload.quantity
     },
-        //Remove Product
+    
+      //Remove Product
     productRemovedFromCart: (state, action) => {
         const newList= state.list.filter(order => order.id !== action.payload.id)
         state.list=newList
         state.counter -=1
+        state.totalPrice-=(Number(action.payload.price))*Number(action.payload.quantity)
+    },
+    // clear cart
+    cleanedCart:(state, action)=>{
+      state.list=[]
+      state.counter=0
+      state.totalPrice=0
     },
   }, 
 })
 
 // Action creators are generated for each case reducer function
-export const {counterAddedToCart,productAddedToCart,productRemovedFromCart  } = counterSlice.actions
+export const {counterAddedToCart,productAddedToCart,productRemovedFromCart,cleanedCart} = counterSlice.actions
 
 export default counterSlice.reducer

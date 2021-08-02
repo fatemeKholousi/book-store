@@ -1,49 +1,19 @@
 import React from 'react'
-import { Typography, IconButton, makeStyles } from '@material-ui/core';
-import { Link } from 'react-router-dom'
-const useStyles = makeStyles((theme) => ({
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
-        color: 'black',
-        '&:visited': {
-            textDecoration: 'none'
-        },
-        '&:link': {
-            textDecoration: 'none'
-        },
-        '&:active': {
-            textDecoration: 'none'
-        },
-        '&:hover': {
-            textDecoration: 'none'
-        },
-        '&:focus': {
-            textDecoration: 'none'
-        },
+import { makeStyles } from '@material-ui/core';
+import { useHistory } from 'react-router-dom'
+import logo from '../../img/storyshoplogo4.png';
+
+const useStyles = makeStyles(() => ({
+    logo: {
+        cursor: 'pointer'
     },
 }))
-
-
-function LogoAndText({ logo, title }) {
+function LogoAndText() {
     let classes = useStyles()
+    let history = useHistory()
     return (
         <>
-            <IconButton edge="start" className={classes.menuButton}>
-                <img src={logo} alt="logo" width="100px" />
-            </IconButton>
-
-            <Typography className={classes.title} variant="h4" noWrap>
-                <Link to='/' >
-                    {title}
-                </Link>
-
-            </Typography>
+            <img className={classes.logo} src={logo} alt="logo" width="250px" onClick={() => history.push('/')} />
         </>
     )
 }

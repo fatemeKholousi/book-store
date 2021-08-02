@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
+import { makeStyles, Modal, Backdrop, Fade, Table, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import { deliveredOrder } from '../../store/orders'
+import { useDispatch, useSelector } from 'react-redux';
+
 import { AiOutlinePlusCircle, AiFillSave, AiFillEdit, AiFillCloseCircle, AiOutlineEdit } from "react-icons/ai"
 import { FormControl, TextField, Select, ButtonGroup, Button, Typography, MenuItem, Box, InputLabel } from '@material-ui/core';
 import axios from 'axios';
-import SaveIcon from '@material-ui/icons/Save';
-import { addProduct, getProduct, updateProduct } from '../../api/DataFetching'
+
+
 const useStyles = makeStyles((theme) => ({
     modal: { display: 'flex', alignItems: 'center', justifyContent: 'center' },
-
     paper: {
         backgroundColor: theme.palette.background.paper, border: '2px solid #000', boxShadow: theme.shadows[5], padding: theme.spacing(2, 4, 3),
     },
@@ -24,29 +18,25 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '11px', cursor: 'pointer',
         backgroundColor: 'green',
         color: 'white', whiteSpace: 'noWrap',
-        '&:hover': { backgroundColor: '#1565c0' },
-        marginRight: 'auto'
+        '&:hover': { backgroundColor: 'green' },
+        marginLeft: '200px', marginTop: '30px'
     },
 }));
 
-export default function TransitionsModal(props) {
-    const { costumerName, phoneNumber, address, deliveryDate, submitTime, deliveryStatus, cart } = props
+export default function TransitionsModal({ cart, orderId, order, delivered, undelivered }) {
     const classes = useStyles();
-    const [open, setOpen] = useState(false);
     //open & close the modal
-    const handleOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-
+    const [open, setOpen] = useState(false);
+    const [conditionalDeliveredButton, setConditionalDeliveredButton] = useState(true)
+    const handleOpen = () => { setOpen(true); };
+    const handleClose = () => { setOpen(false); };
+    const dispatch = useDispatch()
     return (
         <span >
-            <Box display="flex" flexDirection="row-reverse">
+            <TableCell display="flex" flexDirection="row-reverse">
                 <Button onClick={handleOpen}  >
-                    بررسی سفارش </Button ></Box>
-
+                    بررسی سفارش </Button >
+            </TableCell>
             {
                 <Modal className={classes.modal} open={open} onClose={handleClose} closeAfterTransition BackdropComponent={Backdrop}
                     BackdropProps={{ timeout: 500, }}>
@@ -58,34 +48,34 @@ export default function TransitionsModal(props) {
 
                             <Typography component="div">
                                 نام مشتری:  &#8198;&#8198;
-                                {costumerName}
+                                {order.userName}
                                 <br />
                                 <br />
                             </Typography>
                             <Typography component="div">
                                 آدرس :  &#8198;&#8198;
-                                {address}
+                                {order.userAddress}
                                 <br />
                                 <br />
                             </Typography>
 
                             <Typography component="div">
                                 تلفن :  &#8198;&#8198;
-                                {phoneNumber}
+                                {order.userPhoneNumber}
                                 <br />
                                 <br />
                             </Typography>
 
                             <Typography component="div">
                                 زمان تحویل :  &#8198;&#8198;
-                                {deliveryDate}
+                                {order.deliveryDate}
                                 <br />
                                 <br />
                             </Typography>
 
                             <Typography component="div">
                                 زمان سفارش :  &#8198;&#8198;
-                                {submitTime}
+                                {order.submitTime}
                                 <br />
                                 <br />
                             </Typography>
@@ -99,19 +89,41 @@ export default function TransitionsModal(props) {
                                         </TableRow>
                                     </TableHead>
                                     {cart.map((row, index) =>
-
-                                        < TableRow key={row.index} >
-                                            <TableCell>{row.name}</TableCell>
-                                            <TableCell>{row.stock}</TableCell>
-                                            <TableCell>{row.price}</TableCell>
-
-
-                                        </TableRow>
+                                    (< TableRow key={index} >
+                                        <TableCell>{row.title}</TableCell>
+                                        <TableCell>{row.quantity}</TableCell>
+                                        <TableCell>{row.price}</TableCell>
+                                    </TableRow>
+                                    )
                                     )}
                                 </Table>
                             </TableContainer>
-                            <Button className={classes.deliveryButton} >
-                                &#8198;&#8198; تحویل شد</Button>
+
+
+                            {
+                                (order.deliveryStatus === "true") ?
+                                    (
+                                        <Typography variant='h6'>
+                                            تاریخ تحویل:
+                                            {order.deliveryDate}
+                                        </Typography>
+                                    )
+                                    : (conditionalDeliveredButton ?
+                                        (<Button className={classes.deliveryButton}
+                                            onClick={() => {
+                                                dispatch(deliveredOrder(orderId, { ...order, deliveryStatus: 'true' }))
+                                                setConditionalDeliveredButton(false)
+                                            }} >
+                                            &#8198;&#8198; تحویل شد
+                                        </Button>)
+                                        : (
+                                            <Typography variant='h6'>
+                                                تاریخ تحویل:
+                                                {order.deliveryDate}
+                                            </Typography>
+                                        ))
+
+                            }
 
 
 

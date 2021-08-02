@@ -7,9 +7,11 @@ const slice =createSlice({
         list:[], 
         loading:false,
         addedItems:[],
-        total:0,
+        resultFlag:false
     },
+
 reducers:{
+
   ordersRequested: (state, action) => {
     state.loading = true;
   },
@@ -20,17 +22,32 @@ reducers:{
   ordersRequestFailed: (state, action) => {
     state.loading = false;
   },
-  orderAdded:(state,action)=>{},
+
+  orderAdded:(state,action)=>{
+    state.addedItems.push(
+      action.payload )
+  },
 
 
        // resolveBug (command) - bugResolved (event)
-       orderDelivered: (state, action) => {
-      // const index = bugs.list.findIndex(bug => bug.id === action.payload.id);
-      // bugs.list[index].deliveryStatus = true;
-    }
+orderDelivered: (state, action) => {
+      // const index = state.list.findIndex(bug => bug.id === action.payload.id);
+      // state.list[index].deliveryStatus = true;
+      console.log('====editing')
+    },
+
+  paymentResultIsTrue(state, action){
+    state.resultFlag=true
+  },
+  
+  paymentResultIsFalse(state, action){
+    state.resultFlag=false
+  }
+
+
 }
 })
-export const {orderAdded,ordersReceived ,ordersRequested,ordersRequestFailed,orderDelivered}=slice.actions
+export const {orderAdded,ordersReceived ,ordersRequested,ordersRequestFailed,orderDelivered,paymentResultIsFalse,paymentResultIsTrue}=slice.actions
 export default slice.reducer
 
 const url = "/orders";
@@ -45,12 +62,27 @@ export const loadOrders = () => (dispatch, getState) => {
   );
 };
 
-export const deliveredOrder = id =>
-  apiCallBegan({
-    // /bugs
-    // PATCH /bugs/1
-    url: `${url}/${id}`,
-        method: "patch",
-    data: { deliveryStatus: true },
+ export const addOrder = order =>
+ apiCallBegan({
+   url,
+   method: "post",
+   data: order,
+   onSuccess: orderAdded.type
+ });
+
+
+// export const deliveredOrder = id =>
+//   apiCallBegan({
+//     // /bugs
+//     // PATCH /bugs/1
+//     url: `${url}/${id}`,
+//         method: "put",
+//     data: { deliveryStatus: true },
+//     onSuccess: orderDelivered.type
+//   });
+  export const deliveredOrder=(id,order) => apiCallBegan({
+    url:url+'/'+id ,
+    method: "put",
+    data:order,
     onSuccess: orderDelivered.type
-  });
+  })

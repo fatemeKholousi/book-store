@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { getAllCategories, getAllProducts } from '../api/DataFetching'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Cards from './Cards'
-import { makeStyles, Typography } from '@material-ui/core';
+import { makeStyles, Typography, InputBase } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
+import '../style/style.css'
+import loading from '../img/loading.gif'
 
 const useStyles = makeStyles({
   categoryTitle: {
@@ -28,22 +31,25 @@ const useStyles = makeStyles({
 });
 
 function Home() {
+  const [filterSearch, setFilterSearch] = useState('')
   const classes = useStyles();
   const [categories, setCategories] = useState([])
-
+  const books = useSelector(state => state.entities.books.list)
   useEffect(() => { getAllCategories().then(item => setCategories(item)) }, [])
-
+  const history = useHistory()
+  let loading = useSelector(state => state.entities.books.loading)
+  // console.log(loading)
   return <>
-    <div style={{
-      height: '200px',
-      // backgroundColor: 'rgba(240, 229, 183,0.7)'
-      backgroundImage: 'url("https://s18.picofile.com/file/8438452168/00191381_1366x379.jpeg")',
-      backgroundRepeat: 'no-repeat',
-      // height: '150px'
-    }}>
+    <div className='headerImage'>
 
     </div>
-    {
+    <InputBase placeholder="دنبال چه کتابی هستین؟"
+      inputProps={{ 'aria-label': 'search' }}
+      className='search--box'
+      onChange={(e) => setFilterSearch(e.target.value)}
+    />
+    {filterSearch === '' ?
+
       categories.map(categoryTitle => (
         <>
           <Link
@@ -54,10 +60,10 @@ function Home() {
             className={classes.categoryTitle}>
             <div style={{
               padding: '4px',
-              // backgroundImage: 'url("https://s19.picofile.com/file/8438452018/bgg.png")',
-              // backgroundRepeat: 'repeat',
-              // height: '150px'
+
             }}>
+
+
               <Typography variant='h4' style={{ marginTop: '50px', marginRight: '15px' }}>
                 {categoryTitle}
                 &#x8;  &#9666;
@@ -66,11 +72,43 @@ function Home() {
 
 
           </Link>
-          <Cards categoryTitle={categoryTitle} from='home' />
 
+          {loading ?
+            (<p>   در حال بارگزاری   </p>
+            )
+            : (
+              <Cards categoryTitle={categoryTitle} from='home' />
+            )}
         </>)
 
       )
+
+      :
+      books.filter((val) => {
+        if (filterSearch === '') { return }
+        else if (val.title.includes(filterSearch)) { return val }
+      }).map((value, key) => {
+        return (
+          <div
+            style={
+              {
+                marginRight: '100px',
+                marginTop: '40px',
+                fontSize: '20px'
+              }
+            }
+            onClick={() => {
+              history.push({
+                pathname: `/products/${value.title}`,
+                state: { item: value }
+              })
+            }}>
+            + {value.title}</div>)
+      })
+
+
+
+
     }
   </ >
 
