@@ -140,8 +140,9 @@ export default function TransitionsModal({ id_from_props, modal_performance }) {
         <>
             {/*  BUTTON CHOOSER */}
             {modal_performance === 'save'
-                ? (<Box display="flex" flexDirection="row-reverse">  <Button onClick={handleOpen} className={classes.saveButton} variant="outlined" startIcon={<AiOutlinePlusCircle />}  >
-                    افزودن کتاب</Button >
+                ? (<Box display="flex" flexDirection="row-reverse">
+                    <Button onClick={handleOpen} className={classes.saveButton} variant="outlined" startIcon={<AiOutlinePlusCircle />}  >
+                        افزودن کتاب</Button >
                 </Box>)
                 : (<AiFillEdit size='20' onClick={handleEditProduct} />)}
 

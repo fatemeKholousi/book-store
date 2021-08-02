@@ -1,5 +1,5 @@
 
-
+import { Redirect } from "react-router";
 export const isLoggedIn = () => {
   /**
    *
@@ -12,8 +12,10 @@ export const isLoggedIn = () => {
   return false;
   };
   
-  export function isLoggedOut(){
-    
+  export function IsLoggedOut(){
+    // let history=useHistory()
     localStorage.clear()
-    window.location.reload(false); 
+
+    window.location.reload(); 
+    // history.push('/login')
    }

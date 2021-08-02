@@ -5,7 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { useHistory, Link } from "react-router-dom";
 import LogoAndText from './LogoAndText';
-import { isLoggedIn, isLoggedOut } from '../../utils/auth';
+import { isLoggedIn, IsLoggedOut } from '../../utils/auth';
 import CartButton, { CartButton_phone } from './CartButton';
 import { LoginButton, LoginButton_phone } from './LoginButton';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,18 +15,18 @@ import Select from 'react-select'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
-    backgroundColor: '#e9ddb7 ',
+    // backgroundColor: '#e9ddb7 ',
     flexGrow: 1,
     position: 'relative',
     zIndex: theme.zIndex.drawer + 1,
   },
   search: {
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
+    // borderRadius: theme.shape.borderRadius,
+    // backgroundColor: fade(theme.palette.common.white, 0.15),
+    // '&:hover': {
+    //   backgroundColor: fade(theme.palette.common.white, 0.25),
+    // },
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   inputRoot: {
-    color: 'inherit',
+    // color: 'inherit',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -85,6 +85,7 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles();
   let history = useHistory()
   const handleMoveToLogin = () => {
+    history.push('/login')
   }
   // console.log(filterSearch)
   // console.log()
@@ -116,7 +117,7 @@ export default function PrimarySearchAppBar() {
       <CartButton_phone />
       {isLoggedIn()
         ? (<>
-          <LoginButton_phone handleClick={isLoggedOut} label="خروج" />
+          <LoginButton_phone handleClick={IsLoggedOut} label="خروج" />
           <Divider />
           <div>
             <IconButton color="inherit" onClick={() => history.push('/adminpanel')} >
@@ -146,7 +147,7 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow} >
 
       <Box style={{
-        boxShadow: '0px 0px 9px 3px rgba(41,41,41,.25)',
+        // boxShadow: '0px 0px 9px 3px rgba(41,41,41,.25)',
         position: 'fixed',
         width: '100%',
         backgroundColor: '#e9ddb7'
@@ -154,70 +155,34 @@ export default function PrimarySearchAppBar() {
         < Toolbar >
 
           <LogoAndText />
-
-
-
-
-
-
-
-          {/* <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-
-
-            <InputBase placeholder="دنبال چه کتابی هستین؟"
-              classes={{ root: classes.inputRoot, input: classes.inputInput, }}
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={handleSearchChange} />
-
-            {books.filter((val) => {
-              if (filterSearch === '') { return }
-              else if (val.title.includes(filterSearch)) { return val }
-            }).map((value, key) => {
-              return (
-
-                <div onClick={() => {
-                  history.push({
-                    pathname: `/products/${value.title}`,
-                    state: { item: value }
-                  })
-                }}>
-                  {value.title}</div>)
-            })
-            }
-
-
-          </div> */}
-
-
-
           <div className={classes.grow} />
 
           {/* DESKTOP VERSION */}
           <div className={classes.sectionDesktop}>
 
-            <CartButton />
 
-            <IconButton
-              edge="end"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit">
+
+            <Box display="flex" >
+              <CartButton />
               {isLoggedIn()
-                ? (<><LoginButton label='خروج' handleClick={isLoggedOut} />
-                  <Link to='/adminpanel'>
-                    <Button variant='contained' >ادمین پنل</Button></Link></>)
+                ? (<>
+
+                  <LoginButton label='خروج' handleClick={IsLoggedOut} />
+
+                  <Button
+                    style={{ backgroundColor: '#ede5d4', paddingRight: '10px', width: '100px' }}
+                    onClick={() => history.push('/adminpanel')}>ادمین پنل</Button></>)
                 : (<LoginButton label='ورود به پنل مدیریت' handleClick={handleMoveToLogin} />)
               }
-            </IconButton>
+            </Box>
 
           </div>
 
           {/* PHONE PART */}
           <div className={classes.sectionMobile} >
-            <IconButton aria-controls={mobileMenuId} aria-haspopup="true" onClick={handleMobileMenuOpen} color="inherit" >
+            <IconButton aria-controls={mobileMenuId} aria-haspopup="true" onClick={handleMobileMenuOpen}
+
+              color="inherit" >
               <MoreIcon />
             </IconButton>
           </div>

@@ -16,11 +16,11 @@ const Login = () => {
     if (email, password) {
       LoginLogic(email, password)
         .then((res) => {
-
           localStorage.setItem("token", res.data.token);
-          // <Redirect to="/adminpanel" />
-          history.push('adminpanel')
           window.location.reload();
+
+          // <Redirect to="/login" />
+          history.push('/adminpanel')
 
 
         })
