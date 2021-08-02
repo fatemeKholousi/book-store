@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, InputBase, Menu, Button, Box, CssBaseline, TextField } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, InputBase, Menu, Button, Box, CssBaseline, TextField, Divider } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { useHistory, Link } from "react-router-dom";
@@ -115,9 +115,25 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen} onClose={handleMobileMenuClose}>
       <CartButton_phone />
       {isLoggedIn()
-        ? (<LoginButton_phone handleClick={isLoggedOut} label="خروج" />)
-        : (<LoginButton_phone handleClick={handleMoveToLogin} label="ورود " />)}
-    </Menu>
+        ? (<>
+          <LoginButton_phone handleClick={isLoggedOut} label="خروج" />
+          <Divider />
+          <div>
+            <IconButton color="inherit" onClick={() => history.push('/adminpanel')} >
+              <Typography variant='h6'>
+                ادمین پنل
+              </Typography>
+            </IconButton>
+          </div>
+
+        </>)
+        : (<LoginButton_phone handleClick={() => history.push('/login')} label="ورود " />)
+      }
+
+
+
+
+    </Menu >
   );
 
 
@@ -173,15 +189,6 @@ export default function PrimarySearchAppBar() {
 
 
           </div> */}
-
-
-
-
-
-
-
-
-
 
 
 

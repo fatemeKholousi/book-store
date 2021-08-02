@@ -6,6 +6,11 @@ import Card from './card'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadBooks } from '../store/books.js'
+import '../style/style.css'
+import { Typography } from '@material-ui/core';
+import Pagination from '../assets/Pagination'
+import FilteredBySixNumber from './FilteredBySixNumber';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,39 +63,48 @@ export default function CenteredGrid({ categoryTitle, from }) {
     filteredBySpecialNumber()
     let filteredBooksBySixNumber = filteredBooks.filter((val, i) => i < 6)
 
+
+
+
+
+    //................................Pagination...........................................
+
+
+
+
+
+
     return (
         <div className={classes.root}>
             <Grid container>
+
                 {from === 'home'
-                    ? (
-                        filteredBooksBySixNumber.map(item => {
-                            return (
-                                < Grid item md={4} xs={10} sm={6} >
-                                    <Paper className={classes.paper}>
-                                        <Link to={{ pathname: `/products/ ${item.title}`, state: { item: item } }}
-                                            className={classes.card} >
-                                            <Card price={item.price} image={item.image} title={item.title} />
-                                        </Link>
-                                    </Paper>
-                                </Grid>
-                            )
-                        })
+                    ? (filteredBooksBySixNumber.map(item => {
+                        return (
+                            < Grid item md={2} sm={4} xs={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <Link to={{ pathname: `/products/ ${item.title}`, state: { item: item } }}
+                                    className={classes.card} >
+                                    <Card price={item.price} image={item.image} title={item.title} />
+                                </Link>
+                            </Grid>
+                        )
+                    })
 
                     ) : (filteredBooks.map(item => {
                         return (
-                            < Grid item md={5} sm={7} xs={7} style={{ marginRight: '40%' }} >
-                                <Paper className={classes.paper}>
-                                    <Link to={{ pathname: `/products/ ${item.title}`, state: { item: item } }}
-                                        className={classes.card} >
-                                        <Card price={item.price} image={item.image} title={item.title} description={item.description} />
-                                    </Link>
-                                </Paper>
+
+                            < Grid item md={4} sm={10} xs={12} className='filteredBooks' >
+                                <Link to={{ pathname: `/products/ ${item.title}`, state: { item: item } }}
+                                    className={classes.card} >
+                                    <Card price={item.price} image={item.image} title={item.title} description={item.description} />
+                                </Link>
                             </Grid>
+
                         )
                     })
                     )}
 
-            </Grid>
+            </Grid >
 
         </div >
     );

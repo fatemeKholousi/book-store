@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 import { productAddedToCart, counterAddedToCart } from '../../store/cart'
 import { useDispatch, useSelector } from 'react-redux'
-import { Typography, TextField, Button, Grid, makeStyles } from '@material-ui/core'
+import { Typography, TextField, Button, Grid, makeStyles, Divider } from '@material-ui/core'
 import { getBookById, updateBookStock } from '../../store/books';
-
+import '../../style/style.css'
 const useStyles = makeStyles((theme) => ({
     addToCartBtn: {
         backgroundColor: 'green',
         color: 'white',
         marginLeft: '5%',
         padding: '12px',
-        fontSize: '18px'
+        fontSize: '18px',
+        marginBottom: '20px'
     },
     productImage: {
-        width: '300px',
-        height: '500px',
+
+        // paddingTop: '100px'
     },
     root: {
         marginLeft: '10%',
@@ -33,10 +34,10 @@ function ProductDetails() {
     const dispatch = useDispatch()
     const classes = useStyles()
     // product object
-
     const location = useLocation()
     let { item } = location.state
 
+    const history = useHistory()
     // item = item.replace('%', '');
     console.log(item)
     useEffect(() => { dispatch(getBookById(item.id)) }, [])
@@ -47,17 +48,26 @@ function ProductDetails() {
         <div className={classes.root}>
 
             <Grid container spacing={2} className={classes.gridContainer}>
-                <Grid item md={4} sm={7}><img className={classes.productImage} src={book.image} alt="product imag" /></Grid>
+                <Grid item md={4} sm={7} xs={12}>
+                    <img className='pd--image--on--pd--detail' src={book.image} alt="product imag" />
+                </Grid>
                 <Grid item md={6} sm={5}>
                     <Typography variant='h3' >{book.title}</Typography>
 
                     <Typography variant='body1'>
                         {book.title}  &#11013; {book.category}
                     </Typography>
+                    <br /> <br />
                     <Typography variant='h5'>   قیمت :{book.price} تومان  </Typography>
                     <br /> <br /> <br />
-                    <Typography variant='h5'>   درباره این کتاب:  </Typography>
-                    <Typography variant='h6' style={{ marginBottom: '20%' }}> {book.description}  </Typography>
+                    <Divider />
+
+                    <Typography variant='h4'>   درباره این کتاب:  </Typography>
+
+                    <p className='pd--description--on--pd--detail' >
+                        {book.description}
+                    </p>
+
 
                     <TextField
                         placeholder="تعداد درخواستی شما از این محصول"
@@ -82,22 +92,24 @@ function ProductDetails() {
                             dispatch(updateBookStock(book.id,
                                 {
                                     id: book.id,
-                                    price: book.price, title: book.title,
+                                    price: book.price,
+                                    title: book.title,
                                     image: book.image,
                                     stock: (stock - quantity),
                                     description: book.description,
                                     category: book.category,
                                 }))
                         }
-                        else alert(`اضافه نشد لطفا مقدار درخواستی را تا عدد ${stock} تغییر دهید`)
+                        else {
+                            stock === 0 ? alert("متاسفانه این کتاب را در انبار نداریم") : alert(`اضافه نشد لطفا مقدار درخواستی را تا عدد ${stock} تغییر دهید`)
+                        }
+
                     }}>افزودن به سبد خرید</Button>
                 </Grid>
             </Grid>
-            بازگشت به صفحه قبل
-
-
-
-
+            <Button style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '10px', fontSize: '18px', marginTop: '40px', border: 'dotted black 1px' }}
+                onClick={() => history.push('/')}
+            >بازگشت به صفحه اصلی سایت</Button>
 
         </div >
     )

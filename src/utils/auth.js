@@ -13,6 +13,7 @@ export const isLoggedIn = () => {
   };
   
   export function isLoggedOut(){
+    
     localStorage.clear()
-    .location.reload(false); 
+    window.location.reload(false); 
    }

@@ -82,7 +82,7 @@ function FinalizeForm() {
                 helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
             />
 
-            <div className={classes.txtfield} >
+            <div style={{ marginRight: '15px', marginTop: '15px', marginBottom: '15px' }} >
                 <Typography variant='body2'>تاریخ تحویل را انتخاب کنید</Typography>
                 <DatePicker
                     onChange={(v) => setDatePickerValue(v)}
@@ -93,6 +93,7 @@ function FinalizeForm() {
                 />
 
             </div>
+
             {shouldRedirect ?
                 (<Redirect to={{
                     pathname: "/paymentpage",
@@ -111,9 +112,10 @@ function FinalizeForm() {
                     }
                 }}>
                     <Button variant="contained" type="submit" disabled={!formik.isValid} >پرداخت</Button>
-                </Redirect>) :
+                </Redirect>)
+                :
 
-                (<Button variant="contained" type="submit" disabled={!formik.isValid}>پرداخت</Button>)
+                (<Button variant="contained" type="submit">پرداخت</Button>)
             }
 
         </form >
