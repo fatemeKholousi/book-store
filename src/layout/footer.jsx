@@ -1,32 +1,31 @@
-import { makeStyles } from '@material-ui/core'
 import React from 'react'
-
-const useStyles = makeStyles(
-    (theme) => (
-        {
-            root: { fontSize: '20px' },
-            footer: {
-                backgroundImage: 'url("https://s18.picofile.com/file/8438176884/modalbg.png")',
-                // flexGrow: 1,
-                // height: '100px',
-                backgroundColor: ' #dee5ec',
-                position: 'fixed',
-                padding: '10px 10px 0px 10px',
-                bottom: 0,
-                width: '100 %',
-                color: 'black',
-                borderRadius: '25px'
-
-
-            }
-        }));
-
+import Bg from '../img/footer2.png'
 function Footer() {
-    const classes = useStyles();
+
     return (
-        <footer className={classes.footer}>
-            <h1>در حال به روز رسانی هستیم لطفا شکیبا باشید</h1>
-        </footer>
+        <div style={{
+            clear: 'both',
+            position: 'relative',
+            height: '300px',
+            marginTop: '150px',
+        }}>
+            <div
+                style={{
+                    backgroundImage: `url(${Bg})`,
+                    backgroundColor: 'rgba( 255, 252, 238 ,0.7)',
+                    height: '300px',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',/* Resize the background image to cover the entire container */
+
+                }}
+            >
+                <h3 style={{ marginRight: '30%', paddingTop: '100px' }}>
+                    مرداد هزار و چهارصد
+                    E-mail:     Fatemekholousizaer@gmail.com
+                </h3>
+
+            </div>
+        </div>
     )
 }
 

@@ -38,9 +38,7 @@ imageRecieved:(state, action) => {state.modalThings.image=action.payload.image }
 titleRecieved:(state, action) => {state.modalThings.title=action.payload.title },
 descriptionRecieved:(state, action) => {state.modalThings.description=action.payload.description },
 stockRecieved:(state, action) => {state.modalThings.stock=action.payload.stock },
-priceRecieved:(state, action) => {state.modalThings.price=action.payload.price }
-
-     
+priceRecieved:(state, action) => {state.modalThings.price=action.payload.price }  
 }
 })
 
@@ -94,7 +92,8 @@ export const updateBook=(id,book)=>  apiCallBegan({
       onSuccess: bookUpdated.type
     });
 
-export const updateBookStock=(id,stock) => apiCallBegan({
+export const updateBookStock=(id,stock) =>
+ apiCallBegan({
   url:url+'/'+id ,
   method: "put",
   data:stock,

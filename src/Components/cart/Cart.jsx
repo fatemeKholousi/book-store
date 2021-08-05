@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 const useStyles = makeStyles({
     root: {
         overflowX: 'hidden',
-        paddingTop: '10%'
+        paddingTop: '100px'
     },
     table: {
         width: '80%',

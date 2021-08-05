@@ -7,10 +7,15 @@ import { useSelector, useDispatch } from 'react-redux'
 
 const useStyles = makeStyles({
     root: {
-        width: '100%',
+        margin: 'auto',
+        display: 'flex',
+        flexDirection: 'center',
+        alignItems: 'center'
     },
     tbCell: {
         fontSize: '20px',
+        margin: 'auto',
+        width: '200px',
 
     },
     tb: {
@@ -38,7 +43,9 @@ function Orders() {
             <Paper >
                 <TableContainer >
                     <div className={classes.tb}>
+
                         تحویل نشده
+
                         <Radio
                             onChange={() => setDeliveryStatusFlag(false)}
                             name="one"
@@ -46,15 +53,17 @@ function Orders() {
                         />
 
                         تحویل شده
+
                         <Radio
                             name="one"
                             value='delivered'
                             checked={deliveryStatusFlag === true}
                             onChange={() => setDeliveryStatusFlag(true)}
                         />
+
                     </div>
 
-                    <Table stickyHeader aria-label="sticky table" >
+                    <Table >
                         <TableHead>
                             <TableRow>
                                 <TableCell>
@@ -72,57 +81,47 @@ function Orders() {
                             </TableRow>
                         </TableHead>
                         <TableBody >
-                            {
+                            {deliveryStatusFlag ?
+                                (orders.filter((item) => item.deliveryStatus).map((row, index) => row &&
+                                    (< TableRow key={index} >
+                                        <TableCell className={classes.tbCell}>
+                                            {row.userName}
+                                        </TableCell>
+                                        <TableCell className={classes.tbCell}>
+                                            {row.totalPrice}
+                                        </TableCell >
+                                        <TableCell className={classes.tbCell}>
+                                            {row.submitTime}
+                                        </TableCell>
 
-                                deliveryStatusFlag ?
-                                    (orders.filter((item) => item.deliveryStatus).map((row, index) => row &&
-                                        (< TableRow key={index} >
-                                            <TableCell className={classes.tbCell}>
-                                                {row.userName}
-                                            </TableCell>
-                                            <TableCell className={classes.tbCell}>
-                                                {row.totalPrice}
-                                            </TableCell >
-                                            <TableCell className={classes.tbCell}>
-                                                {row.submitTime}
-                                            </TableCell>
+                                        <OrderModal
+                                            order={row}
+                                        />
 
-                                            <OrderModal
-                                                order={row}
-                                                orderId={row.id}
-                                                cart={row.orderList}
-                                            />
+                                    </TableRow>)
 
-                                        </TableRow>)
+                                ))
+                                : (orders.filter((item) => !item.deliveryStatus).map((row, index) => row &&
+                                    (< TableRow key={index} >
+                                        <TableCell className={classes.tbCell}>
+                                            {row.userName}
+                                        </TableCell>
+                                        <TableCell className={classes.tbCell}>
+                                            {row.totalPrice}
+                                        </TableCell >
+                                        <TableCell className={classes.tbCell}>
+                                            {row.submitTime}
+                                        </TableCell>
 
-                                    ))
-                                    : (orders.filter((item) => !item.deliveryStatus).map((row, index) => row &&
-                                        (< TableRow key={index} >
-                                            <TableCell className={classes.tbCell}>
-                                                {row.userName}
-                                            </TableCell>
-                                            <TableCell className={classes.tbCell}>
-                                                {row.totalPrice}
-                                            </TableCell >
-                                            <TableCell className={classes.tbCell}>
-                                                {row.submitTime}
-                                            </TableCell>
+                                        <OrderModal
+                                            order={row}
+                                            orderId={row.id}
+                                            cart={row.orderList}
+                                        />
 
-                                            <OrderModal
-                                                order={row}
-                                                orderId={row.id}
-                                                cart={row.orderList}
-                                            />
-
-                                        </TableRow>)
-                                    ))
-
-
+                                    </TableRow>)
+                                ))
                             }
-
-
-
-
 
                         </TableBody>
                     </Table>
