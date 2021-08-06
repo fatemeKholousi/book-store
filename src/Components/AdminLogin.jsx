@@ -4,7 +4,6 @@ import { NavLink, useHistory } from "react-router-dom";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { LoginLogic } from '../api/LoginLogic'
-import { Link, Redirect } from "react-router-dom";
 
 
 const Login = () => {

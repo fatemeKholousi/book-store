@@ -7,7 +7,9 @@ import { useSelector, useDispatch } from 'react-redux'
 
 const useStyles = makeStyles({
     root: {
-        margin: 'auto',
+        paddingLeft: '20%',
+        paddingRight: '20%',
+
         display: 'flex',
         flexDirection: 'center',
         alignItems: 'center'
@@ -32,7 +34,9 @@ const useStyles = makeStyles({
 function Orders() {
     const classes = useStyles();
     const dispatch = useDispatch()
+
     useEffect(() => { dispatch(loadOrders()) }, [])
+
     const orders = useSelector(state => state.entities.orders.list)
     const [deliveryStatusFlag, setDeliveryStatusFlag] = useState(false)
     const delivered = orders.filter(item => item.deliveryStatus)

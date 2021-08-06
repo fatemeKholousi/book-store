@@ -24,8 +24,7 @@ function App() {
 
   return (
   <>
-    <div className="app" style={{      backgroundColor: 'rgba( 255, 252, 238 ,0.7)',
-  }}>
+    <div className="app" style={{                 }}>
 
       <ThemeProvider theme={CustomTheme}>
         <StylesProvider jss={jss}>

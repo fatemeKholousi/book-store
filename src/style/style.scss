@@ -48,22 +48,22 @@ $secondary--color:#80745b;
       padding-top: 100px;
   }
 
-.drawer{
+  .drawer{
     display: flex;
    padding-top:10%
 }
-.filteredBooks{
+  .filteredBooks{
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.headerImage{
+  .headerImage{
     height: 400px;
       background-image: url("https://s18.picofile.com/file/8438452168/00191381_1366x379.jpeg");
       background-repeat: no-repeat;
 }
-.search--box{
+  .search--box{
     display: flex;
     justify-content: center;
     align-items: center;

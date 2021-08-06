@@ -1,5 +1,4 @@
 
-import { Redirect } from "react-router";
 export const isLoggedIn = () => {
   /**
    *

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormControl, Button, TextField, Typography, Grid, Box, makeStyles } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import FinalizeForm from './FinalizeForm'
 import SidePic1 from '../../../img/sidePic1.png'
 import SidePic2 from '../../../img/sidePic2.png'

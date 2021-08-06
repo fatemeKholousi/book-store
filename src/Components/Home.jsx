@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { getAllCategories, getAllProducts } from '../api/DataFetching'
+import { getAllCategories } from '../api/DataFetching'
 import { Link, useHistory } from 'react-router-dom'
 import Cards from './Cards'
 import { makeStyles, Typography, InputBase } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import '../style/style.css'
-import loading from '../img/loading.gif'
 
 const useStyles = makeStyles({
   categoryTitle: {
