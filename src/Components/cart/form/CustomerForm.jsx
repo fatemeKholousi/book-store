@@ -2,7 +2,6 @@ import React from 'react'
 import { Grid, makeStyles } from '@material-ui/core';
 import FinalizeForm from './FinalizeForm'
 import SidePic1 from '../../../img/sidePic1.png'
-import SidePic2 from '../../../img/sidePic2.png'
 
 const useStyles = makeStyles({
     root: {

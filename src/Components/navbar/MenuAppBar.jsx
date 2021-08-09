@@ -147,7 +147,6 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow} >
 
       <Box style={{
-        // boxShadow: '0px 0px 9px 3px rgba(41,41,41,.25)',
         position: 'fixed',
         width: '100%',
         backgroundColor: '#e9ddb7'

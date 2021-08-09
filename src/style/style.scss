@@ -84,6 +84,14 @@ $secondary--color:#80745b;
 }
 
   @media only screen and (max-width: 1080px) {
+    .login--container{
+      margin-right: 5px;
+    }
+    .login--center{
+      padding-right: 10px;
+      margin-right: 5px;
+
+    }
     /* For mobile phones: */
  .filteredBooks{
     padding-right: 200px;
@@ -99,3 +107,114 @@ $secondary--color:#80745b;
   }
 
 
+// ---------Login-----------
+
+.login--container{
+  margin-right: 30%;
+
+}
+.login--center{
+  padding-top: 150px;
+  // position: relative;
+  // margin-top: 200px;
+  // margin-left: 50%;
+  // transform: translate(-50%,-50%);
+  // background-color: aliceblue;
+  width: 400px;
+  // margin-left: 40%;
+
+  // background-color: $secondary--color;
+  // border-radius: 10px;
+  h2{
+          color: #adadad;
+          text-align: center;
+          padding: 0 0 20px 0;
+          border-bottom: 1px solid silver;
+      }
+      form{
+          padding: 0 4px;
+          box-sizing: border-box;
+          width: 400px;
+                 
+// border:$secondary--color solid 1px;
+          // display: flex;
+          // flex-direction: column;
+          // justify-content: center;
+          // align-items: center;
+          label{
+              position: absolute;
+              top: 50%;
+              left: 70%;
+              color:#adadad;
+              transform: translateY(-50%);
+              font-size: 15px;
+              pointer-events: none;
+          }
+          .text--field{
+              position: relative;
+              border-bottom: 2px dotted #adadad;
+              margin:30px 0;
+              input{
+                  width: 100%;
+                  padding: 0 5px;
+                  height: 40px;
+                  font-size: 16px;
+                  border:none;
+                  background:none;
+                  outline: none;
+              }
+            
+              span::before{
+                  content:'';
+                  position: absolute;
+                  width: 100%;
+                  height: 2px;
+                  background-color: rgba(151, 40, 40, 0.333);
+              }
+
+              span::before{
+                  content: '';
+                  position: absolute;
+                  top: 40px;
+                  left: 0;
+                  width: 0%;
+                  height: 2px;
+                  background: #df9a05;
+                  transition: .5s;
+                }
+              input:focus ~ label,
+              input:valid ~ label{
+                  top: -5px;
+                  color: #df9a05;
+                }
+                input:focus ~ span::before,
+                input:valid ~ span::before{
+                  width: 100%;
+                }
+                
+          }
+          .login--button{
+            margin-right: 150px;
+              width: 30%;
+              height: 40px;
+              border: 1px solid;
+              background: $secondary--color;
+              border-radius: 25px;
+              font-size: 15px;
+              color: #e9f4fb;
+              font-weight: 600;
+              cursor: pointer;
+              outline: none;
+            }
+            .login--button:hover{
+              border-color: $secondary--color;
+              transition: 0.5s;
+          
+          }
+      }
+}
+.input-feedback{
+color:red;
+direction: rtl;
+margin: 10px 0;
+}

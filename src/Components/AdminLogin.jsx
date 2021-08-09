@@ -1,70 +1,115 @@
-import React, { useState } from 'react'
-import { Grid, Paper, TextField, Button, Typography } from '@material-ui/core'
-import { NavLink, useHistory } from "react-router-dom";
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import React from "react";
+import * as EmailValidator from "email-validator";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import { LoginLogic } from '../api/LoginLogic'
+import '../style/style.css'
 
+const LoginForm = (props) =>
+(<Formik
+  initialValues={{ email: "", password: "" }}
+  onSubmit={(values, { setSubmitting }) => {
+    setTimeout(() => {
+      if (values.email, values.password) {
+        LoginLogic(values.email, values.password)
+          .then((res) => {
+            localStorage.setItem("token", res.data.token);
+            props.history.replace('/adminpanel')
+            console.log("با موفقیت وارد شدید")
+            window.location.reload();
+          })
+          .catch(err => {
+            console.log(err)
 
-const Login = () => {
-  const history = useHistory()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (email, password) {
-      LoginLogic(email, password)
-        .then((res) => {
+            alert("مشکلی هنگام ورود رخ داده است")
+          })
+      }
 
-          localStorage.setItem("token", res.data.token);
-          // <Redirect to="/adminpanel" />
-          history.push('adminpanel')
-          window.location.reload();
-
-
-        })
-        .catch(err => console.log(err))
+      setSubmitting(false);
+    }, 500);
+  }}
+  //********Handling validation messages******/
+  validate={values => {
+    let errors = {};
+    if (!values.email) {
+      errors.email = "مجاز به خالی گذاشتن این فیلد نیستید";
+    } else if (!EmailValidator.validate(values.email)) {
+      errors.email = "آدرس ایمیل معتبر نیست";
     }
-  }
 
-  const handleChange = (e) => {
-    if (e.target.name === "email") {
-      setEmail(e.target.value);
-    } else {
-      setPassword(e.target.value);
+    const passwordRegex = /(?=.*[0-9])/;
+    if (!values.password) {
+      errors.password = "مجاز به خالی گذاشتن این فیلد نیستید";
+
+
+    } else if (values.password.length < 8) {
+      errors.password = "کلمه عبور حداقل شامل 8 حرف می باشد";
+    } else if (!passwordRegex.test(values.password)) {
+      errors.password = "کلمه عبور شامل اعداد می باشد";
     }
-  };
 
+    return errors;
+  }}
+  //********Using Yum for validation********/
 
-  /**css things */
-  const paperStyle = { padding: 20, height: '50%', width: 280, margin: "150px auto" }
-  const btnstyle = { margin: '8px 0' }
-  return (
-    <div style={{ paddingTop: '10%' }}>
-      <Grid>
-        <Paper elevation={10} style={paperStyle}>
-          <Grid align='center'>
-            <Typography variant='h5'>ورود به پنل مدیریت</Typography>
-          </Grid>
+  validationSchema={Yup.object().shape({
+    email: Yup.string()
+      .email()
+      .required(),
+    password: Yup.string()
+      .required()
+      .min(8)
+      .matches(/(?=.*[0-9])/)
+  })}
+>
+  {props => {
+    const {
+      values,
+      touched,
+      errors,
+      isSubmitting,
+      handleChange,
+      handleBlur,
+      handleSubmit
+    } = props;
+    return (
+      <div className="login--container">
+        <div className="login--center">
+          <h2>ورود به پنل مدیریت</h2>
+          <form onSubmit={handleSubmit} className="login--form">
 
-          <form onSubmit={handleLogin} noValidate autoComplete="off">
-            <TextField label='نام کاربری' fullWidth required onChange={handleChange} value={email} name="email" autoComplete="email" />
-            <TextField label='رمزعبور' type='password' fullWidth required onChange={handleChange} value={password} name="password" type="password" id="password" />
-            <FormControlLabel
-              control={<Checkbox name="checkedB" color="primary" />}
-              label="مرا به خاطر بسپار" />
-            <Button onClick={handleLogin} color='primary' variant="contained" style={btnstyle} fullWidth>ورود</Button>
+            <div className="text--field" >
+              <input name="email" type="text" value={values.email} onChange={handleChange}
+                onBlur={handleBlur} className={errors.email && touched.email && "error"}
+              />
+              <span></span>
+              <label htmlFor="email">نام کاربری</label>
+              {errors.email && touched.email && (
+                <div className="input-feedback">{errors.email}</div>
+              )}
+            </div>
 
+            <div className="text--field">
+              <input type="password" value={values.password} onChange={handleChange}
+                name="password" onBlur={handleBlur} className={errors.password && touched.password && "error"} />
+              <span></span>
+              <label >کلمه عبور</label>
 
-            <NavLink to='/'>
-              <Typography variant='h5'>بازگشت</Typography>
-            </NavLink>
+              {errors.password && touched.password && (
+                <div className="input-feedback">{errors.password}</div>
+              )}
+            </div>
+
+            <button className="login--button" type="submit" disabled={isSubmitting} >ورود</button>
+
           </form>
-        </Paper>
+        </div>
+      </div>
+    );
+  }}
+</Formik>
+)
 
-      </Grid>
-    </div>
-  )
-}
+  ;
 
-export default Login
+export default LoginForm;

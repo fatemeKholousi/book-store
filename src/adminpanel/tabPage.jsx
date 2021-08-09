@@ -45,11 +45,7 @@ function a11yProps(index) {
 }
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        // backgroundColor: theme.palette.background.paper,
-        // backgroundColor: 'rgba( 255, 252, 238 ,0.7)',
-    },
+    root: { flexGrow: 1 },
 }));
 
 export default function SimpleTabs() {

@@ -63,17 +63,6 @@ export default function CenteredGrid({ categoryTitle, from }) {
     filteredBySpecialNumber()
     let filteredBooksBySixNumber = filteredBooks.filter((val, i) => i < 6)
 
-
-
-
-
-    //................................Pagination...........................................
-
-
-
-
-
-
     return (
         <div className={classes.root}>
             <Grid container>
