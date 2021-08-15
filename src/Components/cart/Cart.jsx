@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux'
 import { productRemovedFromCart } from '../../store/cart'
 import { Link } from 'react-router-dom'
+
 const useStyles = makeStyles({
     root: {
         overflowX: 'hidden',

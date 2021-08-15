@@ -1,32 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography, IconButton, InputBase, Menu, Button, Box, CssBaseline, TextField, Divider } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import { makeStyles } from '@material-ui/core/styles';
+import { Toolbar, Typography, IconButton, Menu, Button, Box, CssBaseline, Divider } from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import LogoAndText from './LogoAndText';
 import { isLoggedIn, IsLoggedOut } from '../../utils/auth';
 import CartButton, { CartButton_phone } from './CartButton';
 import { LoginButton, LoginButton_phone } from './LoginButton';
-import { useSelector, useDispatch } from 'react-redux';
-import { bookRemoved, loadBooks } from '../../store/books'
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import Select from 'react-select'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
-    // backgroundColor: '#e9ddb7 ',
     flexGrow: 1,
     position: 'relative',
     zIndex: theme.zIndex.drawer + 1,
   },
   search: {
     position: 'relative',
-    // borderRadius: theme.shape.borderRadius,
-    // backgroundColor: fade(theme.palette.common.white, 0.15),
-    // '&:hover': {
-    //   backgroundColor: fade(theme.palette.common.white, 0.25),
-    // },
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
@@ -72,34 +61,27 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  adminpanelButton: {
+    backgroundColor: '#ede5d4', paddingRight: '10px', width: '100px'
+  }
 }));
 
 export default function PrimarySearchAppBar() {
-  // const handleSearchChange = (e) => { setFilterSearch(e.target.value) }
-
-  const dispatch = useDispatch()
-  useEffect(() => { dispatch(loadBooks()) }, [])
-  const books = useSelector(state => state.entities.books.list)
-
-
-  const classes = useStyles();
-  let history = useHistory()
-  const handleMoveToLogin = () => {
-    history.push('/login')
-  }
-  // console.log(filterSearch)
-  // console.log()
-
-  // history.push(/"products/`${filterSearch.target.innerText}`) }
-  // const handleMoveToAdminPanel = () => { history.replace() }
-  // const { idenficationcode } = queryString.parse(search)
-
-
-
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  let history = useHistory()
+  const classes = useStyles();
 
+  const handleMoveToLogin = () => {
+
+    history.push('/login')
+
+  }
+  const handleMoveToAdminPanel = () => {
+    history.push('/adminpanel')
+  }
+
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const handleProfileMenuOpen = (event) => { setAnchorEl(event.currentTarget) };
   const handleMobileMenuClose = () => { setMobileMoreAnchorEl(null) };
   const handleMobileMenuOpen = (event) => { setMobileMoreAnchorEl(event.currentTarget) };
@@ -130,57 +112,45 @@ export default function PrimarySearchAppBar() {
         </>)
         : (<LoginButton_phone handleClick={() => history.push('/login')} label="ورود " />)
       }
-
-
-
-
     </Menu >
   );
 
 
-
-
-
-  // console.log(filterSearch.target.innerText)
-
   return (
     <div className={classes.grow} >
-
       <Box style={{
         position: 'fixed',
         width: '100%',
         backgroundColor: '#e9ddb7'
       }} >
         < Toolbar >
-
           <LogoAndText />
           <div className={classes.grow} />
 
           {/* DESKTOP VERSION */}
           <div className={classes.sectionDesktop}>
-
-
-
             <Box display="flex" >
               <CartButton />
               {isLoggedIn()
                 ? (<>
+                  <Button
+                    onClick={handleMoveToAdminPanel}
+                    className={classes.adminpanelButton} >
+                    ادمین پنل
+                  </Button>
 
                   <LoginButton label='خروج' handleClick={IsLoggedOut} />
-
-                  <Button
-                    style={{ backgroundColor: '#ede5d4', paddingRight: '10px', width: '100px' }}
-                    onClick={() => history.push('/adminpanel')}>ادمین پنل</Button></>)
-                : (<LoginButton label='ورود به پنل مدیریت' handleClick={handleMoveToLogin} />)
+                </>)
+                : (
+                  <LoginButton label='ورود به پنل مدیریت' handleClick={handleMoveToLogin} />
+                )
               }
             </Box>
-
           </div>
 
           {/* PHONE PART */}
           <div className={classes.sectionMobile} >
             <IconButton aria-controls={mobileMenuId} aria-haspopup="true" onClick={handleMobileMenuOpen}
-
               color="inherit" >
               <MoreIcon />
             </IconButton>

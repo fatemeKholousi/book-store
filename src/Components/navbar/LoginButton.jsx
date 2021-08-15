@@ -1,26 +1,20 @@
 import React from 'react'
 import IconButton from '@material-ui/core/IconButton';
-import { MenuItem } from '@material-ui/core';
-import { NavLink } from "react-router-dom";
-import { Button, Box } from '@material-ui/core';
-import { BsFillPersonFill } from "react-icons/bs";
+import { Button } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
+
 export const LoginButton = ({ label, handleClick }) => {
     return (
-        <div>
-
-            <Button onClick={handleClick} variant="contained"
-                style={{ backgroundColor: "#e2c27c", color: 'black' }}
-
-                endIcon={<AccountCircle />}>
-                {label}
-            </Button>
-        </div>
+        <Button className='desktop--button' onClick={handleClick}
+            variant='contained'
+            endIcon={<AccountCircle />}
+            style={{ backgroundColor: "#e2c27c", color: 'black' }}>
+            {label}
+        </Button>
     )
 }
-
 
 export const LoginButton_phone = ({ handleClick, label }) => {
     return (

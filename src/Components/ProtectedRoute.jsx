@@ -9,7 +9,7 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
       render={(props) => {
         if (isLoggedIn()) { return <Component {...props} /> }
         else {
-          return (<Redirect to={{ pathname: "/notfound", state: { from: props.location }, }} />);
+          return (<Redirect to={{ pathname: "/notfound", state: { from: props.location } }} />);
         }
       }}
     />

@@ -5,7 +5,8 @@ import * as Yup from "yup";
 import { LoginLogic } from '../api/LoginLogic'
 import '../style/style.css'
 
-const LoginForm = (props) =>
+
+const Login = (props) =>
 (<Formik
   initialValues={{ email: "", password: "" }}
   onSubmit={(values, { setSubmitting }) => {
@@ -14,7 +15,10 @@ const LoginForm = (props) =>
         LoginLogic(values.email, values.password)
           .then((res) => {
             localStorage.setItem("token", res.data.token);
+            // window.location.reload();
+
             props.history.replace('/adminpanel')
+
             console.log("با موفقیت وارد شدید")
             window.location.reload();
           })
@@ -108,8 +112,6 @@ const LoginForm = (props) =>
     );
   }}
 </Formik>
-)
+);
 
-  ;
-
-export default LoginForm;
+export default Login;
