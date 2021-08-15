@@ -1,20 +1,20 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import Home from "./components/Home";
-import AdminLogin from "./components/Login";
+import Home from "./Components/Home";
+import AdminLogin from "./Components/Login";
 import HomeAdminPanel from "./adminpanel/HomeAdminPanel";
-import NotFound from "./components/NotFound";
-import MenuAppBar from "./components/navbar/MenuAppBar";
+import NotFound from "./Components/NotFound";
+import MenuAppBar from "./Components/navbar/MenuAppBar";
 import CustomTheme from "./assets/customRTl";
-import ProtectedRoute from "./components/ProtectedRoute";
-import Cart from "./components/cart/Cart";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import Cart from "./Components/cart/Cart";
 import Footer from "./layout/footer";
-import ProductDtails from "./components/clientpanel/ProductDetails";
-import ShowProductsDependsOnCategory from "./components/clientpanel/ShowProductsDependsOnCategory";
-import CustomerForm from "./components/cart/form/CustomerForm";
-import FakePayment from "./components/cart/payment/FakePayment";
-import PaymentResult from "./components/cart/payment/PaymentResult";
+import ProductDtails from "./Components/clientpanel/ProductDetails";
+import ShowProductsDependsOnCategory from "./Components/clientpanel/ShowProductsDependsOnCategory";
+import CustomerForm from "./Components/cart/form/CustomerForm";
+import FakePayment from "./Components/cart/payment/FakePayment";
+import PaymentResult from "./Components/cart/payment/PaymentResult";
 
 import {
   ThemeProvider,
