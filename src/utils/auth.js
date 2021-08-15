@@ -1,5 +1,4 @@
 
-import { Redirect } from "react-router";
 export const isLoggedIn = () => {
   /**
    *
@@ -7,8 +6,7 @@ export const isLoggedIn = () => {
    *
    * */
   if (localStorage.getItem("token"))
-      return true;
-
+            return true;
   return false;
   };
   

@@ -18,21 +18,6 @@ function FakePayment() {
             history.push(`/paymentresult/?idenficationcode=${orderInformation.id}`);
             dispatch(paymentResultIsTrue())
 
-            //     dispatch(updateBookStock(book.id,
-            //         {
-            //             id: book.id,
-            //             price: book.price, title: book.title,
-            //             image: book.image,
-            //             stock: (stock - quantity),
-            //             description: book.description,
-            //             category: book.category,
-            //         }))
-
-
-            // }
-
-
-
         } catch (error) {
             console.log(error)
         }

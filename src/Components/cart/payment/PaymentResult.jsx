@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useLocation, Redirect, Link, useHistory } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Grid } from '@material-ui/core';
 import queryString from 'qs';
@@ -11,11 +11,10 @@ function PaymentResult() {
     const { idenficationcode } = queryString.parse(search)
     const flagOfResult = useSelector(state => state.entities.orders.resultFlag)
 
-    // after 10 seconds you'll be redirect to home page
     useEffect(() => {
         setTimeout(
             () => { history.push('/') }
-            , 3000)
+            , 10000)
     }, [])
 
     return (

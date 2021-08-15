@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { loadCategories } from '../../store/category';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,16 +12,11 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { useDispatch, useSelector } from 'react-redux';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
-import { loadCategories } from '../../store/category';
-import { Link } from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import '../../style/style.css'
-
-// const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     productsName: {

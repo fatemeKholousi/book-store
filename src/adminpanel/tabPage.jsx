@@ -45,28 +45,12 @@ function a11yProps(index) {
 }
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
-    },
+    root: { flexGrow: 1 },
 }));
 
 export default function SimpleTabs() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
-
-
-    // const dispatch = useDispatch()
-    // const [dataFromTable, setDataFromTable] = useState([]);
-    // const handleDataFromTable = (data) => {
-    //     setDataFromTable(data)
-    // }
-    // const fetchChangedData = () => {
-    //     updateBookStock.map((item) => {
-    //         dispatch(updateBookStock(item.id, item.image, item.productName, item.category, item.explanation, item.price, item.inventory))
-    //     })
-    //     setDataFromTable([])
-    // }
 
 
     const handleChange = (event, newValue) => {
@@ -77,11 +61,13 @@ export default function SimpleTabs() {
         <div className={classes.root}>
             <AppBar color='transparent' position="relative">
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+
                     <Tab label="کالاها" {...a11yProps(0)} />
                     <Tab label="موجودی و قیمت ها" {...a11yProps(1)} />
                     <Tab label="سفارش ها" {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
+
             <TabPanel value={value} index={0}>
                 <ProductionManagement />
             </TabPanel>

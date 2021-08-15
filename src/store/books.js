@@ -1,8 +1,6 @@
 import {  createSlice } from "@reduxjs/toolkit";
 import moment from "moment";
 import {apiCallBegan} from './api'
-import { createSelector } from "reselect";
-import { Call } from "@material-ui/icons";
 
 const slice=createSlice({
 name:'books',
@@ -10,6 +8,7 @@ initialState:{
   modalThings:{
     image:'',description:'',title:'',price:0,stock:0
   },
+  login:false,
     list:[],
     item:[],
     loading:false,
@@ -38,15 +37,17 @@ imageRecieved:(state, action) => {state.modalThings.image=action.payload.image }
 titleRecieved:(state, action) => {state.modalThings.title=action.payload.title },
 descriptionRecieved:(state, action) => {state.modalThings.description=action.payload.description },
 stockRecieved:(state, action) => {state.modalThings.stock=action.payload.stock },
-priceRecieved:(state, action) => {state.modalThings.price=action.payload.price }
+priceRecieved:(state, action) => {state.modalThings.price=action.payload.price }  ,
 
-     
+loginSuccessfully:(state,action)=>{state.login=true},
+
+
 }
 })
 
 export const {booksRequested,bookAdded,booksReceived,booksRequestFailed,bookUpdated,
   bookGet,bookRemoved,bookReceived,bookStockUpdated,
-  priceRecieved,stockRecieved,descriptionRecieved,titleRecieved,imageRecieved
+  priceRecieved,stockRecieved,descriptionRecieved,titleRecieved,imageRecieved,loginSuccessfully
 }=slice.actions
 export default slice.reducer
 
@@ -94,7 +95,8 @@ export const updateBook=(id,book)=>  apiCallBegan({
       onSuccess: bookUpdated.type
     });
 
-export const updateBookStock=(id,stock) => apiCallBegan({
+export const updateBookStock=(id,stock) =>
+ apiCallBegan({
   url:url+'/'+id ,
   method: "put",
   data:stock,

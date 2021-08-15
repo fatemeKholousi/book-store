@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { getAllCategories, getAllProducts } from '../api/DataFetching'
+import { getAllCategories } from '../api/DataFetching'
 import { Link, useHistory } from 'react-router-dom'
 import Cards from './Cards'
 import { makeStyles, Typography, InputBase } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import '../style/style.css'
-import loading from '../img/loading.gif'
 
 const useStyles = makeStyles({
   categoryTitle: {
@@ -32,8 +31,9 @@ const useStyles = makeStyles({
 
 function Home() {
   const [filterSearch, setFilterSearch] = useState('')
-  const classes = useStyles();
   const [categories, setCategories] = useState([])
+
+  const classes = useStyles();
   const books = useSelector(state => state.entities.books.list)
   useEffect(() => { getAllCategories().then(item => setCategories(item)) }, [])
   const history = useHistory()
@@ -74,15 +74,11 @@ function Home() {
           </Link>
 
           {loading ?
-            (<p>   در حال بارگزاری   </p>
-            )
+            (<p>   در حال بارگزاری   </p>)
             : (
               <Cards categoryTitle={categoryTitle} from='home' />
             )}
-        </>)
-
-      )
-
+        </>))
       :
       books.filter((val) => {
         if (filterSearch === '') { return }
@@ -105,10 +101,6 @@ function Home() {
             }}>
             + {value.title}</div>)
       })
-
-
-
-
     }
   </ >
 

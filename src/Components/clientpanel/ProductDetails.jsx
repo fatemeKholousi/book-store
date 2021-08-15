@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Typography, TextField, Button, Grid, makeStyles, Divider } from '@material-ui/core'
 import { getBookById, updateBookStock } from '../../store/books';
 import '../../style/style.css'
+
 const useStyles = makeStyles((theme) => ({
     addToCartBtn: {
         backgroundColor: 'green',
@@ -15,8 +16,6 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '20px'
     },
     productImage: {
-
-        // paddingTop: '100px'
     },
     root: {
         marginLeft: '10%',
@@ -38,8 +37,7 @@ function ProductDetails() {
     let { item } = location.state
 
     const history = useHistory()
-    // item = item.replace('%', '');
-    console.log(item)
+
     useEffect(() => { dispatch(getBookById(item.id)) }, [])
     const book = useSelector(state => state.entities.books.item)
     let stock = +(book.stock)

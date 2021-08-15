@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Button, TextField, Typography, makeStyles } from '@material-ui/core';
+import { Redirect } from 'react-router-dom'
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import DatePicker from 'react-datepicker2';
 import moment from 'moment-jalaali'
 import { useSelector } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit'
-import { Redirect } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     form: { display: 'flex', flexDirection: 'column', alignItems: 'right', width: '20rem', marginRight: " 200px", marginLeft: '100px' },
@@ -21,8 +21,9 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
+
 const phoneRegExp = /^09\d{9}$/
-const onlyLetters = /^[ آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$/gum
+const onlyLetters = /^[ آابپتثجچحخدذرزژسشصضطظعغفئقکگلمنوهی]+$/gum
 const validationSchema = yup.object({
     name: yup.string().matches(onlyLetters, "استفاده از حروف وعلائم غیر فارسی مجاز نیست")
         .required("فیلد نام را خالی نگذارید"),
@@ -37,7 +38,6 @@ const todayDate = require('moment-jalaali')
 const submitTime = todayDate().format('jYYYY/jM/jD')
 
 function FinalizeForm() {
-    // const [isValid, setIsValid] = useState(false)
     const [shouldRedirect, setShouldRedirect] = useState(false)
     const classes = useStyles()
 
