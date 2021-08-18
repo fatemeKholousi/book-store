@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { loadCategories } from '../../store/category';
 import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -14,8 +13,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import '../../style/style.css'
 
 const useStyles = makeStyles((theme) => ({

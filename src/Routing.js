@@ -1,5 +1,4 @@
 import React from "react";
-
 import Home from "./Components/Home";
 import AdminLogin from "./Components/Login";
 import HomeAdminPanel from "./adminpanel/HomeAdminPanel";
@@ -28,9 +27,8 @@ function Routing() {
         <Route exact path="/customerinfromationform" component={CustomerForm} />
         <Route exact path="/paymentpage" component={FakePayment} />
         <Route exact path="/paymentresult" component={PaymentResult} />
-        /**Protected Login Router */
+        {/**Protected Login Router */}
         <ProtectedRoute exact path="/adminpanel" component={HomeAdminPanel} />
-        {/* <Route exact path="/notfound" component={NotFound} /> */}
         <Route exact path="/" component={Home} />
         <Route path="*" component={NotFound} />
       </Switch>

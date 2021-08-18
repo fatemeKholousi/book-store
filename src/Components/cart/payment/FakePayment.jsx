@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useLocation, Redirect, Link, useHistory } from 'react-router-dom'
+import React from 'react'
+import { useLocation, useHistory } from 'react-router-dom'
 import { Button, ButtonGroup, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux'
 import { addOrder, paymentResultIsTrue, paymentResultIsFalse } from '../../../store/orders'

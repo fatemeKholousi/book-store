@@ -1,7 +1,7 @@
 import React from 'react'
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Typography, Badge, Divider, Button, Box, IconButton } from '@material-ui/core';
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector } from 'react-redux'
 
 

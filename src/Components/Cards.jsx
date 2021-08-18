@@ -1,28 +1,15 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Card from './card'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadBooks } from '../store/books.js'
 import '../style/style.css'
-import { Typography } from '@material-ui/core';
-import Pagination from '../assets/Pagination'
-import FilteredBySixNumber from './FilteredBySixNumber';
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-    },
-    paper: {
-        margin: '10px',
-        flexGrow: 1,
-
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.primary,
     },
     card: {
         color: 'black',
@@ -48,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CenteredGrid({ categoryTitle, from }) {
     const classes = useStyles();
     const dispatch = useDispatch()
-    useEffect(() => { dispatch(loadBooks()) }, [])
+    useEffect(() =>  dispatch(loadBooks()) , [])
     let books = useSelector(state => state.entities.books.list)
     let filteredBooks = []
 
@@ -56,6 +43,7 @@ export default function CenteredGrid({ categoryTitle, from }) {
         books.map(item => {
             if (item['category'] === categoryTitle) {
                 filteredBooks.push(item)
+               ;
             }
         })
     }

@@ -3,8 +3,9 @@ import Logo from '../img/loading.gif'
 function Loading() {
     return (
         <div>
-
-        </div>
+        {Logo}
+        صبور باش
+          </div>
     )
 }
 

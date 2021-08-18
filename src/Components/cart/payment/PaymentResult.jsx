@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react'
-import { useLocation, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Grid } from '@material-ui/core';
-import queryString from 'qs';
 import { RiCloseCircleFill, RiCheckboxCircleFill } from "react-icons/ri";
 
 function PaymentResult() {
-    const { search } = useLocation()
     const history = useHistory()
-    const { idenficationcode } = queryString.parse(search)
     const flagOfResult = useSelector(state => state.entities.orders.resultFlag)
 
     useEffect(() => {

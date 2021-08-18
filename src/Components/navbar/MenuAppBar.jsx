@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Toolbar, Typography, IconButton, Menu, Button, Box, CssBaseline, Divider } from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreVert';

@@ -23,7 +23,7 @@ function CustomerForm() {
                 </Grid>
 
                 <Grid item md={5} xs={0}>
-                    <img src={SidePic1} height="70%" width='80%' className={classes.logo} />
+                    <img src={SidePic1} alt="side" height="70%" width='80%' className={classes.logo} />
                 </Grid>
 
             </Grid>

@@ -11,7 +11,7 @@ const Login = (props) =>
   initialValues={{ email: "", password: "" }}
   onSubmit={(values, { setSubmitting }) => {
     setTimeout(() => {
-      if (values.email, values.password) {
+      if (values.email && values.password) {
         LoginLogic(values.email, values.password)
           .then((res) => {
             localStorage.setItem("token", res.data.token);
