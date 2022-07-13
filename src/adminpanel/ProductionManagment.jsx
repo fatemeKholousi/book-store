@@ -1,7 +1,7 @@
 // https://stackoverflow.com/questions/8073673/how-can-i-add-new-array-elements-at-the-beginning-of-an-array-in-javascript
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import loading from '../img/loading.gif'
+import loading from '../images/loading.gif'
 import { loadBooks, bookRemoved, selector__Books } from '../store/books'
 import { deleteProduct } from '../api/DataFetching'
 import { useSelector, useDispatch } from 'react-redux';

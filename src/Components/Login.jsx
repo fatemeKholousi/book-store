@@ -43,14 +43,13 @@ const Login = (props) =>
 
     const passwordRegex = /(?=.*[0-9])/;
     if (!values.password) {
-      errors.password = "مجاز به خالی گذاشتن این فیلد نیستید";
-
-
-    } else if (values.password.length < 8) {
-      errors.password = "کلمه عبور حداقل شامل 8 حرف می باشد";
-    } else if (!passwordRegex.test(values.password)) {
-      errors.password = "کلمه عبور شامل اعداد می باشد";
-    }
+      errors.password = "مجاز به خالی گذاشتن این فیلد نیستید";  } 
+    // else if (values.password.length < 8) {
+    //   errors.password = "کلمه عبور حداقل شامل 8 حرف می باشد";
+    // } 
+    // else if (!passwordRegex.test(values.password)) {
+    //   errors.password = "کلمه عبور شامل اعداد می باشد";
+    // }
 
     return errors;
   }}
@@ -63,7 +62,7 @@ const Login = (props) =>
     password: Yup.string()
       .required()
       .min(8)
-      .matches(/(?=.*[0-9])/)
+
   })}
 >
   {props => {

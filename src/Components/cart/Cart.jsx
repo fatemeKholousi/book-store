@@ -82,7 +82,7 @@ function Cart() {
                             <Grid xs={1} sm={1} md={2} />
                             <Grid item md={5} sm={5} xs={6}>
 
-                                <Link to='/customerinfromationform'>
+                                <Link to='/customerinfromationform' style={{textDecoration:'unset'}}>
                                     <Button variant="outlined" style={{ fontSize: '20px' }} >تکمیل سفارش</Button >
                                 </Link>
 

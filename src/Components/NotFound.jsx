@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import img from '../img/notfound2.png'
+import img from '../images/notfound2.png'
 import { Button } from '@material-ui/core'
 
 function NotFound() {

@@ -74,8 +74,11 @@ function ProductDetails() {
                         type="number"
                         padding='15px'
                         name="quantity"
+                        style={{
+                            width: "12rem"
+                        }}
                         InputLabelProps={{ shrink: true }}
-                        inputProps={{ min: 0, max: stock, style: { textAlign: 'center' } }}
+                        inputProps={{ min: 0, max: stock, style: { textAlign: 'center'} }}
                         onChange={(e) => {
                             if (e.target.value <= stock) (setQuantity(e.target.value));
                             else { alert("این تعداد در انبار موجود نیست"); setQuantity(0) }

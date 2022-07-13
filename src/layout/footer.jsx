@@ -1,5 +1,5 @@
 import React from 'react'
-import Bg from '../img/footer2.png'
+import Bg from '../images/footer2.png'
 function Footer() {
 
     return (

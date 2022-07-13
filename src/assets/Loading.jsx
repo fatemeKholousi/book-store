@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../img/loading.gif'
+import Logo from '../images/loading.gif'
 function Loading() {
     return (
         <div>

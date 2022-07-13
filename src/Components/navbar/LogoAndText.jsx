@@ -1,13 +1,14 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core';
 import { useHistory } from 'react-router-dom'
-import logo from '../../img/storyshoplogo4.png';
+import logo from '../../images/storyshoplogo5.png';
 
 const useStyles = makeStyles(() => ({
     logo: {
         cursor: 'pointer'
     },
 }))
+
 function LogoAndText() {
     let classes = useStyles()
     let history = useHistory()
