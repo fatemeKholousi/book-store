@@ -1,16 +1,16 @@
-import React from "react";
-import Home from "./Components/Home";
-import AdminLogin from "./Components/Login";
-import HomeAdminPanel from "./adminpanel/HomeAdminPanel";
-import NotFound from "./Components/NotFound";
-import ProtectedRoute from "./Components/ProtectedRoute";
-import Cart from "./Components/cart/Cart";
-import ProductDtails from "./Components/clientpanel/ProductDetails";
-import ShowProductsDependsOnCategory from "./Components/clientpanel/ShowProductsDependsOnCategory";
-import CustomerForm from "./Components/cart/form/CustomerForm";
-import FakePayment from "./Components/cart/payment/FakePayment";
-import PaymentResult from "./Components/cart/payment/PaymentResult";
-import { Route, Switch } from "react-router-dom";
+import React from 'react'
+import Home from './components/Home'
+import AdminLogin from './components/Login'
+import HomeAdminPanel from './adminpanel/HomeAdminPanel'
+import NotFound from './components/NotFound'
+import ProtectedRoute from './components/ProtectedRoute'
+import Cart from './components/cart/Cart'
+import ProductDtails from './components/clientpanel/ProductDetails'
+import ShowProductsDependsOnCategory from './components/clientpanel/ShowProductsDependsOnCategory'
+import CustomerForm from './components/cart/form/CustomerForm'
+import FakePayment from './components/cart/payment/FakePayment'
+import PaymentResult from './components/cart/payment/PaymentResult'
+import { Route, Switch } from 'react-router-dom'
 
 function Routing() {
   return (
@@ -33,7 +33,7 @@ function Routing() {
         <Route path="*" component={NotFound} />
       </Switch>
     </>
-  );
+  )
 }
 
-export default Routing;
+export default Routing
