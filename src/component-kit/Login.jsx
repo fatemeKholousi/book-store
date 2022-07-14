@@ -2,7 +2,7 @@ import React from "react";
 import * as EmailValidator from "email-validator";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { LoginLogic } from '../api/LoginLogic'
+import { loginService } from '../api/LoginLogic'
 import '../style/style.css'
 
 
@@ -12,13 +12,11 @@ const Login = (props) =>
   onSubmit={(values, { setSubmitting }) => {
     setTimeout(() => {
       if (values.email && values.password) {
-        LoginLogic(values.email, values.password)
+        loginService(values.email, values.password)
           .then((res) => {
             localStorage.setItem("token", res.data.token);
             // window.location.reload();
-
             props.history.replace('/adminpanel')
-
             console.log("با موفقیت وارد شدید")
             window.location.reload();
           })
