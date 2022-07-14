@@ -1,7 +1,7 @@
 import React from 'react'
 import Routing from './Routing'
 import Footer from './layout/footer'
-import MenuAppBar from './components/navbar/MenuAppBar'
+import MenuAppBar from './component-kit/navbar/MenuAppBar'
 import CustomTheme from './assets/customRTl'
 import {
   ThemeProvider,

@@ -44,13 +44,12 @@ function BookShelfByNumber({ posts, onDelete }) {
                     <TableBody>
                         {posts.map(row =>
                             < TableRow key={row.id} >
-                                <TableCell align="center"><img src={row.image} width="100px" /></TableCell>
+                                <TableCell align="center"><img src={row.image} width="100px" alt=""/></TableCell>
                                 <TableCell align="center">{row.title} </TableCell>
                                 <TableCell align="center">{row.category}</TableCell>
                                 <TableCell align="center">
                                     {/* TO Delete PRODUCT--> ? */}
                                     <AiFillDelete size='20' color='gray' onClick={() => {
-
                                         onDelete(row)
                                     }}
                                     />
