@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.49735ec5.chunk.css",
+    "main.js": "/static/js/main.952cf7ff.chunk.js",
+    "main.js.map": "/static/js/main.952cf7ff.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.567bbf5c.js",
+    "runtime-main.js.map": "/static/js/runtime-main.567bbf5c.js.map",
+    "static/js/2.ad751d05.chunk.js": "/static/js/2.ad751d05.chunk.js",
+    "static/js/2.ad751d05.chunk.js.map": "/static/js/2.ad751d05.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.49735ec5.chunk.css.map": "/static/css/main.49735ec5.chunk.css.map",
+    "static/js/2.ad751d05.chunk.js.LICENSE.txt": "/static/js/2.ad751d05.chunk.js.LICENSE.txt",
+    "static/media/fonts.css": "/static/media/Far.Lotus.49e70d88.ttf",
+    "static/media/footer2.467570f4.png": "/static/media/footer2.467570f4.png",
+    "static/media/loading.f490563b.gif": "/static/media/loading.f490563b.gif",
+    "static/media/notfound2.62dcee95.png": "/static/media/notfound2.62dcee95.png",
+    "static/media/sidePic1.b5d50939.png": "/static/media/sidePic1.b5d50939.png",
+    "static/media/storyshoplogo5.7cf3de13.png": "/static/media/storyshoplogo5.7cf3de13.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.567bbf5c.js",
+    "static/js/2.ad751d05.chunk.js",
+    "static/css/main.49735ec5.chunk.css",
+    "static/js/main.952cf7ff.chunk.js"
+  ]
+}
